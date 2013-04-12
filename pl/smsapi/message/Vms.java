@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import pl.smsapi.sender.Sender;
 
-public final class Vms extends Message implements MessageInterface {
+public final class Vms extends Message {
 
 	protected String tts;
 	protected File wav;

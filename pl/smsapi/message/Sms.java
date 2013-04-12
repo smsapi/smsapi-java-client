@@ -5,7 +5,7 @@ import pl.smsapi.sender.Sender;
 import pl.smsapi.sender.SenderHttp;
 import pl.smsapi.sender.SenderHttp.RequestMethod;
 
-public final class Sms extends Message implements MessageInterface {
+public final class Sms extends Message {
 
 	private Template tpl;
 
@@ -33,6 +33,10 @@ public final class Sms extends Message implements MessageInterface {
 	 * @param requestMethod enum SenderHttp.RequestMethod
 	 */
 	public boolean send(RequestMethod requestMethod) {
+		
+		if (sender == null) {
+			throw new RuntimeException("No exists sender");
+		}
 
 		sender.setMethod(requestMethod);
 

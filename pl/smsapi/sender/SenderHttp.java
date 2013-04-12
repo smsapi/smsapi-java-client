@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.net.ssl.HttpsURLConnection;
+import pl.smsapi.message.Account;
 import pl.smsapi.message.Message;
 import pl.smsapi.message.Mms;
 import pl.smsapi.message.Result;
@@ -52,14 +53,23 @@ public final class SenderHttp extends Sender implements SenderInterface {
 
 	public SenderHttp() {
 		requestMethod = RequestMethod.POST;
-		results = new ArrayList<Result>();
 	}
 
 	public SenderHttp(Message message) {
 		this();
 		setMessage(message);
 	}
+	
+	public SenderHttp(Account user) {
+		this();
+		setMessage(user);
+	}
 
+	@Override
+	public void setMethod(Object method) {
+		setRequestMethod((RequestMethod) method);
+	}
+	
 	public void setRequestMethod(RequestMethod method) {
 		this.requestMethod = method;
 	}
@@ -268,13 +278,15 @@ public final class SenderHttp extends Sender implements SenderInterface {
 
 			String messageName = message.getClass().getSimpleName();
 
-			if (messageName.equals("Sms")) {
+			if (messageName.equals(Sms.class.getSimpleName())) {
 				uri = new sms().excute();
-			} else if (messageName.equals("Mms")) {
+			} else if (messageName.equals(Mms.class.getSimpleName())) {
 				uri = new mms().excute();
-			} else if (messageName.equals("Vms")) {
+			} else if (messageName.equals(Vms.class.getSimpleName())) {
 				uri = new vms().excute();
-			}
+			} else if (messageName.equals(Account.class.getSimpleName())) {
+				uri = new account().excute();
+			} 
 
 
 			if (uri == null) {
@@ -314,9 +326,13 @@ public final class SenderHttp extends Sender implements SenderInterface {
 					}
 					break;
 			}
-
-			Result.renderResultMessage(results, response.toString(), responseHead, query);
-
+             
+			if(message instanceof Account){
+				Result.renderResulAccount(results, response.toString(), responseHead, query);
+			}else{
+				Result.renderResultMessage(results, response.toString(), responseHead, query);
+			}
+			
 			return true;
 
 		} catch (Exception ex) {
@@ -425,13 +441,19 @@ public final class SenderHttp extends Sender implements SenderInterface {
 	}
 
 	protected String renderBasicParamsToQuery(Message msg) {
-		String query = "";
 
-		query = "username=" + msg.getUsername() + "&password=" + msg.getPassword();
+		String query = "username=" + msg.getUsername() + "&password=" + msg.getPassword();
 
 		query += (msg.getGroup() != null) ? "&group=" + msg.getGroup() : "&to=" + renderListTo(msg);
 
 		query += (msg.getDate() != null) ? "&date=" + msg.getDate() : "";
+
+		return query;
+	}
+	
+	protected String renderBasicParamsToQuery(Account user) {
+
+		String query = "username=" + user.getUsername() + "&password=" + user.getPassword();
 
 		return query;
 	}
@@ -509,6 +531,26 @@ public final class SenderHttp extends Sender implements SenderInterface {
 				query += renderMessageParams(msg.getParams());
 
 				query += "&tts=" + text;
+
+				return new URI(getProtocol(), null, getHost(), getPort(), path, query, null);
+			}
+
+			return null;
+		}
+	}
+	
+	private class account {
+
+		public URI excute() throws URISyntaxException, IOException {
+
+			Account user = (Account) message;
+			String query;
+			path = "/" + user.getPath();
+
+			if (user != null){
+				query = renderBasicParamsToQuery(user);
+
+				query += renderMessageParams(user.getParams());
 
 				return new URI(getProtocol(), null, getHost(), getPort(), path, query, null);
 			}

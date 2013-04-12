@@ -2,7 +2,7 @@ package pl.smsapi.message;
 
 import pl.smsapi.sender.Sender;
 
-public final class Mms extends Message implements MessageInterface {
+public final class Mms extends Message {
 
 	protected SmilInterface smil;
 

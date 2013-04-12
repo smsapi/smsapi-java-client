@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import pl.smsapi.sender.Sender;
 
-public abstract class Message {
+public abstract class Message implements MessageInterface{
 
 	protected String username;
 	protected String password;
@@ -20,14 +20,13 @@ public abstract class Message {
 	protected final HashMap<String, String> params = new HashMap<String, String>();
 	protected Sender sender;
 
-	//----abstract method--------------
-	public abstract Object getObjMessage();
-
 	//---end--abstract method---------
+	@Override
 	public final HashMap getParams() {
 		return params;
 	}
 
+	@Override
 	public final String getUsername() {
 		return username;
 	}
@@ -37,10 +36,12 @@ public abstract class Message {
 	 *
 	 * @param username
 	 */
+	@Override
 	public final void setUsername(String username) {
 		this.username = username;
 	}
 
+	@Override
 	public final String getPassword() {
 		return password;
 	}
@@ -61,9 +62,9 @@ public abstract class Message {
 	 * @param password String
 	 * @param codeMD5 bool
 	 */
-	public final void setPassword(String password, boolean codeMD5) {
+	public final void setPassword(String password, boolean encodeMD5) {
 
-		this.password = (codeMD5 == true) ? MD5Digest(password) : password;
+		this.password = (encodeMD5 == true) ? MD5Digest(password) : password;
 	}
 
 	/**
@@ -207,15 +208,17 @@ public abstract class Message {
 		}
 	}
 
+	@Override
 	public final Sender getSender() {
 		return sender;
 	}
 
+	@Override
 	public final void setSender(Sender sender) {
 		this.sender = sender;
 	}
 
-	private static String MD5Digest(String str) {
+	public static String MD5Digest(String str) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 
@@ -242,6 +245,7 @@ public abstract class Message {
 	 *
 	 * @return bool
 	 */
+	@Override
 	public boolean send() {
 
 		if (sender == null) {

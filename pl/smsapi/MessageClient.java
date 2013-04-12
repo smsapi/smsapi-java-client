@@ -3,11 +3,51 @@ package pl.smsapi;
 import pl.smsapi.message.Mms;
 import pl.smsapi.message.Result;
 import pl.smsapi.message.Sms;
+import pl.smsapi.message.Account;
+import pl.smsapi.message.Message;
+import pl.smsapi.message.MessageInterface;
 import pl.smsapi.message.Vms;
 import pl.smsapi.sender.SenderHttp;
 
 public final class MessageClient {
+	
+	private static String username;
+	private static String password;
+	private static boolean auth = true;
+	
+	public static boolean getAuth(){
+		return auth;
+	}
+	
+	public static void setAuth(boolean val){
+		auth = val;
+	}
 
+	public static String getUsername() {
+		return username;
+	}
+
+	public static void setUsername(String username) {
+		MessageClient.username = username;
+	}
+
+	public static String getPassword() {
+		return password;
+	}
+
+	public static void setPassword(String password) {
+		MessageClient.password = password;
+	}
+	
+	public static void setPassword(String password, boolean encodeMd5) {
+		if(encodeMd5 == true){
+			MessageClient.password = Message.MD5Digest(password);
+		}else{
+			MessageClient.password = password;
+		}	
+	}
+	
+	
 	public static void main(String[] args) {
 
 		try {
@@ -58,12 +98,19 @@ public final class MessageClient {
 		}
 
 	}
+	
+	private static void setDataAuth(MessageInterface message){
+		if(auth == true && !username.isEmpty() && !password.isEmpty()){
+			message.setUsername(username);
+			message.setPassword(password);
+		}		
+	}
 
 	public static Sms getSmsInstance() {
 
 		SenderHttp sender = new SenderHttp();
 		Sms sms = new Sms(sender);
-
+		setDataAuth(sms);
 		return sms;
 
 	}
@@ -71,19 +118,28 @@ public final class MessageClient {
 	public static Mms getMmsInstance() {
 		SenderHttp sender = new SenderHttp();
 		Mms mms = new Mms(sender);
-
+		setDataAuth(mms);
 		return mms;
 	}
 
 	public static Vms getVmsInstance() {
 		SenderHttp sender = new SenderHttp();
 		Vms vms = new Vms(sender);
-
+		setDataAuth(vms);
 		return vms;
+	}
+	
+	public static Account getAccountInstance() {
+		SenderHttp sender = new SenderHttp();
+		Account account = new Account(sender);
+		setDataAuth(account);
+		return account;
 	}
 
 	public static SenderHttp getSenderHttp() {
 		SenderHttp sender = new SenderHttp();
 		return sender;
 	}
+	
+	
 }

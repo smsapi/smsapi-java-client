@@ -1,7 +1,9 @@
 package pl.smsapi.sender;
 
 import java.util.ArrayList;
+import pl.smsapi.message.Account;
 import pl.smsapi.message.Message;
+import pl.smsapi.message.MessageInterface;
 import pl.smsapi.message.Result;
 
 public abstract class Sender {
@@ -10,8 +12,8 @@ public abstract class Sender {
 	private String hostForHttps = "ssl.smsapi.pl";
 	private String hostForHttp = "api.smsapi.pl";
 	protected String path;
-	protected Message message;
-	protected ArrayList<Result> results;
+	protected MessageInterface message;
+	protected ArrayList<Result> results = new ArrayList<Result>();
 
 	//----abstract method--------------
 	public abstract boolean send();
@@ -38,18 +40,19 @@ public abstract class Sender {
 	}
 
 	public final Message getMessage() {
-		return message;
+		return (Message) message;
 	}
 
 	public final void setMessage(Message message) {
 		this.message = message;
 	}
-
-	public void setMethod(Object method) {
-	}
-
-	;
 	
+	public final void setMessage(Account user) {
+		this.message = user;
+	}
+	
+	abstract public void setMethod(Object method);
+
 	public final void setProtocol(String protocol) {
 		if (protocol.equals("http") || protocol.equals("https")) {
 			this.protocol = protocol;

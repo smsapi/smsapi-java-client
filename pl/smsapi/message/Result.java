@@ -2,15 +2,25 @@ package pl.smsapi.message;
 
 import java.util.ArrayList;
 
+
 public final class Result {
 
-	protected String id;
-	protected String points;
-	protected String response;
-	protected String request;
-	protected String status;
-	protected Error error;
-	protected String phone;
+	private String id;
+	private String points;
+	private String response;
+	private String request;
+	private String status;
+	private Error error;
+	private String phone;
+	private String message;
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 	public String getId() {
 		return id;
@@ -72,6 +82,15 @@ public final class Result {
 	public void setPhone(String phone) {
 		this.phone = phone.trim();
 	}
+	
+	public static void renderResulAccount(ArrayList<Result> result, String message, String response, String request) {
+		
+		Result res = new Result();
+		res.setResponse(response);
+		res.setRequest(request);
+		res.setMessage(message);
+        result.add(res);
+	}
 
 	public static void renderResultMessage(ArrayList<Result> result, String message, String response, String request) {
 
@@ -107,10 +126,8 @@ public final class Result {
 
 			result.add(res);
 		}
-
 	}
 }
-
 final class Error {
 
 	private String number;
