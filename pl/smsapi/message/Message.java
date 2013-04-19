@@ -7,19 +7,28 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import pl.smsapi.SmsapiException;
 import pl.smsapi.sender.Sender;
 
 public abstract class Message implements MessageInterface{
 
-	protected String username;
-	protected String password;
-	protected final ArrayList<String> to = new ArrayList<String>();
-	protected final ArrayList<String> idx = new ArrayList<String>();
-	protected String group;
-	protected String date;
+	private String username;
+	private String password;
+	private final ArrayList<String> to = new ArrayList<String>();
+	private final ArrayList<String> idx = new ArrayList<String>();
+	private String group;
+	private String date;
 	protected final HashMap<String, String> params = new HashMap<String, String>();
-	protected Sender sender;
+	private Sender sender;
+	private String path;
+	
+	public String getPath() {
+		return path;
+	}
 
+	protected void setPath(String path) {
+		this.path = path;
+	}
 	//---end--abstract method---------
 	@Override
 	public final HashMap getParams() {
@@ -249,7 +258,7 @@ public abstract class Message implements MessageInterface{
 	public boolean send() {
 
 		if (sender == null) {
-			throw new RuntimeException("No exists sender");
+			throw new SmsapiException("No exists sender");
 		}
 
 		sender.setMessage(this);
@@ -266,7 +275,7 @@ public abstract class Message implements MessageInterface{
 	public ArrayList<Result> getResults() {
 
 		if (sender == null) {
-			throw new RuntimeException("No exists sender");
+			throw new SmsapiException("No exists sender");
 		}
 
 		return sender.getResults();
@@ -298,7 +307,7 @@ public abstract class Message implements MessageInterface{
 
 	public final void setHttps(boolean https) {
 		if (sender == null) {
-			throw new RuntimeException("No exists sender");
+			throw new SmsapiException("No exists sender");
 		}
 
 		if (https == true) {

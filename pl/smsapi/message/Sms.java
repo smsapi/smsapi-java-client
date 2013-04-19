@@ -1,6 +1,6 @@
 package pl.smsapi.message;
 
-import java.util.HashMap;
+import pl.smsapi.SmsapiException;
 import pl.smsapi.sender.Sender;
 import pl.smsapi.sender.SenderHttp;
 import pl.smsapi.sender.SenderHttp.RequestMethod;
@@ -10,6 +10,7 @@ public final class Sms extends Message {
 	private Template tpl;
 
 	public Sms() {
+		setPath("sms.do");
 	}
 
 	/**
@@ -18,7 +19,8 @@ public final class Sms extends Message {
 	 * @param sender Sender
 	 */
 	public Sms(Sender sender) {
-		this.sender = sender;
+		this();
+		setSender(sender);
 	}
 
 	@Override
@@ -34,11 +36,11 @@ public final class Sms extends Message {
 	 */
 	public boolean send(RequestMethod requestMethod) {
 		
-		if (sender == null) {
-			throw new RuntimeException("No exists sender");
+		if (getSender() == null) {
+			throw new SmsapiException("No exists sender");
 		}
 
-		sender.setMethod(requestMethod);
+		getSender().setMethod(requestMethod);
 
 		boolean result = super.send();
 
@@ -54,9 +56,9 @@ public final class Sms extends Message {
 	public boolean send(String requestMethod) {
 
 		if (requestMethod.equals("post") || requestMethod.equals("POST")) {
-			sender.setMethod(SenderHttp.RequestMethod.POST);
+			getSender().setMethod(SenderHttp.RequestMethod.POST);
 		} else if (requestMethod.equals("get") || requestMethod.equals("GET")) {
-			sender.setMethod(SenderHttp.RequestMethod.GET);
+			getSender().setMethod(SenderHttp.RequestMethod.GET);
 		}
 
 		boolean result = super.send();

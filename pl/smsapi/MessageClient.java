@@ -6,13 +6,14 @@ import pl.smsapi.message.Sms;
 import pl.smsapi.message.Account;
 import pl.smsapi.message.Message;
 import pl.smsapi.message.MessageInterface;
+import pl.smsapi.message.Phonebook;
 import pl.smsapi.message.Vms;
 import pl.smsapi.sender.SenderHttp;
 
 public final class MessageClient {
 	
-	private static String username;
-	private static String password;
+	private static String username = null;
+	private static String password = null;
 	private static boolean auth = true;
 	
 	public static boolean getAuth(){
@@ -53,7 +54,7 @@ public final class MessageClient {
 		try {
 
 			if (args.length < 5) {
-				throw new RuntimeException("No exist args");
+				throw new SmsapiException("No exist args");
 			}
 
 
@@ -93,14 +94,14 @@ public final class MessageClient {
 
 		} catch (IllegalArgumentException ex) {
 			System.out.println(ex.getMessage());
-		} catch (RuntimeException ex) {
+		} catch (SmsapiException ex) {
 			System.out.println(ex.getMessage());
 		}
 
 	}
 	
 	private static void setDataAuth(MessageInterface message){
-		if(auth == true && !username.isEmpty() && !password.isEmpty()){
+		if(auth == true && (username != null && !username.isEmpty()) && (password != null && !password.isEmpty())){
 			message.setUsername(username);
 			message.setPassword(password);
 		}		
@@ -134,6 +135,13 @@ public final class MessageClient {
 		Account account = new Account(sender);
 		setDataAuth(account);
 		return account;
+	}
+	
+	public static Phonebook getPhonebookInstance() {
+		SenderHttp sender = new SenderHttp();
+		Phonebook phonebook = new Phonebook(sender);
+		//setDataAuth(phonebook);
+		return phonebook;
 	}
 
 	public static SenderHttp getSenderHttp() {

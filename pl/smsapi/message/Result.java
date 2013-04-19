@@ -1,6 +1,7 @@
 package pl.smsapi.message;
 
 import java.util.ArrayList;
+import pl.smsapi.SmsapiException;
 
 
 public final class Result {
@@ -10,7 +11,7 @@ public final class Result {
 	private String response;
 	private String request;
 	private String status;
-	private Error error;
+	private Object error;
 	private String phone;
 	private String message;
 
@@ -62,17 +63,16 @@ public final class Result {
 		this.status = status;
 	}
 
-	public String getError() {
-
-		if (error != null) {
-			return error.toString();
-		}
-
-		return "";
+	public Object getError() {	
+		return error;
 	}
 
-	public void setError(Error error) {
+	public void setError(Object error) {
 		this.error = error;
+	}
+	
+	public boolean isError(Object error) {
+		return (error != null);
 	}
 
 	public String getPhone() {
@@ -83,7 +83,7 @@ public final class Result {
 		this.phone = phone.trim();
 	}
 	
-	public static void renderResulAccount(ArrayList<Result> result, String message, String response, String request) {
+	public static void renderResulMessageSimple(ArrayList<Result> result, String message, String response, String request) {
 		
 		Result res = new Result();
 		res.setResponse(response);
@@ -115,10 +115,9 @@ public final class Result {
 				}
 
 			} else if (partsCollArr[0].equals("ERROR")) {
-
+				
 				res.setStatus("ERROR");
-				Error error = new Error(partsCollArr[1]);
-				res.setError(error);
+				res.setError(SmsapiException.createError(partsCollArr[1]));
 			}
 
 			res.setResponse(response);
@@ -126,18 +125,5 @@ public final class Result {
 
 			result.add(res);
 		}
-	}
-}
-final class Error {
-
-	private String number;
-
-	public Error(String number) {
-		this.number = number;
-	}
-
-	@Override
-	public String toString() {
-		return (number.isEmpty() == true) ? "" : number.trim();
 	}
 }

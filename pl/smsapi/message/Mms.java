@@ -1,5 +1,6 @@
 package pl.smsapi.message;
 
+import pl.smsapi.SmsapiException;
 import pl.smsapi.sender.Sender;
 
 public final class Mms extends Message {
@@ -7,17 +8,19 @@ public final class Mms extends Message {
 	protected SmilInterface smil;
 
 	public Mms() {
+		setPath("mms.do");
 	}
 
 	public Mms(Sender sender) {
-		this.sender = sender;
+		this();
+		setSender(sender);
 	}
 
 	@Override
 	public String getObjMessage() {
 
 		if (smil == null) {
-			throw new RuntimeException("Smil not exists");
+			throw new SmsapiException("Smil not exists");
 		}
 
 		return smil.render();

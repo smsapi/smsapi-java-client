@@ -43,12 +43,8 @@ public abstract class Sender {
 		return (Message) message;
 	}
 
-	public final void setMessage(Message message) {
+	public final void setMessage(MessageInterface message) {
 		this.message = message;
-	}
-	
-	public final void setMessage(Account user) {
-		this.message = user;
 	}
 	
 	abstract public void setMethod(Object method);

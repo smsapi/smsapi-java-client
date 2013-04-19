@@ -23,9 +23,12 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.net.ssl.HttpsURLConnection;
+import pl.smsapi.SmsapiException;
 import pl.smsapi.message.Account;
 import pl.smsapi.message.Message;
+import pl.smsapi.message.MessageInterface;
 import pl.smsapi.message.Mms;
+import pl.smsapi.message.Phonebook;
 import pl.smsapi.message.Result;
 import pl.smsapi.message.Sms;
 import pl.smsapi.message.Vms;
@@ -91,7 +94,7 @@ public final class SenderHttp extends Sender implements SenderInterface {
 
 		protected void checkConn() {
 			if (conn == null) {
-				throw new RuntimeException("http/https connection not exists");
+				throw new SmsapiException("http/https connection not exists");
 			}
 		}
 		
@@ -233,7 +236,7 @@ public final class SenderHttp extends Sender implements SenderInterface {
 			String head = it.get(0);
 
 			if (head == null) {
-				throw new RuntimeException("Problem with net - no exists head");
+				throw new SmsapiException("Problem with net - no exists head");
 			}
 
 			return head;
@@ -251,7 +254,7 @@ public final class SenderHttp extends Sender implements SenderInterface {
 			}
 
 			if (head == null) {
-				throw new RuntimeException("Problem with net - no exists head");
+				throw new SmsapiException("Problem with net - no exists head");
 			}
 
 			return head;
@@ -265,7 +268,7 @@ public final class SenderHttp extends Sender implements SenderInterface {
 	}
 
 	@Override
-	public boolean send() throws RuntimeException {
+	public boolean send() throws SmsapiException {
 		String query = "";
 		String responseHead = "";
 		StringBuffer response = null;
@@ -273,7 +276,7 @@ public final class SenderHttp extends Sender implements SenderInterface {
 
 		try {
 			if (message == null) {
-				throw new RuntimeException("No exists message");
+				throw new SmsapiException("No exists message");
 			}
 
 			String messageName = message.getClass().getSimpleName();
@@ -286,11 +289,13 @@ public final class SenderHttp extends Sender implements SenderInterface {
 				uri = new vms().excute();
 			} else if (messageName.equals(Account.class.getSimpleName())) {
 				uri = new account().excute();
+			} else if (messageName.equals(Phonebook.class.getSimpleName())) {
+				uri = new phonebook().excute();
 			} 
 
 
 			if (uri == null) {
-				throw new RuntimeException("Invalid URI");
+				throw new SmsapiException("Invalid URI");
 			}
 
 			switch (requestMethod) {
@@ -327,17 +332,17 @@ public final class SenderHttp extends Sender implements SenderInterface {
 					break;
 			}
              
-			if(message instanceof Account){
-				Result.renderResulAccount(results, response.toString(), responseHead, query);
-			}else{
+			if(message instanceof Message){
 				Result.renderResultMessage(results, response.toString(), responseHead, query);
+			}else{
+				Result.renderResulMessageSimple(results, response.toString(), responseHead, query);
 			}
 			
 			return true;
 
 		} catch (Exception ex) {
 			Logger.getLogger(SenderHttp.class.getName()).log(Level.SEVERE, null, ex);
-			throw new RuntimeException(ex.getMessage());
+			throw new SmsapiException(ex.getMessage(), ex.getCause());
 		} finally {
 			if (senderConnection != null) {
 				senderConnection.disconnect();
@@ -361,7 +366,9 @@ public final class SenderHttp extends Sender implements SenderInterface {
 			Map.Entry me = (Map.Entry) it.next();
 
 			if (!skip.equals(me.getKey())) {
-				query += "&" + me.getKey() + "=" + me.getValue();
+				if(me.getValue() != null){
+					query += "&" + me.getKey() + "=" + me.getValue();
+				}		
 			}
 		}
 
@@ -451,9 +458,9 @@ public final class SenderHttp extends Sender implements SenderInterface {
 		return query;
 	}
 	
-	protected String renderBasicParamsToQuery(Account user) {
+	protected String renderBasicParamsToQuery(MessageInterface msg) {
 
-		String query = "username=" + user.getUsername() + "&password=" + user.getPassword();
+		String query = "username=" + msg.getUsername() + "&password=" + msg.getPassword();
 
 		return query;
 	}
@@ -465,7 +472,7 @@ public final class SenderHttp extends Sender implements SenderInterface {
 			Sms msg = (Sms) message;
 			String text = msg.getObjMessage();
 			String query;
-			path = "/sms.do";
+			path = "/" + msg.getPath();
 
 			if (text instanceof String) {
 				query = renderBasicParamsToQuery(msg);
@@ -488,7 +495,7 @@ public final class SenderHttp extends Sender implements SenderInterface {
 			Mms msg = (Mms) message;
 			Object text = msg.getObjMessage();
 			String query;
-			path = "/mms.do";
+			path = "/" + msg.getPath();
 
 			if (text instanceof String) {
 
@@ -514,7 +521,7 @@ public final class SenderHttp extends Sender implements SenderInterface {
 			Vms msg = (Vms) message;
 			Object text = msg.getObjMessage();
 			String query;
-			path = "/vms.do";
+			path = "/" + msg.getPath();
 
 			if (text instanceof File) {
 				query = renderBasicParamsToQuery(msg);
@@ -551,6 +558,26 @@ public final class SenderHttp extends Sender implements SenderInterface {
 				query = renderBasicParamsToQuery(user);
 
 				query += renderMessageParams(user.getParams());
+
+				return new URI(getProtocol(), null, getHost(), getPort(), path, query, null);
+			}
+
+			return null;
+		}
+	}
+	
+	private class phonebook {
+
+		public URI excute() throws URISyntaxException, IOException {
+
+			Phonebook phonebook = (Phonebook) message;
+			String query;
+			path = "/" + phonebook.getPath();
+
+			if (phonebook != null){
+				query = renderBasicParamsToQuery(phonebook);
+
+				query += renderMessageParams(phonebook.getParams());
 
 				return new URI(getProtocol(), null, getHost(), getPort(), path, query, null);
 			}

@@ -3,8 +3,7 @@ package pl.smsapi.message;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import pl.smsapi.message.Message;
-import pl.smsapi.message.MessageInterface;
+import pl.smsapi.SmsapiException;
 import pl.smsapi.sender.Sender;
 import pl.smsapi.sender.SenderHttp;
 
@@ -18,19 +17,19 @@ public final class Account implements MessageInterface {
 	private String path = "user.do";
 	
 
-	public Account() {
-	}
+	public Account() {}
 
 	
-	public Account(Sender sender) {
+	public Account(final Sender sender) {
 		this.sender = sender;
 	}
 	
+	@Override
 	public String getPath() {
 		return path;
 	}
 
-	public void setPath(String path) {
+	protected void setPath(final String path) {
 		this.path = path;
 	}
 	
@@ -38,7 +37,7 @@ public final class Account implements MessageInterface {
 	public boolean send() {
 
 		if (sender == null) {
-			throw new RuntimeException("No exists sender");
+			throw new SmsapiException("No exists sender");
 		}
 
 		sender.setMessage(this);
@@ -49,7 +48,7 @@ public final class Account implements MessageInterface {
 	public boolean send(SenderHttp.RequestMethod requestMethod) {
 		
 		if (sender == null) {
-			throw new RuntimeException("No exists sender");
+			throw new SmsapiException("No exists sender");
 		}
 
 		sender.setMethod(requestMethod);
@@ -78,7 +77,7 @@ public final class Account implements MessageInterface {
 	public ArrayList<Result> getResults() {
 
 		if (sender == null) {
-			throw new RuntimeException("No exists sender");
+			throw new SmsapiException("No exists sender");
 		}
 
 		return sender.getResults();
@@ -166,10 +165,6 @@ public final class Account implements MessageInterface {
 				params.put(Subuser.EDIT, name);
 			}					
 		}
-		
-		public HashMap getParams() {
-		     return params;
-	    }
 		
 		protected void setPass(String password){
 			params.put("pass", password);

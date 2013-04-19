@@ -2,6 +2,7 @@ package pl.smsapi.message;
 
 import java.io.File;
 import java.io.IOException;
+import pl.smsapi.SmsapiException;
 import pl.smsapi.sender.Sender;
 
 public final class Vms extends Message {
@@ -24,6 +25,7 @@ public final class Vms extends Message {
 	};
 
 	public Vms() {
+		setPath("vms.do");
 	}
 
 	/**
@@ -32,7 +34,8 @@ public final class Vms extends Message {
 	 * @param sender Sender
 	 */
 	public Vms(Sender sender) {
-		this.sender = sender;
+		this();
+		setSender(sender);
 	}
 
 	@Override
@@ -140,7 +143,7 @@ public final class Vms extends Message {
 				return true;
 			}
 		} catch (IOException ex) {
-			throw new RuntimeException(ex.getMessage());
+			throw new SmsapiException(ex.getMessage());
 		}
 
 		return false;

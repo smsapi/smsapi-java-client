@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import pl.smsapi.SmsapiException;
 //import javax.activation.MimetypesFileTypeMap;
 //import com.sun.xml.internal.messaging.saaj.util.Base64;
 
@@ -201,17 +202,17 @@ public final class Smil implements SmilInterface {
 				createElement(DataBa, byteType, width, height, left, top, fit);
 
 			} catch (IllegalArgumentException ex) {
-				throw new RuntimeException("Not exists byteType");
+				throw new SmsapiException("Not exists byteType");
 			} finally {
 				dataIs.close();
 			}
 
 		} catch (FileNotFoundException ex) {
 			Logger.getLogger(Smil.class.getName()).log(Level.SEVERE, null, ex);
-			throw new RuntimeException(ex.getMessage());
+			throw new SmsapiException(ex.getMessage());
 		} catch (IOException ex) {
 			Logger.getLogger(Smil.class.getName()).log(Level.SEVERE, null, ex);
-			throw new RuntimeException(ex.getMessage());
+			throw new SmsapiException(ex.getMessage());
 		}
 	}
 

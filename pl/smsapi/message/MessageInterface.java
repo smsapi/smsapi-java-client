@@ -1,16 +1,18 @@
 package pl.smsapi.message;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import pl.smsapi.sender.Sender;
 
 public interface MessageInterface {
 
 	public boolean send();
-
+	
+	public String getPath();
+	
 	public Object getObjMessage();
 	
-	public HashMap getParams();
+	public Map getParams();
 	
 	public String getUsername();
 	
@@ -26,7 +28,7 @@ public interface MessageInterface {
 	
 	public void setSender(Sender sender);
 	
-	public ArrayList<Result> getResults();
+	public List<Result> getResults();
 	
 	
 }
