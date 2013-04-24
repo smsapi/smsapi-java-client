@@ -16,12 +16,35 @@ public final class Account implements MessageInterface {
 	private Sender sender;
 	private String path = "user.do";
 	
-
+	private static HashMap<String, String> credits = new HashMap<String, String>();
+	
 	public Account() {}
 
 	
 	public Account(final Sender sender) {
 		this.sender = sender;
+	}
+
+	public HashMap<String, String> getCredits() {
+		return Account.credits;
+	}
+	
+	public static void parseCredits(String str)
+	{
+		String[] tmp = str.split(";");
+		
+		if(tmp.length >= 6){
+			String[] tmpPoint = tmp[0].split(":");
+			
+			if(tmpPoint.length == 2){
+				credits.put("POINTS", tmpPoint[1].trim());
+			}
+			credits.put("PRO", tmp[1]);
+			credits.put("ECO", tmp[2]);
+			credits.put("MMS", tmp[3]);
+			credits.put("VMS_GMS", tmp[4]);
+			credits.put("VMS_STC", tmp[5].trim());
+		}
 	}
 	
 	@Override

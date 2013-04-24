@@ -58,14 +58,14 @@ public class Contact {
 	}
 
 	public Contact(Map<String, String> data) {
-		number = data.get("number");
-		firstName = data.get("first_name");
-		lastName = data.get("last_name");
-		info = data.get("info");
-		email = data.get("email");
-		birthday = data.get("birthday");
-		city = data.get("city");
-		gender = data.get("gender");
+		setNumber(data.get("number"));
+		setFirstName(data.get("first_name"));
+		setLastName(data.get("last_name"));
+		setInfo(data.get("info"));
+		setEmail(data.get("email"));
+		setBirthday(data.get("birthday"));
+		setCity(data.get("city"));
+		setGender(data.get("gender"));
 		dateAdd = data.get("dateAdd");
 		dateMod = data.get("dateMod");
 	}
@@ -286,6 +286,17 @@ public class Contact {
 		}
 
 		this.gender = gender.name();
+		return this;
+	}
+	
+	public Contact setGender(String gender) {
+
+		if(gender.equalsIgnoreCase(Gender.FEMALE.name())){
+			setGender(Gender.FEMALE);
+		}else if(gender.equalsIgnoreCase(Gender.MALE.name())){
+			setGender(Gender.MALE);
+		}
+		
 		return this;
 	}
 	

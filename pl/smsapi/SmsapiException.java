@@ -3,6 +3,8 @@ package pl.smsapi;
 public final class SmsapiException extends RuntimeException {
 
 	private int code;
+	
+	private static String errorDefult = "999";
 
 	public int getCode() {
 		return code;
@@ -27,6 +29,15 @@ public final class SmsapiException extends RuntimeException {
 
 	public static Error createError(String number, String message) {
 		return new Error(number, message);
+	}
+	
+	public static Error createError(String[] infoMsg)
+	{
+		if(infoMsg.length == 2){
+			return new Error(infoMsg[1]);
+		}
+		
+		return new Error(errorDefult);
 	}
 
 	public static class Error {
