@@ -1,0 +1,40 @@
+package pl.smsapi.api;
+
+import pl.smsapi.Client;
+import pl.smsapi.proxy.*;
+
+public abstract class ActionFactory {
+
+	protected Client client;
+	protected Proxy proxy;
+
+	public ActionFactory() {
+		this.proxy = new ProxyHttp("https://ssl.smsapi.pl");
+	}
+
+	public ActionFactory(Client client) {
+		this.client = client;
+		this.proxy = new ProxyHttp("https://ssl.smsapi.pl");
+	}
+
+	public ActionFactory(Proxy proxy, Client client) {
+		this.proxy = proxy;
+		this.client = client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public void setProxy(Proxy proxy) {
+		this.proxy = proxy;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public Proxy getProxy() {
+		return proxy;
+	}
+}
