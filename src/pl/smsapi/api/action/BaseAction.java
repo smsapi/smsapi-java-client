@@ -17,6 +17,8 @@ import pl.smsapi.Client;
 import pl.smsapi.api.response.*;
 import pl.smsapi.exception.*;
 import pl.smsapi.proxy.Proxy;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public abstract class BaseAction {
 
@@ -34,6 +36,14 @@ public abstract class BaseAction {
 	public File file() {
 		return null;
 	}
+
+    protected String urlEncodeUTF8(String s) {
+        try {
+            return URLEncoder.encode(s, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new UnsupportedOperationException(e);
+        }
+    }
 
 	public BaseAction setTest(boolean test) {
 		if (test == true) {
@@ -78,9 +88,8 @@ public abstract class BaseAction {
 
 			if (!skip.equals(me.getKey())) {
 				if (me.getValue() != null) {
-					query += "&" + me.getKey() + "=" + me.getValue();
+					query += "&" + me.getKey() + "=" + urlEncodeUTF8( me.getValue().toString() );
 				}
-
 			}
 		}
 		return query;

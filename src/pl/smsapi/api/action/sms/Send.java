@@ -15,19 +15,16 @@ public class Send extends BaseAction {
 		String query = "";
 
 		query += paramsLoginToQuery();
-
-		query += paramsBasicToQuery();
-
-		query += paramsOther();
+ 		query += paramsBasicToQuery();
+ 		query += paramsOther();
 
 		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), "/api/sms.do", query, null);
 	}
 
 	public Send() {
+        this.params.put("encoding", "utf-8");
 	}
 
-	;
-	
 	public Send setTo(String to) {
 		this.to.add(to);
 		return this;
