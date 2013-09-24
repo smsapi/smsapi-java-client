@@ -17,7 +17,7 @@ public class SendersResponse implements Response {
 			if (n > 0) {
 				for (int i = 0; i < n; i++) {
 					JSONObject tmp = aData.getJSONObject(i);
-					list.add(new SenderResponse(tmp.optString("sender"), tmp.optString("status"), tmp.optString("default")));
+					list.add(new SenderResponse(tmp.optString("sender"), tmp.optString("status"), tmp.optBoolean("default")));
 				}
 			}
 		}

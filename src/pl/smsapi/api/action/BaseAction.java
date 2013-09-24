@@ -294,7 +294,7 @@ public abstract class BaseAction {
 				return new PointsResponse(oData.optString("points"));
 			} else if (classRes.hashCode() == SenderResponse.class.hashCode()) {
 				oData = new JSONObject(data);
-				new SenderResponse(oData.optString("sender"), oData.optString("status"), oData.optString("default"));
+				new SenderResponse(oData.optString("sender"), oData.optString("status"), oData.optBoolean("default"));
 			} else if (classRes.hashCode() == SendersResponse.class.hashCode()) {
 				return new SendersResponse(data);
 			} else if (classRes.hashCode() == GroupResponse.class.hashCode()) {

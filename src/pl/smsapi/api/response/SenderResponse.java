@@ -4,16 +4,16 @@ public class SenderResponse implements Response {
 
 	private String name;
 	private String status;
-	private String setDefault;
+	private boolean primary;
 
-	public SenderResponse(String name, String status, String major) {
+	public SenderResponse(String name, String status, boolean primary) {
 		this.name = name;
 		this.status = status;
-		this.setDefault = major;
+		this.primary = primary;
 	}
 
 	public boolean isDefault() {
-		return (setDefault != null && setDefault.equals("default"));
+		return this.primary;
 	}
 
 	public String getName() {
