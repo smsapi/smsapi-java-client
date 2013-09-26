@@ -1,9 +1,5 @@
 package pl.smsapi.api.action.phonebook;
 
-import pl.smsapi.api.action.ActionResponse;
-import pl.smsapi.api.response.ContactResponse;
-
-@ActionResponse(object = "ContactResponse")
 public class ContactEdit extends ContactAdd {
 
 	public ContactEdit setContact(String number) {

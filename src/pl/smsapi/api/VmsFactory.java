@@ -9,8 +9,8 @@ public class VmsFactory extends ActionFactory {
 		super(client);
 	}
 
-	public VmsFactory(Proxy proxy, Client client) {
-		super(proxy, client);
+	public VmsFactory(Client client, Proxy proxy) {
+		super(client, proxy);
 	}
 
 	public pl.smsapi.api.action.vms.Send actionSend() {

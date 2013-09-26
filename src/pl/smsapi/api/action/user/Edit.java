@@ -2,7 +2,6 @@ package pl.smsapi.api.action.user;
 
 import pl.smsapi.api.action.ActionResponse;
 
-@ActionResponse(object = "UserResponse")
 public class Edit extends Add {
 
 	@Override

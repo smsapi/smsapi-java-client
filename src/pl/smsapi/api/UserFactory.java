@@ -9,8 +9,8 @@ public class UserFactory extends ActionFactory {
 		super(client);
 	}
 
-	public UserFactory(Proxy proxy, Client client) {
-		super(proxy, client);
+	public UserFactory(Client client, Proxy proxy) {
+		super(client, proxy);
 	}
 
 	public pl.smsapi.api.action.user.List actionList() {

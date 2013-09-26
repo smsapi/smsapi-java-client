@@ -9,8 +9,8 @@ public class SmsFactory extends ActionFactory {
 		super(client);
 	}
 
-	public SmsFactory(Proxy proxy, Client client) {
-		super(proxy, client);
+	public SmsFactory(Client client, Proxy proxy) {
+		super(client, proxy);
 	}
 
 	public pl.smsapi.api.action.sms.Send actionSend() {

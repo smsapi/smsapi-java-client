@@ -1,6 +1,5 @@
 package pl.smsapi.test.run;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import pl.smsapi.Client;
 import pl.smsapi.api.UserFactory;
@@ -13,7 +12,7 @@ import pl.smsapi.test.SmsapiTest;
 
 public class UserTest extends SmsapiTest {
 
-	private String userTest = "fajny3";
+	private String userTest = "junit";
 
 	private void renderUserItem(UserResponse item) {
 
@@ -49,8 +48,6 @@ public class UserTest extends SmsapiTest {
 		System.out.println("UserAdd:");
 
 		renderUserItem(item);
-
-
 	}
 
 	@Test
@@ -87,6 +84,5 @@ public class UserTest extends SmsapiTest {
 		} else {
 			System.out.println("Item is null");
 		}
-
 	}
 }

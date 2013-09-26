@@ -4,9 +4,9 @@ public class PointsResponse implements Response {
 
 	private double points;
 
-	public PointsResponse(String points) {
+	public PointsResponse(double points) {
 
-		this.points = Double.parseDouble(points);
+		this.points = points;
 	}
 
 	public double getPoints() {

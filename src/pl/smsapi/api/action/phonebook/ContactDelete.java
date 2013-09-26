@@ -1,12 +1,12 @@
 package pl.smsapi.api.action.phonebook;
 
+import pl.smsapi.api.action.BaseAction;
+import pl.smsapi.api.response.RawResponse;
+
 import java.net.URI;
 import java.net.URISyntaxException;
-import pl.smsapi.api.action.ActionResponse;
-import pl.smsapi.api.action.BaseAction;
 
-@ActionResponse(object = "RawResponse")
-public class ContactDelete extends BaseAction {
+public class ContactDelete extends BaseAction<RawResponse> {
 
 	@Override
 	public URI uri() throws URISyntaxException {
@@ -17,11 +17,15 @@ public class ContactDelete extends BaseAction {
 
 		query += paramsOther();
 
-		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), "/api/phonebook.do", query, null);
+		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), proxy.getPath()+"phonebook.do", query, null);
 	}
 
 	public ContactDelete setContact(String number) {
 		params.put("delete_contact", number);
 		return this;
 	}
+
+    protected RawResponse createResponse(String data) {
+        return new RawResponse(data);
+    }
 }

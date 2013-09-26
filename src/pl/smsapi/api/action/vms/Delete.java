@@ -1,13 +1,14 @@
 package pl.smsapi.api.action.vms;
 
+import org.json.JSONObject;
+import pl.smsapi.api.action.BaseAction;
+import pl.smsapi.api.response.CountableResponse;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import pl.smsapi.api.action.ActionResponse;
-import pl.smsapi.api.action.BaseAction;
 
-@ActionResponse(object = "CountableResponse")
-public class Delete extends BaseAction {
+public class Delete extends BaseAction<CountableResponse> {
 
 	private ArrayList<String> id = new ArrayList<String>();
 
@@ -25,7 +26,7 @@ public class Delete extends BaseAction {
 
 		query += "&sch_del=" + join(tmp, "|");
 
-		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), "/api/vms.do", query, null);
+		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), proxy.getPath()+"vms.do", query, null);
 	}
 
 	public Delete id(String id) {
@@ -39,4 +40,9 @@ public class Delete extends BaseAction {
 		}
 		return this;
 	}
+
+    protected CountableResponse createResponse(String data) {
+        JSONObject jsonObject = new JSONObject(data);
+        return new CountableResponse(jsonObject.getInt("count"));
+    }
 }

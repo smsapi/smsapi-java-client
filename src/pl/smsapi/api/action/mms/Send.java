@@ -1,13 +1,14 @@
 package pl.smsapi.api.action.mms;
 
+import org.json.JSONObject;
+import pl.smsapi.api.action.BaseAction;
+import pl.smsapi.api.response.StatusResponse;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Calendar;
-import pl.smsapi.api.action.ActionResponse;
-import pl.smsapi.api.action.BaseAction;
 
-@ActionResponse(object = "StatusResponse")
-public class Send extends BaseAction {
+public class Send extends BaseAction<StatusResponse> {
 
 	@Override
 	public URI uri() throws URISyntaxException {
@@ -20,14 +21,11 @@ public class Send extends BaseAction {
 
 		query += paramsOther();
 
-		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), "/api/mms.do", query, null);
+		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), proxy.getPath()+"mms.do", query, null);
 	}
 
-	public Send() {
-	}
+	public Send() {}
 
-	;
-	
 	public Send setTo(String to) {
 		this.to.add(to);
 		return this;
@@ -96,4 +94,9 @@ public class Send extends BaseAction {
 		params.put("smil", smil);
 		return this;
 	}
+
+    protected StatusResponse createResponse(String data) {
+        JSONObject jsonObject = new JSONObject(data);
+        return new StatusResponse(jsonObject.getInt("count"), jsonObject.optJSONArray("list"));
+    }
 }

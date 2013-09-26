@@ -3,11 +3,12 @@ package pl.smsapi.api.action.sms;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import pl.smsapi.api.action.ActionResponse;
-import pl.smsapi.api.action.BaseAction;
 
-@ActionResponse(object = "StatusResponse")
-public class Get extends BaseAction {
+import org.json.JSONObject;
+import pl.smsapi.api.action.BaseAction;
+import pl.smsapi.api.response.StatusResponse;
+
+public class Get extends BaseAction<StatusResponse> {
 
 	private ArrayList<String> id = new ArrayList<String>();
 
@@ -25,7 +26,7 @@ public class Get extends BaseAction {
 
 		query += "&status=" + join(tmp, "|");
 
-		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), "/api/sms.do", query, null);
+		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), proxy.getPath()+"sms.do", query, null);
 	}
 
 	public Get id(String id) {
@@ -39,4 +40,9 @@ public class Get extends BaseAction {
 		}
 		return this;
 	}
+
+    protected StatusResponse createResponse(String data) {
+        JSONObject jsonObject = new JSONObject(data);
+        return new StatusResponse(jsonObject.getInt("count"), jsonObject.optJSONArray("list"));
+    }
 }

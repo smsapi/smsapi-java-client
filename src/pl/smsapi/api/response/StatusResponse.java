@@ -8,22 +8,15 @@ public class StatusResponse extends CountableResponse {
 
 	private ArrayList<MessageResponse> list = new ArrayList<MessageResponse>();
 
-	public StatusResponse(int count, String data) {
+	public StatusResponse(int count, JSONArray list) {
 
 		super(count);
 
-		if (data != null && !data.isEmpty()) {
-
-			JSONArray aData = new JSONArray(data);
-			final int n = aData.length();
-			if (n > 0) {
-				for (int i = 0; i < n; i++) {
-					JSONObject tmp = aData.getJSONObject(i);
-					list.add(new MessageResponse(tmp.optString("id"), tmp.optString("points"), tmp.optString("number"), tmp.optString("status"), tmp.optString("error"), tmp.optString("idx")));
-				}
-			}
-		}
-
+        final int n = list.length();
+        for (int i = 0; i < n; i++) {
+            JSONObject row = list.getJSONObject(i);
+            this.list.add(new MessageResponse(row.optString("id"), row.optString("points"), row.optString("number"), row.optString("status"), row.optString("error"), row.optString("idx")));
+        }
 	}
 
 	public ArrayList<MessageResponse> getList() {

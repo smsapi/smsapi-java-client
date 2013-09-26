@@ -9,8 +9,8 @@ public class SenderFactory extends ActionFactory {
 		super(client);
 	}
 
-	public SenderFactory(Proxy proxy, Client client) {
-		super(proxy, client);
+	public SenderFactory(Client client, Proxy proxy) {
+		super(client, proxy);
 	}
 
 	public pl.smsapi.api.action.sender.List actionList() {

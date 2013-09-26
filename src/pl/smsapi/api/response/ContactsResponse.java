@@ -8,21 +8,15 @@ public class ContactsResponse extends CountableResponse {
 
 	private ArrayList<ContactResponse> list = new ArrayList<ContactResponse>();
 
-	public ContactsResponse(int count, String data) {
+	public ContactsResponse(int count, JSONArray list) {
 
 		super(count);
 
-		if (data != null && !data.isEmpty()) {
-
-			JSONArray aData = new JSONArray(data);
-			final int n = aData.length();
-			if (n > 0) {
-				for (int i = 0; i < n; i++) {
-					JSONObject tmp = aData.getJSONObject(i);
-					list.add(new ContactResponse(tmp.optString("number"), tmp.optString("first_name"), tmp.optString("last_name"), tmp.optString("info"), tmp.optString("birthday"), tmp.optString("city"), tmp.optString("gender"), tmp.optInt("date_add"), tmp.optInt("date_mod")));
-				}
-			}
-		}
+        final int n = list.length();
+        for (int i = 0; i < n; i++) {
+            JSONObject row = list.getJSONObject(i);
+            this.list.add(new ContactResponse(row.getString("number"), row.optString("first_name"), row.optString("last_name"), row.optString("info"), row.optString("birthday"), row.optString("city"), row.optString("gender"), row.optInt("date_add"), row.optInt("date_mod")));
+        }
 	}
 
 	public ArrayList<ContactResponse> getList() {

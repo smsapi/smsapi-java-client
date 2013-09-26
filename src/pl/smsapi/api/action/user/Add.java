@@ -1,12 +1,13 @@
 package pl.smsapi.api.action.user;
 
+import org.json.JSONObject;
+import pl.smsapi.api.action.BaseAction;
+import pl.smsapi.api.response.UserResponse;
+
 import java.net.URI;
 import java.net.URISyntaxException;
-import pl.smsapi.api.action.ActionResponse;
-import pl.smsapi.api.action.BaseAction;
 
-@ActionResponse(object = "UserResponse")
-public class Add extends BaseAction {
+public class Add extends BaseAction<UserResponse> {
 
 	@Override
 	public URI uri() throws URISyntaxException {
@@ -17,7 +18,7 @@ public class Add extends BaseAction {
 		
 		query += paramsOther();
 
-		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), "/api/user.do", query, null);
+		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), proxy.getPath()+"user.do", query, null);
 	}
 
 	public Add setUsername(String username) {
@@ -89,4 +90,18 @@ public class Add extends BaseAction {
 		params.put("info", info);
 		return this;
 	}
+
+    protected UserResponse createResponse(String data) {
+        JSONObject jsonObject = new JSONObject(data);
+        return
+                new UserResponse(
+                        jsonObject.getString("username"),
+                        jsonObject.optDouble("limit"),
+                        jsonObject.optDouble("month_limit"),
+                        jsonObject.optInt("senders"),
+                        jsonObject.optInt("phonebook"),
+                        jsonObject.optInt("active"),
+                        jsonObject.optString("info")
+                );
+    }
 }

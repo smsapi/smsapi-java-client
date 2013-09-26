@@ -2,11 +2,11 @@ package pl.smsapi.api.action.user;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import pl.smsapi.api.action.ActionResponse;
-import pl.smsapi.api.action.BaseAction;
 
-@ActionResponse(object = "UsersResponse")
-public class List extends BaseAction {
+import pl.smsapi.api.action.BaseAction;
+import pl.smsapi.api.response.UsersResponse;
+
+public class List extends BaseAction<UsersResponse> {
 
 	@Override
 	public URI uri() throws URISyntaxException {
@@ -19,6 +19,10 @@ public class List extends BaseAction {
 
 		query += "&list=1";
 
-		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), "/api/user.do", query, null);
+		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), proxy.getPath()+"user.do", query, null);
 	}
+
+    protected UsersResponse createResponse(String data) {
+        return new UsersResponse(data);
+    }
 }

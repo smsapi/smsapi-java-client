@@ -4,12 +4,13 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Calendar;
-import pl.smsapi.api.action.ActionResponse;
+
+import org.json.JSONObject;
 import pl.smsapi.api.action.BaseAction;
+import pl.smsapi.api.response.StatusResponse;
 import pl.smsapi.proxy.ProxyHttp;
 
-@ActionResponse(object = "StatusResponse")
-public class Send extends BaseAction {
+public class Send extends BaseAction<StatusResponse> {
 
 	public static enum Lector {
 
@@ -47,7 +48,7 @@ public class Send extends BaseAction {
 			query += "&tts=" + tts;
 		}
 
-		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), "/api/vms.do", query, null);
+		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), proxy.getPath()+"vms.do", query, null);
 	}
 
 	@Override
@@ -55,11 +56,8 @@ public class Send extends BaseAction {
 		return file;
 	}
 
-	public Send() {
-	}
+	public Send() { }
 
-	;
-	
 	public Send setTo(String to) {
 		this.to.add(to);
 		return this;
@@ -153,4 +151,9 @@ public class Send extends BaseAction {
 		params.put("from", from);
 		return this;
 	}
+
+    protected StatusResponse createResponse(String data) {
+        JSONObject jsonObject = new JSONObject(data);
+        return new StatusResponse(jsonObject.getInt("count"), jsonObject.optJSONArray("list"));
+    }
 }

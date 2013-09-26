@@ -17,7 +17,7 @@ public class UsersResponse implements Response {
 			if (n > 0) {
 				for (int i = 0; i < n; i++) {
 					JSONObject tmp = aData.getJSONObject(i);
-					list.add(new UserResponse(tmp.optString("username"), tmp.optString("limit"), tmp.optString("month_limit"), tmp.optInt("senders"), tmp.optInt("phonebook"), tmp.optInt("active"), tmp.optString("info")));
+					list.add(new UserResponse(tmp.optString("username"), tmp.optDouble("limit"), tmp.optDouble("month_limit"), tmp.optInt("senders"), tmp.optInt("phonebook"), tmp.optInt("active"), tmp.optString("info")));
 				}
 			}
 		}

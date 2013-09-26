@@ -8,16 +8,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.ProtocolException;
+import java.net.*;
+
 import pl.smsapi.api.action.BaseAction;
-import java.net.URI;
-import java.net.URL;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.net.ssl.HttpsURLConnection;
+
 import pl.smsapi.exception.ProxyException;
 
 public class ProxyHttp implements Proxy {
@@ -25,6 +25,12 @@ public class ProxyHttp implements Proxy {
 	private String protocol;
 	private String host;
 	private int port;
+
+    public String getPath() {
+        return this.path;
+    }
+
+    private String path;
 	private URI uri;
 	private File file;
 	private String query = "";
@@ -56,19 +62,17 @@ public class ProxyHttp implements Proxy {
 
 	public ProxyHttp(String baseUrl) {
 
-		final int tmpPos = baseUrl.lastIndexOf("://");
+        try {
+            URI uri = new URI(baseUrl);
+            this.host = uri.getHost();
+            this.port = uri.getPort();
+            this.protocol = uri.getScheme();
+            this.path = uri.getPath();
+        } catch (URISyntaxException e) {
+//            throw new ProxyException(e.getMessage());
+        }
 
-		protocol = baseUrl.substring(0, tmpPos);
-		host = baseUrl.substring(tmpPos + 3, baseUrl.length());
-		port = protocol.equals("https") ? 443 : 80;
-		setRequestMethod(RequestMethod.POST);
-	}
-
-	public ProxyHttp(String protocol, String host, int port) {
-		this.protocol = protocol;
-		this.host = host;
-		this.port = port;
-		setRequestMethod(RequestMethod.POST);
+        setRequestMethod(RequestMethod.POST);
 	}
 
 	@Override

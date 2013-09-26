@@ -3,11 +3,12 @@ package pl.smsapi.api.action.hlr;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import pl.smsapi.api.action.ActionResponse;
-import pl.smsapi.api.action.BaseAction;
 
-@ActionResponse(object = "CheckNumberResponse")
-public class CheckNumber extends BaseAction {
+import org.json.JSONObject;
+import pl.smsapi.api.action.BaseAction;
+import pl.smsapi.api.response.CheckNumberResponse;
+
+public class CheckNumber extends BaseAction<CheckNumberResponse> {
 
 	private ArrayList<String> numbers = new ArrayList<String>();
 
@@ -25,7 +26,7 @@ public class CheckNumber extends BaseAction {
 
 		query += "&number=" + join(tmp, ",");
 
-		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), "/api/hlrsync.do", query, null);
+		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), proxy.getPath()+"hlrsync.do", query, null);
 	}
 
 	public CheckNumber setNumber(String number) {
@@ -39,4 +40,9 @@ public class CheckNumber extends BaseAction {
 		}
 		return this;
 	}
+
+    protected CheckNumberResponse createResponse(String data) {
+        JSONObject jsonObject = new JSONObject(data);
+        return new CheckNumberResponse(jsonObject.getInt("count"), jsonObject.getString("list"));
+    }
 }

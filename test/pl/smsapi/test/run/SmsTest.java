@@ -2,7 +2,7 @@ package pl.smsapi.test.run;
 
 import java.io.File;
 import java.util.Date;
-import org.junit.Ignore;
+
 import org.junit.Test;
 import pl.smsapi.api.SmsFactory;
 import pl.smsapi.api.action.BaseAction;

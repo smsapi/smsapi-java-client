@@ -9,8 +9,8 @@ public class MmsFactory extends ActionFactory {
 		super(client);
 	}
 
-	public MmsFactory(Proxy proxy, Client client) {
-		super(proxy, client);
+	public MmsFactory(Client client, Proxy proxy) {
+		super(client, proxy);
 	}
 
 	public pl.smsapi.api.action.mms.Send actionSend() {

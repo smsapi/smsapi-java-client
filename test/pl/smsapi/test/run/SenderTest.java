@@ -29,13 +29,11 @@ public class SenderTest extends SmsapiTest {
 
 		SenderFactory smsApi = new SenderFactory(client());
 
-		SenderResponse item;
+        CountableResponse item;
 
-		item = (SenderResponse) executeAction(smsApi.actionAdd(senderTest));
+		item = (CountableResponse) executeAction(smsApi.actionAdd(senderTest));
 
-		System.out.println("SenderAdd:");
-
-		renderSenderItem(item);
+		System.out.println("SenderAdd:" + item.getCount());
 	}
 
 	@Test

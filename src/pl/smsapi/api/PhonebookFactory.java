@@ -9,8 +9,8 @@ public class PhonebookFactory extends ActionFactory {
 		super(client);
 	}
 
-	public PhonebookFactory(Proxy proxy, Client client) {
-		super(proxy, client);
+	public PhonebookFactory(Client client, Proxy proxy) {
+		super(client, proxy);
 	}
 
 	public pl.smsapi.api.action.phonebook.GroupList actionGroupList() {

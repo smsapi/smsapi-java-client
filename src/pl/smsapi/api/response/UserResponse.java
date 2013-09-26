@@ -10,10 +10,10 @@ public class UserResponse implements Response {
 	private int active;
 	private String info;
 
-	public UserResponse(String username, String limit, String month_limit, int senders, int phonebook, int active, String info) {
+	public UserResponse(String username, double limit, double month_limit, int senders, int phonebook, int active, String info) {
 		this.username = username;
-		this.limit = Double.parseDouble(limit);
-		this.monthLimit = Double.parseDouble(month_limit);
+		this.limit = limit;
+		this.monthLimit = month_limit;
 		this.senders = senders;
 		this.phonebook = phonebook;
 		this.active = active;

@@ -6,12 +6,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Ignore;
 import pl.smsapi.Client;
 import pl.smsapi.api.action.BaseAction;
 import pl.smsapi.api.response.*;
@@ -35,8 +32,8 @@ public class SmsapiTest {
 	protected Client client() {
 
 		try {
-			Client client = new Client("twoj_login");
-			client.setPasswordRAW("twoje_haslo_do_api");
+			Client client = new Client("login");
+			client.setPasswordHash("passwordHash");
 			return client;
 		} catch (ClientException ex) {
 			/**
@@ -52,13 +49,9 @@ public class SmsapiTest {
 	protected Response executeAction(BaseAction action) {
 		try {
 
-			return action.execute();
+			return (Response)action.execute();
 
-		} catch (ActionException ex) {
-			/**
-			 * Błędy związane z akcją (z wyłączeniem błędów 101,102,103,105,110,1000,1001 i 8,666,999,201)
-			 * http://www.smsapi.pl/sms-api/kody-bledow
-			 */
+		} catch (SmsapiException ex) {
 			System.out.println(ex.getMessage());
 		}
 

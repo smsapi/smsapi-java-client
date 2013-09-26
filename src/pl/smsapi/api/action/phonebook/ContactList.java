@@ -3,11 +3,12 @@ package pl.smsapi.api.action.phonebook;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import pl.smsapi.api.action.ActionResponse;
-import pl.smsapi.api.action.BaseAction;
 
-@ActionResponse(object = "ContactsResponse")
-public class ContactList extends BaseAction {
+import org.json.JSONObject;
+import pl.smsapi.api.action.BaseAction;
+import pl.smsapi.api.response.ContactsResponse;
+
+public class ContactList extends BaseAction<ContactsResponse> {
 
 	private ArrayList<String> groups = new ArrayList<String>();
 
@@ -28,7 +29,7 @@ public class ContactList extends BaseAction {
 
 		query += "&list_contacts=1";
 
-		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), "/api/phonebook.do", query, null);
+		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), proxy.getPath()+"phonebook.do", query, null);
 	}
 
 	public ContactList setNumber(String number) {
@@ -77,4 +78,9 @@ public class ContactList extends BaseAction {
 		params.put("offset", Integer.toString(offset));
 		return this;
 	}
+
+    protected ContactsResponse createResponse(String data) {
+        JSONObject jsonObject = new JSONObject(data);
+        return new ContactsResponse(jsonObject.getInt("count"), jsonObject.getJSONArray("list"));
+    }
 }
