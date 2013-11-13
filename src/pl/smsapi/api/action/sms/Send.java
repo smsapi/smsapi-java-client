@@ -1,11 +1,13 @@
 package pl.smsapi.api.action.sms;
 
+import com.sun.deploy.util.StringUtils;
 import org.json.JSONObject;
 import pl.smsapi.api.action.BaseAction;
 import pl.smsapi.api.response.StatusResponse;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class Send extends BaseAction<StatusResponse> {
@@ -155,6 +157,21 @@ public class Send extends BaseAction<StatusResponse> {
 
 		return this;
 	}
+
+    public Send setParam(int i, String[] text) {
+        return this.setParam(i, StringUtils.join(Arrays.asList(text), "|"));
+    }
+
+    public Send setParam(int i, String text) {
+
+        if( i < 0 || i > 3 ) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+
+        params.put("param"+ new Integer(i+1).toString(), text);
+
+        return this;
+    }
 
     protected StatusResponse createResponse(String data) {
         JSONObject jsonObject = new JSONObject(data);
