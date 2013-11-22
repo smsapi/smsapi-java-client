@@ -1,13 +1,11 @@
 package pl.smsapi.api.action.sms;
 
-import com.sun.deploy.util.StringUtils;
 import org.json.JSONObject;
 import pl.smsapi.api.action.BaseAction;
 import pl.smsapi.api.response.StatusResponse;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 import java.util.Calendar;
 
 public class Send extends BaseAction<StatusResponse> {
@@ -159,7 +157,21 @@ public class Send extends BaseAction<StatusResponse> {
 	}
 
     public Send setParam(int i, String[] text) {
-        return this.setParam(i, StringUtils.join(Arrays.asList(text), "|"));
+        return this.setParam(i, this.stringJoin(text, "|"));
+    }
+
+    protected String stringJoin(String[] list, String glue) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(int i = 0; i < list.length; i++ ) {
+
+            stringBuilder.append(list[i]);
+            if( i+1 < list.length ) {
+                stringBuilder.append(glue);
+            }
+        }
+
+        return stringBuilder.toString();
     }
 
     public Send setParam(int i, String text) {
