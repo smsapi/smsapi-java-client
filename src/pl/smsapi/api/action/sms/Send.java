@@ -144,6 +144,16 @@ public class Send extends BaseAction<StatusResponse> {
 
 		return this;
 	}
+	
+	public Send setFast(boolean fast) {
+		if (fast == true) {
+			params.put("fast", "1");
+		} else if (fast == false) {
+			params.remove("fast");
+		}
+
+		return this;
+	}	
 
 	public Send setNormalize(boolean normalize) {
 
