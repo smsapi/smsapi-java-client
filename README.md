@@ -55,3 +55,6 @@ try {
     System.out.println(e.getMessage());
 }
 ```
+
+## LICENSE
+[Apache 2.0 License](https://github.com/smsapi/smsapi-java-client/blob/master/LICENSE)
