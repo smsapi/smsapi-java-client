@@ -30,6 +30,7 @@ public class VmsTest extends SmsapiTest {
         BaseAction action = smsApi.actionSend()
 				.setTts(tts)
 				.setTo(numberTest)
+                .setInterval(300)
 				.setDateSent(time);
 
 		result = (StatusResponse) executeAction(action);

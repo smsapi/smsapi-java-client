@@ -147,6 +147,17 @@ public class Send extends BaseAction<StatusResponse> {
 		return this;
 	}
 
+    public Send setInterval(Integer interval) {
+
+        if( interval == null ) {
+            params.remove("interval");
+        } else {
+            params.put("interval", interval.toString());
+        }
+        return this;
+    }
+
+
 	public Send setFrom(String from) {
 		params.put("from", from);
 		return this;
