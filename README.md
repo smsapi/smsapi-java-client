@@ -17,6 +17,7 @@ try {
     Send action = smsApi.actionSend()
             .setText("test message")
             .setTo("xxxyyyzzz");
+			.setSender("Info"); //Pole nadawcy lub typ wiadomość 'ECO', '2Way'
 
     StatusResponse result = action.execute();
 
