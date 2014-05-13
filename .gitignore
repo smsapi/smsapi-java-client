@@ -3,5 +3,5 @@
 build.xml
 manifest.mf
 _ids_test.txt
-.idea/
+/.idea/
 /*.iml
