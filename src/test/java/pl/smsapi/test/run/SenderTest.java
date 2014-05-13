@@ -1,7 +1,8 @@
 package pl.smsapi.test.run;
 
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
+import pl.smsapi.api.PhonebookFactory;
 import pl.smsapi.api.SenderFactory;
 import pl.smsapi.api.response.CountableResponse;
 import pl.smsapi.api.response.SenderResponse;
@@ -10,7 +11,17 @@ import pl.smsapi.test.SmsapiTest;
 
 public class SenderTest extends SmsapiTest {
 
-	private String senderTest = "Olek";
+	private String senderTest = "test";
+
+    SenderFactory apiFactory;
+
+    @Override
+    @Before
+    public void setUp() {
+        super.setUp();
+
+        apiFactory = new SenderFactory(getAuthorizationClient(), getProxy());
+    }
 
 	private void renderSenderItem(SenderResponse item) {
 
@@ -27,11 +38,9 @@ public class SenderTest extends SmsapiTest {
 	//@Ignore
 	public void senderAdd() {
 
-		SenderFactory smsApi = new SenderFactory(client());
-
         CountableResponse item;
 
-		item = (CountableResponse) executeAction(smsApi.actionAdd(senderTest));
+		item = (CountableResponse) executeAction(apiFactory.actionAdd(senderTest));
 
 		System.out.println("SenderAdd:" + item.getCount());
 	}
@@ -40,11 +49,9 @@ public class SenderTest extends SmsapiTest {
 	//@Ignore
 	public void senderList() {
 
-		SenderFactory smsApi = new SenderFactory(client());
-
 		SendersResponse result;
 
-		result = (SendersResponse) executeAction(smsApi.actionList());
+		result = (SendersResponse) executeAction(apiFactory.actionList());
 
 		System.out.println("SenderList:");
 
@@ -57,11 +64,9 @@ public class SenderTest extends SmsapiTest {
 	//@Ignore
 	public void senderDelete() {
 
-		SenderFactory smsApi = new SenderFactory(client());
-
 		CountableResponse item;
 
-		item = (CountableResponse) executeAction(smsApi.actionDelete(senderTest));
+		item = (CountableResponse) executeAction(apiFactory.actionDelete(senderTest));
 
 		System.out.println("SenderDelete:");
 

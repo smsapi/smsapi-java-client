@@ -68,6 +68,7 @@ public class ProxyHttp implements Proxy {
             this.port = uri.getPort();
             this.protocol = uri.getScheme();
             this.path = uri.getPath();
+
         } catch (URISyntaxException e) {
 //            throw new ProxyException(e.getMessage());
         }

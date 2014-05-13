@@ -1,7 +1,9 @@
 package pl.smsapi.test.run;
 
+import org.junit.Before;
 import org.junit.Test;
 import pl.smsapi.Client;
+import pl.smsapi.api.SenderFactory;
 import pl.smsapi.api.UserFactory;
 import pl.smsapi.api.action.BaseAction;
 import pl.smsapi.api.response.PointsResponse;
@@ -13,6 +15,16 @@ import pl.smsapi.test.SmsapiTest;
 public class UserTest extends SmsapiTest {
 
 	private String userTest = "junit";
+
+    UserFactory apiFactory;
+
+    @Override
+    @Before
+    public void setUp() {
+        super.setUp();
+
+        apiFactory = new UserFactory(getAuthorizationClient(), getProxy());
+    }
 
 	private void renderUserItem(UserResponse item) {
 
@@ -32,10 +44,8 @@ public class UserTest extends SmsapiTest {
 	//@Ignore
 	public void userAddTest() throws ClientException {
 
-		UserFactory smsApi = new UserFactory(client());
-
 		UserResponse item;
-		BaseAction action = smsApi.actionAdd()
+		BaseAction action = apiFactory.actionAdd()
 				.setUsername(userTest)
 				.setPassword(Client.MD5Digest("100costma100"))
 				.setPasswordApi(Client.MD5Digest("200costam200"))
@@ -54,11 +64,9 @@ public class UserTest extends SmsapiTest {
 	//@Ignore
 	public void userListTest() {
 
-		UserFactory smsApi = new UserFactory(client());
-
 		UsersResponse result;
 
-		result = (UsersResponse) executeAction(smsApi.actionList());
+		result = (UsersResponse) executeAction(apiFactory.actionList());
 
 		System.out.println("UserList:");
 
@@ -71,11 +79,10 @@ public class UserTest extends SmsapiTest {
 	//@Ignore
 	public void userPointsTest() {
 
-		UserFactory smsApi = new UserFactory(client());
 
 		PointsResponse item;
 
-		item = (PointsResponse) executeAction(smsApi.actionGetPoints());
+		item = (PointsResponse) executeAction(apiFactory.actionGetPoints());
 
 		System.out.println("GetPoints:");
 
