@@ -60,6 +60,7 @@ try {
 ## MAVEN
 
 W pliku **pom.xml** należy dopisać:
+
 ```xml
 <repositories>
 	<repository>
