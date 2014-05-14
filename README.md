@@ -59,6 +59,7 @@ try {
 
 ## MAVEN
 
+W pliku **pom.xml** należy dopisać:
 ```xml
 <repositories>
 	<repository>
@@ -69,7 +70,7 @@ try {
 		</releases>
 		<id>smsapi</id>
 		<name>smsapi</name>
-		<url>http://lpajak.devsms.com/maven2/</url>
+		<url>http://labs.smsapi.com/maven/</url>
 		<layout>default</layout>
 	</repository>
 </repositories>
