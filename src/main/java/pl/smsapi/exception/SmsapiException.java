@@ -6,6 +6,10 @@ public class SmsapiException extends Exception {
 		super(message);
 	}
 
+    public SmsapiException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 	public static boolean isClientError(int code) {
 
 		if (code == 101) {

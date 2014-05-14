@@ -1,20 +1,20 @@
 package pl.smsapi.test.run;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import pl.smsapi.Client;
-import pl.smsapi.api.SenderFactory;
 import pl.smsapi.api.UserFactory;
-import pl.smsapi.api.action.BaseAction;
+import pl.smsapi.api.action.user.UserAdd;
 import pl.smsapi.api.response.PointsResponse;
 import pl.smsapi.api.response.UserResponse;
 import pl.smsapi.api.response.UsersResponse;
-import pl.smsapi.exception.ClientException;
+import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.SmsapiTest;
 
 public class UserTest extends SmsapiTest {
 
-	private String userTest = "junit";
+    private String userTest = "junit";
 
     UserFactory apiFactory;
 
@@ -26,70 +26,64 @@ public class UserTest extends SmsapiTest {
         apiFactory = new UserFactory(getAuthorizationClient(), getProxy());
     }
 
-	private void renderUserItem(UserResponse item) {
+    private void renderUserItem(UserResponse item) {
 
-		if (item != null) {
-			System.out.println("Username: " + item.getUsername()
-					+ " Limit: " + item.getLimit()
-					+ " MouthLimit:" + item.getMonthLimit()
-					+ " Phonebook:" + item.getPhonebook()
-					+ " Senders: " + item.getSenders()
-					+ " Active: " + item.getActive());
-		} else {
-			System.out.println("Item is null");
-		}
-	}
+        if (item != null) {
+            System.out.println("Username: " + item.getUsername()
+                    + " Limit: " + item.getLimit()
+                    + " MouthLimit:" + item.getMonthLimit()
+                    + " Phonebook:" + item.getPhonebook()
+                    + " Senders: " + item.getSenders()
+                    + " Active: " + item.getActive());
+        } else {
+            System.out.println("Item is null");
+        }
+    }
 
-	@Test
-	//@Ignore
-	public void userAddTest() throws ClientException {
+    @Test
+    @Ignore
+    public void userAddTest() throws SmsapiException {
 
-		UserResponse item;
-		BaseAction action = apiFactory.actionAdd()
-				.setUsername(userTest)
-				.setPassword(Client.MD5Digest("100costma100"))
-				.setPasswordApi(Client.MD5Digest("200costam200"))
-				.setActive(true)
-				.setLimit(5.5)
-				.setPhonebook(true);
+        UserAdd action = apiFactory.actionAdd()
+                .setUsername(userTest)
+                .setPassword(Client.MD5Digest("100costma100"))
+                .setPasswordApi(Client.MD5Digest("200costam200"))
+                .setActive(true)
+                .setLimit(5.5)
+                .setFullAccessPhoneBook(true);
 
-		item = (UserResponse) executeAction(action);
+        UserResponse item = action.execute();
 
-		System.out.println("UserAdd:");
+        System.out.println("UserAdd:");
 
-		renderUserItem(item);
-	}
+        renderUserItem(item);
+    }
 
-	@Test
-	//@Ignore
-	public void userListTest() {
+    @Test
+    @Ignore
+    public void userListTest() throws SmsapiException {
 
-		UsersResponse result;
+        UsersResponse result = apiFactory.actionList().execute();
 
-		result = (UsersResponse) executeAction(apiFactory.actionList());
+        System.out.println("UserList:");
 
-		System.out.println("UserList:");
+        for (UserResponse item : result.getList()) {
+            renderUserItem(item);
+        }
+    }
 
-		for (UserResponse item : result.getList()) {
-			renderUserItem(item);
-		}
-	}
+    @Test
+    @Ignore
+    public void userPointsTest() throws SmsapiException {
 
-	@Test
-	//@Ignore
-	public void userPointsTest() {
+        PointsResponse item = apiFactory.actionGetPoints().execute();
 
+        System.out.println("GetPoints:");
 
-		PointsResponse item;
-
-		item = (PointsResponse) executeAction(apiFactory.actionGetPoints());
-
-		System.out.println("GetPoints:");
-
-		if (item != null) {
-			System.out.println("Points: " + item.getPoints());
-		} else {
-			System.out.println("Item is null");
-		}
-	}
+        if (item != null) {
+            System.out.println("Points: " + item.getPoints());
+        } else {
+            System.out.println("Item is null");
+        }
+    }
 }

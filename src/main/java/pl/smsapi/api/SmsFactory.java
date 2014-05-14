@@ -1,6 +1,9 @@
 package pl.smsapi.api;
 
 import pl.smsapi.Client;
+import pl.smsapi.api.action.sms.SMSDelete;
+import pl.smsapi.api.action.sms.SMSGet;
+import pl.smsapi.api.action.sms.SMSSend;
 import pl.smsapi.proxy.Proxy;
 
 public class SmsFactory extends ActionFactory {
@@ -13,48 +16,48 @@ public class SmsFactory extends ActionFactory {
 		super(client, proxy);
 	}
 
-	public pl.smsapi.api.action.sms.Send actionSend() {
-		pl.smsapi.api.action.sms.Send action = new pl.smsapi.api.action.sms.Send();
+	public SMSSend actionSend() {
+		SMSSend action = new SMSSend();
 		action.client(client);
 		action.proxy(proxy);
 		return action;
 	}
 
-	public pl.smsapi.api.action.sms.Send actionSend(String to, String text) {
+	public SMSSend actionSend(String to, String text) {
 		String[] tos = new String[]{to};
 		return actionSend(tos, text);
 	}
 
-	public pl.smsapi.api.action.sms.Send actionSend(String[] to, String text) {
-		pl.smsapi.api.action.sms.Send action = actionSend();
+	public SMSSend actionSend(String[] to, String text) {
+		SMSSend action = actionSend();
 		action.setTo(to);
 		action.setText(text);
 
 		return action;
 	}
 
-	public pl.smsapi.api.action.sms.Get actionGet() {
-		pl.smsapi.api.action.sms.Get action = new pl.smsapi.api.action.sms.Get();
+	public SMSGet actionGet() {
+		SMSGet action = new SMSGet();
 		action.client(client);
 		action.proxy(proxy);
 		return action;
 	}
 
-	public pl.smsapi.api.action.sms.Get actionGet(String id) {
-		pl.smsapi.api.action.sms.Get action = actionGet();
+	public SMSGet actionGet(String id) {
+		SMSGet action = actionGet();
 		action.id(id);
 		return action;
 	}
 
-	public pl.smsapi.api.action.sms.Delete actionDelete() {
-		pl.smsapi.api.action.sms.Delete action = new pl.smsapi.api.action.sms.Delete();
+	public SMSDelete actionDelete() {
+		SMSDelete action = new SMSDelete();
 		action.client(client);
 		action.proxy(proxy);
 		return action;
 	}
 
-	public pl.smsapi.api.action.sms.Delete actionDelete(String id) {
-		pl.smsapi.api.action.sms.Delete action = actionDelete();
+	public SMSDelete actionDelete(String id) {
+		SMSDelete action = actionDelete();
 		action.id(id);
 		return action;
 	}

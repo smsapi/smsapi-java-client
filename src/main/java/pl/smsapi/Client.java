@@ -35,7 +35,7 @@ public class Client {
 
 	public void setPasswordRAW(String password) throws ClientException {
 
-		String hashPassword = Client.MD5Digest(password);
+        String hashPassword = Client.MD5Digest(password);
 
 		setPasswordHash(hashPassword);
 	}

@@ -3,8 +3,8 @@ package pl.smsapi.test.run;
 import java.util.GregorianCalendar;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import pl.smsapi.api.MmsFactory;
 import pl.smsapi.api.PhonebookFactory;
 import pl.smsapi.api.action.phonebook.*;
 import pl.smsapi.api.response.*;
@@ -28,11 +28,11 @@ public class PhonebookTest extends SmsapiTest {
     }
 
 	@Test
-	//@Ignore
+	@Ignore
 	public void groupAdd() {
 
 		GroupResponse item;
-		GroupAdd action = apiFactory.actionGroupAdd(groupTest);
+		PhonebookGroupAdd action = apiFactory.actionGroupAdd(groupTest);
 
 		item = (GroupResponse) executeAction(action);
 
@@ -43,11 +43,11 @@ public class PhonebookTest extends SmsapiTest {
 	}
 
 	@Test
-	//@Ignore
+	@Ignore
 	public void groupEdit() {
 
 		GroupResponse item;
-		GroupEdit action = apiFactory.actionGroupEdit(groupTest);
+		PhonebookGroupEdit action = apiFactory.actionGroupEdit(groupTest);
 		action.setName(groupTestEdit).setInfo("to jest grupa testowa");
 
 		item = (GroupResponse) executeAction(action);
@@ -59,11 +59,11 @@ public class PhonebookTest extends SmsapiTest {
 	}
 
 	@Test
-	//@Ignore
+	@Ignore
 	public void groupGet() {
 
 		GroupResponse item;
-		GroupGet action = apiFactory.actionGroupGet(groupTestEdit);
+		PhonebookGroupGet action = apiFactory.actionGroupGet(groupTestEdit);
 
 		item = (GroupResponse) executeAction(action);
 
@@ -103,11 +103,11 @@ public class PhonebookTest extends SmsapiTest {
 	}
 
 	@Test
-	//@Ignore
+	@Ignore
 	public void contactAdd() {
 
 		ContactResponse item;
-		ContactAdd action = apiFactory.actionContactAdd(contactTest);
+		PhonebookContactAdd action = apiFactory.actionContactAdd(contactTest);
 
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.set(1976, 2, 15);
@@ -130,11 +130,11 @@ public class PhonebookTest extends SmsapiTest {
 	}
 
 	@Test
-	//@Ignore
+	@Ignore
 	public void contactEdit() {
 
 		ContactResponse item;
-		ContactEdit action = apiFactory.actionContactEdit(contactTest);
+		PhonebookContactEdit action = apiFactory.actionContactEdit(contactTest);
 		action.setNumber(contactTestEdit).setFirstName("Lolek");
 
 		item = (ContactResponse) executeAction(action);
@@ -146,11 +146,11 @@ public class PhonebookTest extends SmsapiTest {
 	}
 
 	@Test
-	//@Ignore
+	@Ignore
 	public void contactGet() {
 
 		ContactResponse item;
-		ContactGet action = apiFactory.actionContactGet(contactTestEdit);
+		PhonebookContactGet action = apiFactory.actionContactGet(contactTestEdit);
 
 		item = (ContactResponse) executeAction(action);
 
@@ -161,11 +161,11 @@ public class PhonebookTest extends SmsapiTest {
 	}
 
 	@Test
-	//@Ignore
+	@Ignore
 	public void contactDelete() {
 
 		RawResponse item;
-		ContactDelete action = apiFactory.actionContactDelete(contactTestEdit);
+		PhonebookContactDelete action = apiFactory.actionContactDelete(contactTestEdit);
 
 		item = (RawResponse) executeAction(action);
 
@@ -180,11 +180,11 @@ public class PhonebookTest extends SmsapiTest {
 	}
 
 	@Test
-	//@Ignore
+	@Ignore
 	public void groupDelete() {
 
 		RawResponse item;
-		GroupDelete action = apiFactory.actionGroupDelete(groupTestEdit);
+		PhonebookGroupDelete action = apiFactory.actionGroupDelete(groupTestEdit);
 
 		item = (RawResponse) executeAction(action);
 
@@ -199,7 +199,7 @@ public class PhonebookTest extends SmsapiTest {
 	}
 
 	@Test
-	//@Ignore
+	@Ignore
 	public void contactList() {
 
 		ContactsResponse result;
@@ -214,7 +214,7 @@ public class PhonebookTest extends SmsapiTest {
 	}
 
 	@Test
-	//@Ignore
+	@Ignore
 	public void groupList() {
 
 		GroupsResponse result;

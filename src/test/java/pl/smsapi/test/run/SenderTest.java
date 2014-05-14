@@ -1,17 +1,18 @@
 package pl.smsapi.test.run;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import pl.smsapi.api.PhonebookFactory;
 import pl.smsapi.api.SenderFactory;
 import pl.smsapi.api.response.CountableResponse;
 import pl.smsapi.api.response.SenderResponse;
 import pl.smsapi.api.response.SendersResponse;
+import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.SmsapiTest;
 
 public class SenderTest extends SmsapiTest {
 
-	private String senderTest = "test";
+    private String senderTest = "test";
 
     SenderFactory apiFactory;
 
@@ -23,57 +24,60 @@ public class SenderTest extends SmsapiTest {
         apiFactory = new SenderFactory(getAuthorizationClient(), getProxy());
     }
 
-	private void renderSenderItem(SenderResponse item) {
+    private void renderSenderItem(SenderResponse item) {
 
-		if (item != null) {
-			System.out.println("Sendername: " + item.getName()
-					+ " Status: " + item.getStatus()
-					+ " Default:" + item.isDefault());
-		} else {
-			System.out.println("Item is null");
-		}
-	}
+        if (item != null) {
+            System.out.println("Sendername: " + item.getName()
+                    + " Status: " + item.getStatus()
+                    + " Default:" + item.isDefault());
+        } else {
+            System.out.println("Item is null");
+        }
+    }
 
-	@Test
-	//@Ignore
-	public void senderAdd() {
+    @Test
+    @Ignore
+    public void senderAdd() throws SmsapiException {
 
-        CountableResponse item;
+        CountableResponse item = apiFactory.actionAdd(senderTest).execute();
 
-		item = (CountableResponse) executeAction(apiFactory.actionAdd(senderTest));
+        System.out.println("SenderAdd:" + item.getCount());
+    }
 
-		System.out.println("SenderAdd:" + item.getCount());
-	}
+    @Test
+    @Ignore
+    public void senderDefault() throws SmsapiException {
 
-	@Test
-	//@Ignore
-	public void senderList() {
+        CountableResponse item = apiFactory.actionSetDefault("ECO").execute();
 
-		SendersResponse result;
+        System.out.println("SenderAdd:" + item.getCount());
+    }
 
-		result = (SendersResponse) executeAction(apiFactory.actionList());
+    @Test
+    @Ignore
+    public void senderList() throws SmsapiException {
 
-		System.out.println("SenderList:");
+        SendersResponse result = apiFactory.actionList().execute();
 
-		for (SenderResponse item : result.getList()) {
-			renderSenderItem(item);
-		}
-	}
+        System.out.println("SenderList:");
 
-	@Test
-	//@Ignore
-	public void senderDelete() {
+        for (SenderResponse item : result.getList()) {
+            renderSenderItem(item);
+        }
+    }
 
-		CountableResponse item;
+    @Test
+    @Ignore
+    public void senderDelete() throws SmsapiException {
 
-		item = (CountableResponse) executeAction(apiFactory.actionDelete(senderTest));
+        CountableResponse item = apiFactory.actionDelete(senderTest).execute();
 
-		System.out.println("SenderDelete:");
+        System.out.println("SenderDelete:");
 
-		if (item != null) {
-			System.out.println("Sender: " + item.getCount());
-		} else {
-			System.out.println("Item is null");
-		}
-	}
+        if (item != null) {
+            System.out.println("Sender: " + item.getCount());
+        } else {
+            System.out.println("Item is null");
+        }
+    }
 }

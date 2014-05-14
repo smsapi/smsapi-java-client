@@ -1,6 +1,9 @@
 package pl.smsapi.api;
 
 import pl.smsapi.Client;
+import pl.smsapi.api.action.mms.MMSDelete;
+import pl.smsapi.api.action.mms.MMSGet;
+import pl.smsapi.api.action.mms.MMSSend;
 import pl.smsapi.proxy.Proxy;
 
 public class MmsFactory extends ActionFactory {
@@ -13,48 +16,48 @@ public class MmsFactory extends ActionFactory {
 		super(client, proxy);
 	}
 
-	public pl.smsapi.api.action.mms.Send actionSend() {
-		pl.smsapi.api.action.mms.Send action = new pl.smsapi.api.action.mms.Send();
+	public MMSSend actionSend() {
+		MMSSend action = new MMSSend();
 		action.client(client);
 		action.proxy(proxy);
 		return action;
 	}
 
-	public pl.smsapi.api.action.mms.Send actionSend(String to, String smil) {
+	public MMSSend actionSend(String to, String smil) {
 		String[] tos = new String[]{to};
 		return actionSend(tos, smil);
 	}
 
-	public pl.smsapi.api.action.mms.Send actionSend(String[] to, String smil) {
-		pl.smsapi.api.action.mms.Send action = actionSend();
+	public MMSSend actionSend(String[] to, String smil) {
+		MMSSend action = actionSend();
 		action.setTo(to);
 		action.setSmil(smil);
 
 		return action;
 	}
 
-	public pl.smsapi.api.action.mms.Get actionGet() {
-		pl.smsapi.api.action.mms.Get action = new pl.smsapi.api.action.mms.Get();
+	public MMSGet actionGet() {
+		MMSGet action = new MMSGet();
 		action.client(client);
 		action.proxy(proxy);
 		return action;
 	}
 
-	public pl.smsapi.api.action.mms.Get actionGet(String id) {
-		pl.smsapi.api.action.mms.Get action = actionGet();
+	public MMSGet actionGet(String id) {
+		MMSGet action = actionGet();
 		action.id(id);
 		return action;
 	}
 
-	public pl.smsapi.api.action.mms.Delete actionDelete() {
-		pl.smsapi.api.action.mms.Delete action = new pl.smsapi.api.action.mms.Delete();
+	public MMSDelete actionDelete() {
+		MMSDelete action = new MMSDelete();
 		action.client(client);
 		action.proxy(proxy);
 		return action;
 	}
 
-	public pl.smsapi.api.action.mms.Delete actionDelete(String id) {
-		pl.smsapi.api.action.mms.Delete action = actionDelete();
+	public MMSDelete actionDelete(String id) {
+		MMSDelete action = actionDelete();
 		action.id(id);
 		return action;
 	}

@@ -9,6 +9,10 @@ public class ProxyException extends SmsapiException{
 	public ProxyException(String message){
 		super(message);
 	}
+
+    public ProxyException(String message, Throwable cause) {
+        super(message, cause);
+    }
 	
 	public ProxyException(String message, int code){
 		this(message);

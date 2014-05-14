@@ -1,21 +1,25 @@
 package pl.smsapi.test.run;
 
-import java.util.Date;
-
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import pl.smsapi.api.MmsFactory;
-import pl.smsapi.api.SmsFactory;
 import pl.smsapi.api.action.BaseAction;
+import pl.smsapi.api.action.mms.MMSDelete;
+import pl.smsapi.api.action.mms.MMSGet;
+import pl.smsapi.api.action.mms.MMSSend;
 import pl.smsapi.api.response.CountableResponse;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.api.response.StatusResponse;
+import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.SmsapiTest;
+
+import java.util.Date;
 
 public class MmsTest extends SmsapiTest {
 
-	private String numberTest = "694562829";
-	private String[] ids;
+    private String numberTest = "694562829";
+    private String[] ids;
 
     MmsFactory apiFactory;
 
@@ -27,77 +31,75 @@ public class MmsTest extends SmsapiTest {
         apiFactory = new MmsFactory(getAuthorizationClient(), getProxy());
     }
 
-	@Test
-	//@Ignore
-	public void mmsSendTest() {
+    @Test
+    @Ignore
+    public void mmsSendTest() throws SmsapiException {
 
-		final long time = (new Date().getTime() / 1000) + 86400;
+        final long time = (new Date().getTime() / 1000) + 86400;
 
-		final String smil = "<smil><head><layout><root-layout height='100%' width='100%'/><region id='Image' width='100%' height='100%' left='0' top='0'/></layout></head><body><par><img src='http://www.smsapi.pl/media/mms.jpg' region='Image' /></par></body></smil>";
+        final String smil = "<smil><head><layout><root-layout height='100%' width='100%'/><region id='Image' width='100%' height='100%' left='0' top='0'/></layout></head><body><par><img src='http://www.smsapi.pl/assets/img/pages/errors/404.jpg' region='Image' /></par></body></smil>";
 
-		StatusResponse result;
-		BaseAction action = apiFactory.actionSend()
-				.setSubject("Test")
-				.setSmil(smil)
-				.setTo(numberTest)
-				.setDateSent(time);
+        MMSSend action = apiFactory.actionSend()
+                .setSubject("Test")
+                .setSmil(smil)
+                .setTo(numberTest)
+                .setDateSent(time);
 
-		result = (StatusResponse) executeAction(action);
+        StatusResponse result = action.execute();
 
-		System.out.println("MmsSend:");
+        System.out.println("MmsSend:");
 
-		if (result.getCount() > 0) {
-			ids = new String[result.getCount()];
-		}
+        if (result.getCount() > 0) {
+            ids = new String[result.getCount()];
+        }
 
-		int i = 0;
+        int i = 0;
 
-		for (MessageResponse item : result.getList()) {
-			if (!item.isError()) {
-				renderMessageItem(item);
-				ids[i] = item.getId();
-				i++;
-			}
-		}
+        for (MessageResponse item : result.getList()) {
+            if (!item.isError()) {
+                renderMessageItem(item);
+                ids[i] = item.getId();
+                i++;
+            }
+        }
 
-		if (ids.length > 0) {
-			writeIds(ids);
-		}
-	}
+        if (ids.length > 0) {
+            writeIds(ids);
+        }
+    }
 
-	@Test
-	//@Ignore
-	public void mmsGetTest() {
+    @Test
+    @Ignore
+    public void mmsGetTest() throws SmsapiException {
 
-		System.out.println("MmsGet:");
-		ids = readIds();
+        System.out.println("MmsGet:");
+        ids = readIds();
 
-		if (ids != null) {
-			StatusResponse result;
-			BaseAction action = apiFactory.actionGet().ids(ids);
+        if (ids != null) {
 
-			result = (StatusResponse) executeAction(action);
+            MMSGet action = apiFactory.actionGet().ids(ids);
+            StatusResponse result = action.execute();
 
-			for (MessageResponse item : result.getList()) {
-				renderMessageItem(item);
-			}
-		}
-	}
+            for (MessageResponse item : result.getList()) {
+                renderMessageItem(item);
+            }
+        }
+    }
 
-	@Test
-	//@Ignore
-	public void mmsDeleteTest() {
+    @Test
+    @Ignore
+    public void mmsDeleteTest() throws SmsapiException {
 
-		System.out.println("MmsDelete:");
-		ids = readIds();
+        System.out.println("MmsDelete:");
+        ids = readIds();
 
-		if (ids != null) {
-			CountableResponse item;
-			BaseAction action = apiFactory.actionDelete().ids(ids);;
+        if (ids != null) {
 
-			item = (CountableResponse) executeAction(action);
+            MMSDelete action = apiFactory.actionDelete().ids(ids);
 
-			System.out.println("Delete: " + item.getCount());
-		}
-	}
+            CountableResponse item = action.execute();
+
+            System.out.println("Delete: " + item.getCount());
+        }
+    }
 }

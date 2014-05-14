@@ -23,7 +23,7 @@ public class NumberResponse implements Response {
 		this.date = date;
 		this.ported = ported;
 		this.portedFrom = portedFrom;
-		this.points = Double.parseDouble(points);
+		this.points = (points != null && !points.isEmpty() ? Double.parseDouble(points) : 0);
 	}
 
 	public String getId() {

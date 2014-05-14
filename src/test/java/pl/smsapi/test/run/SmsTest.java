@@ -1,10 +1,13 @@
 package pl.smsapi.test.run;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import pl.smsapi.api.SmsFactory;
 import pl.smsapi.api.action.BaseAction;
-import pl.smsapi.api.action.sms.Send;
+import pl.smsapi.api.action.sms.SMSDelete;
+import pl.smsapi.api.action.sms.SMSGet;
+import pl.smsapi.api.action.sms.SMSSend;
 import pl.smsapi.api.response.CountableResponse;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.api.response.StatusResponse;
@@ -30,12 +33,12 @@ public class SmsTest extends SmsapiTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void smsSendTest() throws SmsapiException {
 
         final long time = (new Date().getTime() / 1000) + 86400;
 
-        Send action = apiFactory.actionSend()
+        SMSSend action = apiFactory.actionSend()
                 .setText("test message")
                 .setTo(numberTest)
                 .setDateSent(time);
@@ -64,17 +67,17 @@ public class SmsTest extends SmsapiTest {
     }
 
     @Test
-    //@Ignore
-    public void smsGetTest() {
+    @Ignore
+    public void smsGetTest() throws SmsapiException {
 
         System.out.println("SmsGet:");
         ids = readIds();
 
         if (ids != null) {
-            StatusResponse result;
-            BaseAction action = apiFactory.actionGet().ids(ids);
 
-            result = (StatusResponse) executeAction(action);
+            SMSGet action = apiFactory.actionGet().ids(ids);
+
+            StatusResponse result = action.execute();
 
             for (MessageResponse item : result.getList()) {
                 renderMessageItem(item);
@@ -83,18 +86,16 @@ public class SmsTest extends SmsapiTest {
     }
 
     @Test
-    //@Ignore
-    public void smsDeleteTest() {
+    @Ignore
+    public void smsDeleteTest() throws SmsapiException {
 
         System.out.println("SmsDelete:");
         ids = readIds();
 
         if (ids != null) {
-            CountableResponse item;
-            BaseAction action = apiFactory.actionDelete().ids(ids);
-            ;
+            SMSDelete action = apiFactory.actionDelete().ids(ids);
 
-            item = (CountableResponse) executeAction(action);
+            CountableResponse item = action.execute();
 
             System.out.println("Delete: " + item.getCount());
         }

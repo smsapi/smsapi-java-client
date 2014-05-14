@@ -1,15 +1,20 @@
 package pl.smsapi.test.run;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import pl.smsapi.api.VmsFactory;
-import pl.smsapi.api.action.BaseAction;
+import pl.smsapi.api.action.vms.VMSDelete;
+import pl.smsapi.api.action.vms.VMSGet;
+import pl.smsapi.api.action.vms.VMSSend;
 import pl.smsapi.api.response.CountableResponse;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.api.response.StatusResponse;
+import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.SmsapiTest;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Date;
 
 public class VmsTest extends SmsapiTest {
@@ -28,21 +33,20 @@ public class VmsTest extends SmsapiTest {
     }
 
     @Test
-    //@Ignore
-    public void vmsSendTtsTest() {
+    @Ignore
+    public void vmsSendTtsTest() throws SmsapiException {
 
         final long time = (new Date().getTime() / 1000) + 86400;
 
         final String tts = "to jest test";
 
-        StatusResponse result;
-        BaseAction action = apiFactory.actionSend()
+        VMSSend action = apiFactory.actionSend()
                 .setTts(tts)
                 .setTo(numberTest)
                 .setInterval(300)
                 .setDateSent(time);
 
-        result = (StatusResponse) executeAction(action);
+        StatusResponse result = action.execute();
 
         System.out.println("VmsSend:");
 
@@ -63,57 +67,52 @@ public class VmsTest extends SmsapiTest {
     }
 
     @Test
-    //@Ignore
-    public void vmsSendFileTest() {
+    @Ignore
+    public void vmsSendFileTest() throws FileNotFoundException, SmsapiException {
 
         final long time = (new Date().getTime() / 1000) + 86400;
 
-        final File fileAudio = new File("voice_small.wav");
+        final File fileAudio = new File("pl/smsapi/test/voice_small.wav");
 
-        if (fileAudio.exists()) {
+        VMSSend action = apiFactory.actionSend()
+                .setFile(fileAudio)
+                .setTo(numberTest)
+                .setDateSent(time);
 
-            StatusResponse result;
-            BaseAction action = apiFactory.actionSend()
-                    .setFile(fileAudio)
-                    .setTo(numberTest)
-                    .setDateSent(time);
+        StatusResponse result = action.execute();
 
-            result = (StatusResponse) executeAction(action);
+        System.out.println("VmsSend:");
 
-            System.out.println("VmsSend:");
+        if (result.getCount() > 0) {
+            ids = new String[result.getCount()];
+        }
 
-            if (result.getCount() > 0) {
-                ids = new String[result.getCount()];
+        int i = 0;
+
+        for (MessageResponse item : result.getList()) {
+            if (!item.isError()) {
+                renderMessageItem(item);
+                ids[i] = item.getId();
+                i++;
             }
+        }
 
-            int i = 0;
-
-            for (MessageResponse item : result.getList()) {
-                if (!item.isError()) {
-                    renderMessageItem(item);
-                    ids[i] = item.getId();
-                    i++;
-                }
-            }
-
-            if (ids.length > 0) {
-                writeIds(ids);
-            }
+        if (ids.length > 0) {
+            writeIds(ids);
         }
     }
 
     @Test
-    //@Ignore
-    public void vmsGetTest() {
+    @Ignore
+    public void vmsGetTest() throws SmsapiException {
 
         System.out.println("VmsGet:");
         ids = readIds();
 
         if (ids != null) {
-            StatusResponse result;
-            BaseAction action = apiFactory.actionGet().ids(ids);
+            VMSGet action = apiFactory.actionGet().ids(ids);
 
-            result = (StatusResponse) executeAction(action);
+            StatusResponse result = action.execute();
 
             for (MessageResponse item : result.getList()) {
                 renderMessageItem(item);
@@ -122,17 +121,16 @@ public class VmsTest extends SmsapiTest {
     }
 
     @Test
-    //@Ignore
-    public void vmsDeleteTest() {
+    @Ignore
+    public void vmsDeleteTest() throws SmsapiException {
 
         System.out.println("VmsDelete:");
         ids = readIds();
 
         if (ids != null) {
-            CountableResponse item;
-            BaseAction action = apiFactory.actionDelete().ids(ids);
+            VMSDelete action = apiFactory.actionDelete().ids(ids);
 
-            item = (CountableResponse) executeAction(action);
+            CountableResponse item = action.execute();
 
             System.out.println("Delete: " + item.getCount());
         }

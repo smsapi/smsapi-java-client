@@ -14,6 +14,7 @@ import pl.smsapi.api.action.BaseAction;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.net.ssl.HttpsURLConnection;
@@ -354,4 +355,9 @@ public class ProxyHttp implements Proxy {
 			conn.disconnect();
 		}
 	}
+
+    @Override
+    public String execute(String endpoint, Map<String,? extends Object> data, Map<String, InputStream> files) throws Exception {
+        return null;
+    }
 }

@@ -1,6 +1,7 @@
 package pl.smsapi.api;
 
 import pl.smsapi.Client;
+import pl.smsapi.api.action.phonebook.*;
 import pl.smsapi.proxy.Proxy;
 
 public class PhonebookFactory extends ActionFactory {
@@ -13,78 +14,78 @@ public class PhonebookFactory extends ActionFactory {
 		super(client, proxy);
 	}
 
-	public pl.smsapi.api.action.phonebook.GroupList actionGroupList() {
-		pl.smsapi.api.action.phonebook.GroupList action = new pl.smsapi.api.action.phonebook.GroupList();
+	public PhonebookGroupList actionGroupList() {
+		PhonebookGroupList action = new PhonebookGroupList();
 		action.client(client);
 		action.proxy(proxy);
 		return action;
 	}
 
-	public pl.smsapi.api.action.phonebook.GroupAdd actionGroupAdd(String groupName) {
-		pl.smsapi.api.action.phonebook.GroupAdd action = new pl.smsapi.api.action.phonebook.GroupAdd();
+	public PhonebookGroupAdd actionGroupAdd(String groupName) {
+		PhonebookGroupAdd action = new PhonebookGroupAdd();
 		action.client(client);
 		action.proxy(proxy);
 		action.setName(groupName);
 		return action;
 	}
 
-	public pl.smsapi.api.action.phonebook.GroupEdit actionGroupEdit(String groupName) {
-		pl.smsapi.api.action.phonebook.GroupEdit action = new pl.smsapi.api.action.phonebook.GroupEdit();
+	public PhonebookGroupEdit actionGroupEdit(String groupName) {
+		PhonebookGroupEdit action = new PhonebookGroupEdit();
 		action.client(client);
 		action.proxy(proxy);
 		action.setGroup(groupName);
 		return action;
 	}
 
-	public pl.smsapi.api.action.phonebook.GroupGet actionGroupGet(String groupName) {
-		pl.smsapi.api.action.phonebook.GroupGet action = new pl.smsapi.api.action.phonebook.GroupGet();
+	public PhonebookGroupGet actionGroupGet(String groupName) {
+		PhonebookGroupGet action = new PhonebookGroupGet();
 		action.client(client);
 		action.proxy(proxy);
 		action.setGroup(groupName);
 		return action;
 	}
 
-	public pl.smsapi.api.action.phonebook.GroupDelete actionGroupDelete(String groupName) {
-		pl.smsapi.api.action.phonebook.GroupDelete action = new pl.smsapi.api.action.phonebook.GroupDelete();
+	public PhonebookGroupDelete actionGroupDelete(String groupName) {
+		PhonebookGroupDelete action = new PhonebookGroupDelete();
 		action.client(client);
 		action.proxy(proxy);
 		action.setGroup(groupName);
 		return action;
 	}
 
-	public pl.smsapi.api.action.phonebook.ContactList actionContactList() {
-		pl.smsapi.api.action.phonebook.ContactList action = new pl.smsapi.api.action.phonebook.ContactList();
+	public PhonebookContactList actionContactList() {
+		PhonebookContactList action = new PhonebookContactList();
 		action.client(client);
 		action.proxy(proxy);
 		return action;
 	}
 
-	public pl.smsapi.api.action.phonebook.ContactAdd actionContactAdd(String number) {
-		pl.smsapi.api.action.phonebook.ContactAdd action = new pl.smsapi.api.action.phonebook.ContactAdd();
+	public PhonebookContactAdd actionContactAdd(String number) {
+		PhonebookContactAdd action = new PhonebookContactAdd();
 		action.client(client);
 		action.proxy(proxy);
 		action.setNumber(number);
 		return action;
 	}
 
-	public pl.smsapi.api.action.phonebook.ContactEdit actionContactEdit(String number) {
-		pl.smsapi.api.action.phonebook.ContactEdit action = new pl.smsapi.api.action.phonebook.ContactEdit();
+	public PhonebookContactEdit actionContactEdit(String number) {
+		PhonebookContactEdit action = new PhonebookContactEdit();
 		action.client(client);
 		action.proxy(proxy);
 		action.setContact(number);
 		return action;
 	}
 
-	public pl.smsapi.api.action.phonebook.ContactGet actionContactGet(String number) {
-		pl.smsapi.api.action.phonebook.ContactGet action = new pl.smsapi.api.action.phonebook.ContactGet();
+	public PhonebookContactGet actionContactGet(String number) {
+		PhonebookContactGet action = new PhonebookContactGet();
 		action.client(client);
 		action.proxy(proxy);
 		action.setContact(number);
 		return action;
 	}
 
-	public pl.smsapi.api.action.phonebook.ContactDelete actionContactDelete(String number) {
-		pl.smsapi.api.action.phonebook.ContactDelete action = new pl.smsapi.api.action.phonebook.ContactDelete();
+	public PhonebookContactDelete actionContactDelete(String number) {
+		PhonebookContactDelete action = new PhonebookContactDelete();
 		action.client(client);
 		action.proxy(proxy);
 		action.setContact(number);

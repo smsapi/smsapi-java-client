@@ -15,6 +15,7 @@ import pl.smsapi.api.response.*;
 import pl.smsapi.exception.*;
 import pl.smsapi.proxy.Proxy;
 import pl.smsapi.proxy.ProxyHttp;
+import pl.smsapi.proxy.ProxyNative;
 
 public class SmsapiTest {
 
@@ -140,6 +141,7 @@ public class SmsapiTest {
 	}
 
     protected Proxy getProxy() {
-        return new ProxyHttp("http://api.smsapi.pl/");
+        //return new ProxyNative("http://api.smsapi.pl/");
+        return new ProxyNative("http://smsapi.devsms.com/");
     }
 }
