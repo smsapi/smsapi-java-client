@@ -25,7 +25,6 @@ try {
 
         System.out.println( status.getNumber() + " " + status.getStatus() );
     }
-
 } catch( ActionException e) {
     /**
      * Błędy związane z akcją (z wyłączeniem błędów 101,102,103,105,110,1000,1001 i 8,666,999,201)
