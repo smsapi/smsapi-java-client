@@ -57,5 +57,33 @@ try {
 }
 ```
 
+## MAVEN
+
+```xml
+<repositories>
+	<repository>
+		<releases>
+			<enabled>true</enabled>
+			<updatePolicy>always</updatePolicy>
+			<checksumPolicy>fail</checksumPolicy>
+		</releases>
+		<id>smsapi</id>
+		<name>smsapi</name>
+		<url>http://lpajak.devsms.com/maven2/</url>
+		<layout>default</layout>
+	</repository>
+</repositories>
+[...]
+<dependencies>
+    [...]
+	<dependency>
+		<groupId>pl.smsapi</groupId>
+		<artifactId>smsapi-lib</artifactId>
+		<version>1.1</version>
+	</dependency>
+    [...]
+</dependencies>
+```
+
 ## LICENSE
 [Apache 2.0 License](https://github.com/smsapi/smsapi-java-client/blob/master/LICENSE)
