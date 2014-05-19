@@ -5,7 +5,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Random;
 
 public class ProxyNative implements Proxy {
 
@@ -18,17 +21,16 @@ public class ProxyNative implements Proxy {
 
     /**
      * Execute
-     *
-     *
+     * <p/>
      * Disable ssl hostname verification
+     * <p/>
      * <code>
      * HttpsURLConnection.setDefaultHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
-     *   public boolean verify(StringUtils hostname, javax.net.ssl.SSLSession sslSession) {
-     *     return true;
-     *   }
+     * public boolean verify(StringUtils hostname, javax.net.ssl.SSLSession sslSession) {
+     * return true;
+     * }
      * });
      * </code>
-     *
      */
     public String execute(String endpoint, Map<String, ?> data, Map<String, InputStream> files) throws Exception {
 
@@ -72,7 +74,7 @@ public class ProxyNative implements Proxy {
 
     private String generateBoundary() {
         Random generator = new Random();
-        SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd_HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         return "SMSAPI-" + format.format(new Date()) + generator.nextInt() + "-boundary";
     }
 
@@ -101,19 +103,19 @@ public class ProxyNative implements Proxy {
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
-        for(Map.Entry<String, ?> entry : data.entrySet() ) {
+        for (Map.Entry<String, ?> entry : data.entrySet()) {
 
-            String paramHeader = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\""+ entry.getKey() +"\";\r\n\r\n";
+            String paramHeader = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"" + entry.getKey() + "\";\r\n\r\n";
             stream.write(paramHeader.getBytes());
             stream.write(entry.getValue().toString().getBytes());
         }
 
-        for(Map.Entry<String, InputStream> entry : files.entrySet() ) {
+        for (Map.Entry<String, InputStream> entry : files.entrySet()) {
 
             String fileHeader =
-                "\r\n--" + boundary +
-                "\r\nContent-Disposition: form-data; name=\""+entry.getKey()+"\"; filename=\""+entry.getKey()+"\"" +
-                "\r\nContent-Type: application/octet-stream\r\n\r\n";
+                    "\r\n--" + boundary +
+                            "\r\nContent-Disposition: form-data; name=\"" + entry.getKey() + "\"; filename=\"" + entry.getKey() + "\"" +
+                            "\r\nContent-Type: application/octet-stream\r\n\r\n";
 
             stream.write(fileHeader.getBytes());
 
