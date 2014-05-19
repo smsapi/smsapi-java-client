@@ -1,41 +1,38 @@
 package pl.smsapi.api.action.phonebook;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import pl.smsapi.api.action.BaseAction;
+import pl.smsapi.api.action.AbstractAction;
 import pl.smsapi.api.response.RawResponse;
 
-public class PhonebookGroupDelete extends BaseAction<RawResponse> {
+public class PhonebookGroupDelete extends AbstractAction<RawResponse> {
 
-	@Override
-	public URI uri() throws URISyntaxException {
+    /**
+     * Set group to delete.
+     */
+    public PhonebookGroupDelete name(String groupname) {
+        params.put("delete_group", groupname);
+        return this;
+    }
 
-		String query;
+    /**
+     * Set flag on true to remove contacts from group.
+     * If this flag is false or unset contact will be only unbind from group.
+     */
+    public PhonebookGroupDelete removeContacts(boolean remove) {
+        if (remove) {
+            params.put("remove_contacts", "1");
+        } else {
+            params.remove("remove_contacts");
+        }
 
-		query = paramsLoginToQuery();
-
-		query += paramsOther();
-
-		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), proxy.getPath()+"phonebook.do", query, null);
-	}
-
-	public PhonebookGroupDelete setGroup(String groupname) {
-		params.put("delete_group", groupname);
-		return this;
-	}
-
-	public PhonebookGroupDelete removeContacts(boolean remove) {
-		if (remove == true) {
-			params.put("remove_contacts", "1");
-		} else if (remove == false) {
-			params.remove("remove_contacts");
-		}
-
-		return this;
-	}
+        return this;
+    }
 
     protected RawResponse createResponse(String data) {
         return new RawResponse(data);
+    }
+
+    @Override
+    protected String endPoint() {
+        return "phonebook.do";
     }
 }

@@ -33,7 +33,7 @@ public class PhonebookFactory extends ActionFactory {
 		PhonebookGroupEdit action = new PhonebookGroupEdit();
 		action.client(client);
 		action.proxy(proxy);
-		action.setGroup(groupName);
+		action.name(groupName);
 		return action;
 	}
 
@@ -41,7 +41,7 @@ public class PhonebookFactory extends ActionFactory {
 		PhonebookGroupGet action = new PhonebookGroupGet();
 		action.client(client);
 		action.proxy(proxy);
-		action.setGroup(groupName);
+		action.name(groupName);
 		return action;
 	}
 
@@ -49,7 +49,7 @@ public class PhonebookFactory extends ActionFactory {
 		PhonebookGroupDelete action = new PhonebookGroupDelete();
 		action.client(client);
 		action.proxy(proxy);
-		action.setGroup(groupName);
+		action.name(groupName);
 		return action;
 	}
 
@@ -72,7 +72,7 @@ public class PhonebookFactory extends ActionFactory {
 		PhonebookContactEdit action = new PhonebookContactEdit();
 		action.client(client);
 		action.proxy(proxy);
-		action.setContact(number);
+		action.number(number);
 		return action;
 	}
 
@@ -80,7 +80,7 @@ public class PhonebookFactory extends ActionFactory {
 		PhonebookContactGet action = new PhonebookContactGet();
 		action.client(client);
 		action.proxy(proxy);
-		action.setContact(number);
+		action.number(number);
 		return action;
 	}
 
@@ -88,7 +88,7 @@ public class PhonebookFactory extends ActionFactory {
 		PhonebookContactDelete action = new PhonebookContactDelete();
 		action.client(client);
 		action.proxy(proxy);
-		action.setContact(number);
+		action.number(number);
 		return action;
 	}
 }

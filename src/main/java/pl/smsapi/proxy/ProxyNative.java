@@ -1,15 +1,11 @@
 package pl.smsapi.proxy;
 
-import pl.smsapi.api.action.BaseAction;
-import pl.smsapi.exception.ProxyException;
-
-import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
-import java.net.*;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class ProxyNative implements Proxy {
 
@@ -20,48 +16,43 @@ public class ProxyNative implements Proxy {
         baseUrl = url;
     }
 
-    public String execute(String endpoint, Map<String, Object> data)
-    {
-        Map<String, InputStream> files = new HashMap<String, InputStream>();
-
-        try {
-            return execute(endpoint, data, files);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    public String execute(String endpoint, Map<String,? extends Object> data, Map<String, InputStream> files) throws Exception {
+    /**
+     * Execute
+     *
+     *
+     * Disable ssl hostname verification
+     * <code>
+     * HttpsURLConnection.setDefaultHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
+     *   public boolean verify(StringUtils hostname, javax.net.ssl.SSLSession sslSession) {
+     *     return true;
+     *   }
+     * });
+     * </code>
+     *
+     */
+    public String execute(String endpoint, Map<String, ?> data, Map<String, InputStream> files) throws Exception {
 
         URL url = new URL(baseUrl + endpoint);
         URLConnection connection = url.openConnection();
-        connection.setRequestProperty("User-Agent", "smsapi-lib/java "+System.getProperty("os.name"));
+        connection.setRequestProperty("User-Agent", "smsapi-lib/java " + System.getProperty("os.name"));
         connection.setUseCaches(false);
         connection.setDoOutput(true);
 
-        /*
-        if (url.getProtocol().equals("https")) {
-            HttpsURLConnection.setDefaultHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
-                public boolean verify(StringUtils hostname, javax.net.ssl.SSLSession sslSession) {
-                    return true;
-                }
-            });
-        }
-        */
+        byte[] dataBytes;
 
-        if( files == null || files.isEmpty() ) {
-
-            byte[] dataBytes = createDataStream(data);
+        if (files == null || files.isEmpty()) {
 
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            connection.setRequestProperty("Content-Length", Integer.toString(dataBytes.length));
-            connection.getOutputStream().write(dataBytes);
+            dataBytes = createDataStream(data);
         } else {
-            throw new RuntimeException("");
+
+            String boundary = generateBoundary();
+            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+            dataBytes = createMultipartDataStream(boundary, data, files);
         }
 
+        connection.setRequestProperty("Content-Length", Integer.toString(dataBytes.length));
+        connection.getOutputStream().write(dataBytes);
 
         connection.getOutputStream().flush();
         connection.getOutputStream().close();
@@ -79,7 +70,14 @@ public class ProxyNative implements Proxy {
         return response.toString();
     }
 
-    protected byte[] createDataStream(Map<String,? extends Object> data) throws IOException {
+    private String generateBoundary() {
+        Random generator = new Random();
+        SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd_HH:mm:ss");
+        return "SMSAPI-" + format.format(new Date()) + generator.nextInt() + "-boundary";
+    }
+
+    protected byte[] createDataStream(Map<String, ?> data) throws IOException {
+
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
         Iterator<? extends Map.Entry<String, ?>> entryIterator = data.entrySet().iterator();
@@ -88,7 +86,7 @@ public class ProxyNative implements Proxy {
 
             Map.Entry<String, ?> entry = entryIterator.next();
 
-            String record = encodeUrlParam(entry.getKey()) + "=" + encodeUrlParam( entry.getValue().toString() );
+            String record = encodeUrlParam(entry.getKey()) + "=" + encodeUrlParam(entry.getValue().toString());
             stream.write(record.getBytes());
 
             if (entryIterator.hasNext()) {
@@ -99,40 +97,43 @@ public class ProxyNative implements Proxy {
         return stream.toByteArray();
     }
 
-    protected String encodeUrlParam(String s) {
-        try {
-            return URLEncoder.encode(s, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new UnsupportedOperationException(e);
+    protected byte[] createMultipartDataStream(String boundary, Map<String, ?> data, Map<String, InputStream> files) throws IOException {
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        for(Map.Entry<String, ?> entry : data.entrySet() ) {
+
+            String paramHeader = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\""+ entry.getKey() +"\";\r\n\r\n";
+            stream.write(paramHeader.getBytes());
+            stream.write(entry.getValue().toString().getBytes());
         }
+
+        for(Map.Entry<String, InputStream> entry : files.entrySet() ) {
+
+            String fileHeader =
+                "\r\n--" + boundary +
+                "\r\nContent-Disposition: form-data; name=\""+entry.getKey()+"\"; filename=\""+entry.getKey()+"\"" +
+                "\r\nContent-Type: application/octet-stream\r\n\r\n";
+
+            stream.write(fileHeader.getBytes());
+
+            InputStream inputStream = entry.getValue();
+            byte[] buffer = new byte[4096];
+            int n;
+            while ((n = inputStream.read(buffer)) > 0) {
+                stream.write(buffer, 0, n);
+            }
+
+            inputStream.close();
+        }
+
+        byte[] footBytes = ("\r\n--" + boundary + "--").getBytes();
+        stream.write(footBytes, 0, footBytes.length);
+
+        return stream.toByteArray();
     }
 
-
-/* temporary */
-
-    @Override
-    public String execute(BaseAction action) throws ProxyException {
-
-        return null;
-    }
-
-    @Override
-    public String getProtocol() {
-        return null;
-    }
-
-    @Override
-    public String getHost() {
-        return null;
-    }
-
-    @Override
-    public int getPort() {
-        return 0;
-    }
-
-    @Override
-    public String getPath() {
-        return null;
+    protected String encodeUrlParam(String s) throws UnsupportedEncodingException {
+        return URLEncoder.encode(s, "UTF-8");
     }
 }

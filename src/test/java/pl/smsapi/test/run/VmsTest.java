@@ -72,7 +72,7 @@ public class VmsTest extends SmsapiTest {
 
         final long time = (new Date().getTime() / 1000) + 86400;
 
-        final File fileAudio = new File("pl/smsapi/test/voice_small.wav");
+        final File fileAudio = new File("src/test/java/pl/smsapi/test/voice_small.wav");
 
         VMSSend action = apiFactory.actionSend()
                 .setFile(fileAudio)

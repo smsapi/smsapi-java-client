@@ -8,11 +8,7 @@ import pl.smsapi.proxy.Proxy;
 
 import java.io.File;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.util.*;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -64,7 +60,7 @@ public abstract class AbstractAction<T> {
             params.put("password", client.getPassword());
 
             String result = proxy.execute(endPoint(), params, files);
-System.out.println(result);
+            System.out.println(result);
             handleError(result);
 
             response = createResponse(result);

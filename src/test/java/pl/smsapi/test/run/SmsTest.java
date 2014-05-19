@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import pl.smsapi.api.SmsFactory;
-import pl.smsapi.api.action.BaseAction;
 import pl.smsapi.api.action.sms.SMSDelete;
 import pl.smsapi.api.action.sms.SMSGet;
 import pl.smsapi.api.action.sms.SMSSend;

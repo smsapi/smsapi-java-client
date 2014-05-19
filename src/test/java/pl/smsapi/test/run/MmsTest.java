@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import pl.smsapi.api.MmsFactory;
-import pl.smsapi.api.action.BaseAction;
 import pl.smsapi.api.action.mms.MMSDelete;
 import pl.smsapi.api.action.mms.MMSGet;
 import pl.smsapi.api.action.mms.MMSSend;

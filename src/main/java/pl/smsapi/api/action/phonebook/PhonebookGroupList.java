@@ -1,30 +1,23 @@
 package pl.smsapi.api.action.phonebook;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import org.json.JSONObject;
-import pl.smsapi.api.action.BaseAction;
+import pl.smsapi.api.action.AbstractAction;
 import pl.smsapi.api.response.GroupsResponse;
 
-public class PhonebookGroupList extends BaseAction<GroupsResponse> {
+public class PhonebookGroupList extends AbstractAction<GroupsResponse> {
 
-	@Override
-	public URI uri() throws URISyntaxException {
-
-		String query = "";
-
-		query += paramsLoginToQuery();
-
-		query += paramsOther();
-
-		query += "&list_groups=1";
-
-		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), proxy.getPath()+"phonebook.do", query, null);
-	}
+    public PhonebookGroupList() {
+        setJson(true);
+        params.put("list_groups", "1");
+    }
 
     protected GroupsResponse createResponse(String data) {
         JSONObject jsonObject = new JSONObject(data);
         return new GroupsResponse(jsonObject.optInt("count"), jsonObject.optString("list"));
+    }
+
+    @Override
+    protected String endPoint() {
+        return "phonebook.do";
     }
 }

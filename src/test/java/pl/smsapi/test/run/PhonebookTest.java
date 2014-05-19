@@ -1,21 +1,22 @@
 package pl.smsapi.test.run;
 
-import java.util.GregorianCalendar;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import pl.smsapi.api.PhonebookFactory;
 import pl.smsapi.api.action.phonebook.*;
 import pl.smsapi.api.response.*;
+import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.SmsapiTest;
+
+import java.util.GregorianCalendar;
 
 public class PhonebookTest extends SmsapiTest {
 
-	private String groupTest = "mytest";
-	private String groupTestEdit = "mytestedit";
-	private String contactTest = "694562829";
-	private String contactTestEdit = "617234123";
+    private String groupTest = "mytest";
+    private String groupTestEdit = "mytestedit";
+    private String contactTest = "694562829";
+    private String contactTestEdit = "617234123";
 
     PhonebookFactory apiFactory;
 
@@ -27,205 +28,189 @@ public class PhonebookTest extends SmsapiTest {
         apiFactory = new PhonebookFactory(getAuthorizationClient(), getProxy());
     }
 
-	@Test
-	@Ignore
-	public void groupAdd() {
+    @Test
+    @Ignore
+    public void groupAdd() throws SmsapiException {
 
-		GroupResponse item;
-		PhonebookGroupAdd action = apiFactory.actionGroupAdd(groupTest);
+        PhonebookGroupAdd action = apiFactory.actionGroupAdd(groupTest);
+        GroupResponse item = action.execute();
 
-		item = (GroupResponse) executeAction(action);
+        System.out.println("GroupAdd:");
 
-		System.out.println("GroupAdd:");
+        renderGroupItem(item);
 
-		renderGroupItem(item);
+    }
 
-	}
+    @Test
+    @Ignore
+    public void groupEdit() throws SmsapiException {
 
-	@Test
-	@Ignore
-	public void groupEdit() {
+        PhonebookGroupEdit action = apiFactory.actionGroupEdit(groupTest);
+        action.setName(groupTestEdit).setInfo("to jest grupa testowa");
+        GroupResponse item = action.execute();
 
-		GroupResponse item;
-		PhonebookGroupEdit action = apiFactory.actionGroupEdit(groupTest);
-		action.setName(groupTestEdit).setInfo("to jest grupa testowa");
+        System.out.println("GroupEdit:");
 
-		item = (GroupResponse) executeAction(action);
+        renderGroupItem(item);
 
-		System.out.println("GroupEdit:");
+    }
 
-		renderGroupItem(item);
+    @Test
+    @Ignore
+    public void groupGet() throws SmsapiException {
 
-	}
+        PhonebookGroupGet action = apiFactory.actionGroupGet(groupTestEdit);
+        GroupResponse item = action.execute();
 
-	@Test
-	@Ignore
-	public void groupGet() {
+        System.out.println("GroupGet:");
 
-		GroupResponse item;
-		PhonebookGroupGet action = apiFactory.actionGroupGet(groupTestEdit);
+        renderGroupItem(item);
 
-		item = (GroupResponse) executeAction(action);
+    }
 
-		System.out.println("GroupGet:");
+    private void renderGroupItem(GroupResponse item) {
 
-		renderGroupItem(item);
+        if (item != null) {
+            System.out.println("Groupname: "
+                    + item.getName()
+                    + " Info: " + item.getInfo()
+                    + " Numbers:" + item.getNumbers());
+        } else {
+            System.out.println("Number: ");
+        }
+    }
 
-	}
+    private void renderContactItem(ContactResponse item) {
 
-	private void renderGroupItem(GroupResponse item) {
+        if (item != null) {
+            System.out.println("Number: " + item.getNumber()
+                    + " FirstName: " + item.getFirstName()
+                    + " LastName:" + item.getLastName()
+                    + " City: " + item.getBirthday()
+                    + " Birthday: " + item.getBirthday()
+                    + " Info: " + item.getInfo()
+                    + " Gender: " + item.getGender()
+                    + " DateAdd: " + item.getDateAdd()
+                    + " DateMod: " + item.getDateMod());
+        } else {
+            System.out.println("Number: ");
+        }
+    }
 
-		if (item != null) {
-			System.out.println("Groupname: "
-					+ item.getName()
-					+ " Info: " + item.getInfo()
-					+ " Numbers:" + item.getNumbers());
-		} else {
-			System.out.println("Number: ");
-		}
-	}
+    @Test
+    @Ignore
+    public void contactAdd() throws SmsapiException {
 
-	private void renderContactItem(ContactResponse item) {
+        PhonebookContactAdd action = apiFactory.actionContactAdd(contactTest);
 
-		if (item != null) {
-			System.out.println("Number: " + item.getNumber()
-					+ " FirstName: " + item.getFirstName()
-					+ " LastName:" + item.getLastName()
-					+ " City: " + item.getBirthday()
-					+ " Birthday: " + item.getBirthday()
-					+ " Info: " + item.getInfo()
-					+ " Gender: " + item.getGender()
-					+ " DateAdd: " + item.getDateAdd()
-					+ " DateMod: " + item.getDateMod());
-		} else {
-			System.out.println("Number: ");
-		}
-	}
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.set(1976, 2, 15);
 
-	@Test
-	@Ignore
-	public void contactAdd() {
+        action.setFirstName("Bolek")
+                .setLastName("Dzik")
+                .setBirthday(cal)
+                .setInfo("to jest test kontaktu")
+                .setEmail("bolek@aaa.pl")
+                .setCity("Gliwice")
+                .setGender(ContactResponse.Gender.MALE)
+                .setGroup(groupTestEdit);
 
-		ContactResponse item;
-		PhonebookContactAdd action = apiFactory.actionContactAdd(contactTest);
+        ContactResponse item = action.execute();
 
-		GregorianCalendar cal = new GregorianCalendar();
-		cal.set(1976, 2, 15);
+        System.out.println("ContactAdd:");
 
-		action.setFirstName("Bolek")
-				.setLastName("Dzik")
-				.setBirthday(cal)
-				.setInfo("to jest test kontaktu")
-				.setEmail("bolek@aaa.pl")
-				.setCity("Gliwice")
-				.setGender(ContactResponse.Gender.MALE)
-				.setGroup(groupTestEdit);
+        renderContactItem(item);
 
-		item = (ContactResponse) executeAction(action);
+    }
 
-		System.out.println("ContactAdd:");
+    @Test
+    @Ignore
+    public void contactEdit() throws SmsapiException {
 
-		renderContactItem(item);
+        PhonebookContactEdit action = apiFactory.actionContactEdit(contactTest);
+        action.setNumber(contactTestEdit).setFirstName("Lolek");
 
-	}
+        ContactResponse item = action.execute();
 
-	@Test
-	@Ignore
-	public void contactEdit() {
+        System.out.println("ContactEdit:");
 
-		ContactResponse item;
-		PhonebookContactEdit action = apiFactory.actionContactEdit(contactTest);
-		action.setNumber(contactTestEdit).setFirstName("Lolek");
+        renderContactItem(item);
 
-		item = (ContactResponse) executeAction(action);
+    }
 
-		System.out.println("ContactEdit:");
+    @Test
+    @Ignore
+    public void contactGet() throws SmsapiException {
 
-		renderContactItem(item);
+        PhonebookContactGet action = apiFactory.actionContactGet(contactTestEdit);
 
-	}
+        ContactResponse item = action.execute();
 
-	@Test
-	@Ignore
-	public void contactGet() {
+        System.out.println("ContactGet:");
 
-		ContactResponse item;
-		PhonebookContactGet action = apiFactory.actionContactGet(contactTestEdit);
+        renderContactItem(item);
 
-		item = (ContactResponse) executeAction(action);
+    }
 
-		System.out.println("ContactGet:");
+    @Test
+    @Ignore
+    public void contactDelete() throws SmsapiException {
 
-		renderContactItem(item);
+        PhonebookContactDelete action = apiFactory.actionContactDelete(contactTestEdit);
 
-	}
+        RawResponse item = action.execute();
 
-	@Test
-	@Ignore
-	public void contactDelete() {
+        System.out.println("ContactDelete:");
 
-		RawResponse item;
-		PhonebookContactDelete action = apiFactory.actionContactDelete(contactTestEdit);
+        if (item != null) {
+            System.out.println("Contact: " + item.getText());
+        } else {
+            System.out.println("Item null");
+        }
 
-		item = (RawResponse) executeAction(action);
+    }
 
-		System.out.println("ContactDelete:");
+    @Test
+    @Ignore
+    public void groupDelete() throws SmsapiException {
 
-		if (item != null) {
-			System.out.println("Contact: " + item.getText());
-		} else {
-			System.out.println("Item null");
-		}
+        PhonebookGroupDelete action = apiFactory.actionGroupDelete(groupTestEdit);
 
-	}
+        RawResponse item = action.execute();
 
-	@Test
-	@Ignore
-	public void groupDelete() {
+        System.out.println("GroupDelete:");
 
-		RawResponse item;
-		PhonebookGroupDelete action = apiFactory.actionGroupDelete(groupTestEdit);
+        if (item != null) {
+            System.out.println("Group: " + item.getText());
+        } else {
+            System.out.println("Item null");
+        }
 
-		item = (RawResponse) executeAction(action);
+    }
 
-		System.out.println("GroupDelete:");
+    @Test
+    @Ignore
+    public void contactList() throws SmsapiException {
 
-		if (item != null) {
-			System.out.println("Group: " + item.getText());
-		} else {
-			System.out.println("Item null");
-		}
+        ContactsResponse result = apiFactory.actionContactList().execute();
+        System.out.println("ContactList:");
 
-	}
+        for (ContactResponse item : result.getList()) {
+            renderContactItem(item);
+        }
+    }
 
-	@Test
-	@Ignore
-	public void contactList() {
+    @Test
+    @Ignore
+    public void groupList() throws SmsapiException {
 
-		ContactsResponse result;
+        GroupsResponse result = apiFactory.actionGroupList().execute();
 
-		result = (ContactsResponse) executeAction(apiFactory.actionContactList());
+        System.out.println("GroupList:");
 
-		System.out.println("ContactList:");
+        for (GroupResponse item : result.getList()) {
+            renderGroupItem(item);
+        }
 
-		for (ContactResponse item : result.getList()) {
-			renderContactItem(item);
-		}
-	}
-
-	@Test
-	@Ignore
-	public void groupList() {
-
-		GroupsResponse result;
-
-		result = (GroupsResponse) executeAction(apiFactory.actionGroupList());
-
-		System.out.println("GroupList:");
-
-		for (GroupResponse item : result.getList()) {
-			renderGroupItem(item);
-		}
-
-	}
+    }
 }

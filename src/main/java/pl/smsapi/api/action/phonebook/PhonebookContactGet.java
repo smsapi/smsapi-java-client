@@ -1,30 +1,22 @@
 package pl.smsapi.api.action.phonebook;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import org.json.JSONObject;
-import pl.smsapi.api.action.BaseAction;
+import pl.smsapi.api.action.AbstractAction;
 import pl.smsapi.api.response.ContactResponse;
 
-public class PhonebookContactGet extends BaseAction<ContactResponse> {
+public class PhonebookContactGet extends AbstractAction<ContactResponse> {
 
-	@Override
-	public URI uri() throws URISyntaxException {
+    public PhonebookContactGet() {
+        setJson(true);
+    }
 
-		String query;
-
-		query = paramsLoginToQuery();
-
-		query += paramsOther();
-
-		return new URI(proxy.getProtocol(), null, proxy.getHost(), proxy.getPort(), proxy.getPath()+"phonebook.do", query, null);
-	}
-
-	public PhonebookContactGet setContact(String number) {
-		params.put("get_contact", number);
-		return this;
-	}
+    /**
+     * Set filter by contact phone number.
+     */
+    public PhonebookContactGet number(String number) {
+        params.put("get_contact", number);
+        return this;
+    }
 
     protected ContactResponse createResponse(String data) {
         JSONObject jsonObject = new JSONObject(data);
@@ -40,5 +32,10 @@ public class PhonebookContactGet extends BaseAction<ContactResponse> {
                         jsonObject.optInt("date_add"),
                         jsonObject.optInt("date_mod")
                 );
+    }
+
+    @Override
+    protected String endPoint() {
+        return "phonebook.do";
     }
 }
