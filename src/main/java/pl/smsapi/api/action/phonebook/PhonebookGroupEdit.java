@@ -9,18 +9,18 @@ public class PhonebookGroupEdit extends AbstractAction<GroupResponse> {
     /**
      * Set edited group name.
      */
-	public PhonebookGroupEdit name(String groupname) {
-		params.put("edit_group", groupname);
-		return this;
-	}
+    public PhonebookGroupEdit name(String groupname) {
+        params.put("edit_group", groupname);
+        return this;
+    }
 
     /**
      * Set new group name.
      */
-	public PhonebookGroupEdit setName(String groupname) {
-		params.put("name", groupname);
-		return this;
-	}
+    public PhonebookGroupEdit setName(String groupname) {
+        params.put("name", groupname);
+        return this;
+    }
 
     /**
      * Set additional group description.

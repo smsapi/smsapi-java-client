@@ -9,40 +9,40 @@ import pl.smsapi.proxy.Proxy;
 
 public class UserFactory extends ActionFactory {
 
-	public UserFactory(Client client) {
-		super(client);
-	}
+    public UserFactory(Client client) {
+        super(client);
+    }
 
-	public UserFactory(Client client, Proxy proxy) {
-		super(client, proxy);
-	}
+    public UserFactory(Client client, Proxy proxy) {
+        super(client, proxy);
+    }
 
-	public UserList actionList() {
-		UserList action = new UserList();
-		action.client(client);
-		action.proxy(proxy);
-		return action;
-	}
+    public UserList actionList() {
+        UserList action = new UserList();
+        action.client(client);
+        action.proxy(proxy);
+        return action;
+    }
 
-	public UserAdd actionAdd() {
-		UserAdd action = new UserAdd();
-		action.client(client);
-		action.proxy(proxy);
-		return action;
-	}
+    public UserAdd actionAdd() {
+        UserAdd action = new UserAdd();
+        action.client(client);
+        action.proxy(proxy);
+        return action;
+    }
 
-	public UserEdit actionEdit(String username) {
-		UserEdit action = new UserEdit();
-		action.client(client);
-		action.proxy(proxy);
-		action.username(username);
-		return action;
-	}
+    public UserEdit actionEdit(String username) {
+        UserEdit action = new UserEdit();
+        action.client(client);
+        action.proxy(proxy);
+        action.username(username);
+        return action;
+    }
 
-	public UserGetPoints actionGetPoints() {
-		UserGetPoints action = new UserGetPoints();
-		action.client(client);
-		action.proxy(proxy);
-		return action;
-	}
+    public UserGetPoints actionGetPoints() {
+        UserGetPoints action = new UserGetPoints();
+        action.client(client);
+        action.proxy(proxy);
+        return action;
+    }
 }

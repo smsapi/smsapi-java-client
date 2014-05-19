@@ -1,13 +1,8 @@
 package pl.smsapi.api.action.mms;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-
 import org.json.JSONObject;
 import pl.smsapi.StringUtils;
 import pl.smsapi.api.action.AbstractAction;
-import pl.smsapi.api.action.BaseAction;
 import pl.smsapi.api.response.StatusResponse;
 
 public class MMSGet extends AbstractAction<StatusResponse> {

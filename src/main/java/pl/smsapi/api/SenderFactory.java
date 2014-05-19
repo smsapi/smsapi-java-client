@@ -9,42 +9,42 @@ import pl.smsapi.proxy.Proxy;
 
 public class SenderFactory extends ActionFactory {
 
-	public SenderFactory(Client client) {
-		super(client);
-	}
+    public SenderFactory(Client client) {
+        super(client);
+    }
 
-	public SenderFactory(Client client, Proxy proxy) {
-		super(client, proxy);
-	}
+    public SenderFactory(Client client, Proxy proxy) {
+        super(client, proxy);
+    }
 
-	public SenderList actionList() {
-		SenderList action = new SenderList();
-		action.client(client);
-		action.proxy(proxy);
-		return action;
-	}
+    public SenderList actionList() {
+        SenderList action = new SenderList();
+        action.client(client);
+        action.proxy(proxy);
+        return action;
+    }
 
-	public SenderAdd actionAdd(String senderName) {
-		SenderAdd action = new SenderAdd();
-		action.client(client);
-		action.proxy(proxy);
-		action.setName(senderName);
-		return action;
-	}
+    public SenderAdd actionAdd(String senderName) {
+        SenderAdd action = new SenderAdd();
+        action.client(client);
+        action.proxy(proxy);
+        action.setName(senderName);
+        return action;
+    }
 
-	public SenderDelete actionDelete(String senderName) {
-		SenderDelete action = new SenderDelete();
-		action.client(client);
-		action.proxy(proxy);
-		action.setSender(senderName);
-		return action;
-	}
+    public SenderDelete actionDelete(String senderName) {
+        SenderDelete action = new SenderDelete();
+        action.client(client);
+        action.proxy(proxy);
+        action.setSender(senderName);
+        return action;
+    }
 
-	public SenderDefault actionSetDefault(String senderName) {
-		SenderDefault action = new SenderDefault();
-		action.client(client);
-		action.proxy(proxy);
-		action.setName(senderName);
-		return action;
-	}
+    public SenderDefault actionSetDefault(String senderName) {
+        SenderDefault action = new SenderDefault();
+        action.client(client);
+        action.proxy(proxy);
+        action.setName(senderName);
+        return action;
+    }
 }

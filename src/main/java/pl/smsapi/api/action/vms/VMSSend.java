@@ -3,14 +3,11 @@ package pl.smsapi.api.action.vms;
 import org.json.JSONObject;
 import pl.smsapi.api.action.AbstractSendAction;
 import pl.smsapi.api.response.StatusResponse;
-import pl.smsapi.proxy.ProxyHttp;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 public class VMSSend extends AbstractSendAction<VMSSend, StatusResponse> {
 

@@ -1,13 +1,7 @@
 package pl.smsapi.api.action.hlr;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-
 import org.json.JSONObject;
-import pl.smsapi.StringUtils;
 import pl.smsapi.api.action.AbstractAction;
-import pl.smsapi.api.action.BaseAction;
 import pl.smsapi.api.response.CheckNumberResponse;
 
 public class HLRCheckNumber extends AbstractAction<CheckNumberResponse> {
@@ -17,10 +11,10 @@ public class HLRCheckNumber extends AbstractAction<CheckNumberResponse> {
     }
 
 
-	public HLRCheckNumber setNumber(String number) {
-		params.put("number", number);
-		return this;
-	}
+    public HLRCheckNumber setNumber(String number) {
+        params.put("number", number);
+        return this;
+    }
 
 	/*public HLRCheckNumber setNumber(String[] number) {
         params.put("number", StringUtils.join(number, ','));

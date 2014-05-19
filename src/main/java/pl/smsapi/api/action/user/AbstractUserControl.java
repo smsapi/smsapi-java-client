@@ -15,7 +15,7 @@ public abstract class AbstractUserControl<T> extends AbstractAction<UserResponse
      */
     public T setPassword(String password) {
         params.put("pass", password);
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -23,7 +23,7 @@ public abstract class AbstractUserControl<T> extends AbstractAction<UserResponse
      */
     public T setPasswordApi(String password) {
         params.put("pass_api", password);
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -31,7 +31,7 @@ public abstract class AbstractUserControl<T> extends AbstractAction<UserResponse
      */
     public T setLimit(int limit) {
         params.put("limit", Integer.toString(limit));
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -39,7 +39,7 @@ public abstract class AbstractUserControl<T> extends AbstractAction<UserResponse
      */
     public T setLimit(double limit) {
         params.put("limit", Double.toString(limit));
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -47,7 +47,7 @@ public abstract class AbstractUserControl<T> extends AbstractAction<UserResponse
      */
     public T setMonthLimit(int limit) {
         params.put("month_limit", Integer.toString(limit));
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -55,7 +55,7 @@ public abstract class AbstractUserControl<T> extends AbstractAction<UserResponse
      */
     public T setMonthLimit(double limit) {
         params.put("month_limit", Double.toString(limit));
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -63,7 +63,7 @@ public abstract class AbstractUserControl<T> extends AbstractAction<UserResponse
      */
     public T setFullAccessSenderNames(boolean access) {
         params.put("senders", access ? "1" : "0");
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -71,7 +71,7 @@ public abstract class AbstractUserControl<T> extends AbstractAction<UserResponse
      */
     public T setFullAccessPhoneBook(boolean access) {
         params.put("phonebook", access ? "1" : "0");
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -79,7 +79,7 @@ public abstract class AbstractUserControl<T> extends AbstractAction<UserResponse
      */
     public T setActive(boolean val) {
         params.put("active", val ? "1" : "0");
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -87,7 +87,7 @@ public abstract class AbstractUserControl<T> extends AbstractAction<UserResponse
      */
     public T setInfo(String info) {
         params.put("info", info);
-        return (T)this;
+        return (T) this;
     }
 
     protected UserResponse createResponse(String data) {

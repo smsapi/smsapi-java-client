@@ -11,7 +11,7 @@ public abstract class AbstractSendAction<T, TResponse> extends AbstractAction<TR
      */
     public T setTo(String to) {
         params.put("to", to);
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -26,7 +26,7 @@ public abstract class AbstractSendAction<T, TResponse> extends AbstractAction<TR
      */
     public T setTest(boolean flag) {
         params.put("test", flag ? "1" : "0");
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -34,7 +34,7 @@ public abstract class AbstractSendAction<T, TResponse> extends AbstractAction<TR
      */
     public T setGroup(String group) {
         params.put("group", group);
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -44,7 +44,7 @@ public abstract class AbstractSendAction<T, TResponse> extends AbstractAction<TR
      */
     public T setDateSent(String date) {
         params.put("date", date);
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -72,7 +72,7 @@ public abstract class AbstractSendAction<T, TResponse> extends AbstractAction<TR
      */
     public T setIDx(String idx) {
         params.put("idx", idx);
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -90,7 +90,7 @@ public abstract class AbstractSendAction<T, TResponse> extends AbstractAction<TR
      */
     public T setCheckIDx(boolean check) {
         params.put("check_idx", check ? "1" : "0");
-        return (T)this;
+        return (T) this;
     }
 
     /**
@@ -98,6 +98,6 @@ public abstract class AbstractSendAction<T, TResponse> extends AbstractAction<TR
      */
     public T setPartner(String partner) {
         params.put("partner_id", partner);
-        return (T)this;
+        return (T) this;
     }
 }

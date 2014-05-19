@@ -7,10 +7,12 @@
     <version>2.0</version>
     <name>smsapi-lib</name>
     <url>http://www.smsapi.pl/</url>
+    <description></description>
 
-    <properties>
-        <project.dist.directory>${project.basedir}/dist/${project.version}/</project.dist.directory>
-    </properties>
+    <scm>
+        <url>https://github.com/smsapi/smsapi-java-client</url>
+        <connection>https://github.com/smsapi/smsapi-java-client</connection>
+    </scm>
 
     <licenses>
         <license>
@@ -19,6 +21,10 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <properties>
+        <project.dist.directory>${project.basedir}/dist/${project.version}/</project.dist.directory>
+    </properties>
 
     <dependencies>
         <dependency>
