@@ -57,6 +57,10 @@ try {
 }
 ```
 
+## JAVADOC
+[2.0](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.0/)
+
+
 ## MAVEN
 
 W pliku **pom.xml** należy dopisać:
