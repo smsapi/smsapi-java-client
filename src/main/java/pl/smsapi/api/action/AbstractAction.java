@@ -25,10 +25,6 @@ public abstract class AbstractAction<T> {
 
     abstract protected String endPoint();
 
-    public File file() {
-        return null;
-    }
-
     protected AbstractAction<T> setJson(boolean flag) {
 
         if (flag) {
