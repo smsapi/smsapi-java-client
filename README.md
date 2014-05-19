@@ -81,7 +81,7 @@ W pliku **pom.xml** należy dopisać:
 	<dependency>
 		<groupId>pl.smsapi</groupId>
 		<artifactId>smsapi-lib</artifactId>
-		<version>1.1</version>
+		<version>2.0</version>
 	</dependency>
     [...]
 </dependencies>
