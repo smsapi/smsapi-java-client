@@ -56,7 +56,7 @@ public abstract class AbstractAction<T> {
             params.put("password", client.getPassword());
 
             String result = proxy.execute(endPoint(), params, files);
-            System.out.println(result);
+
             handleError(result);
 
             response = createResponse(result);
