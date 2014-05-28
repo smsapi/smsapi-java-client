@@ -97,7 +97,6 @@ public abstract class AbstractAction<T> {
                     }
                 }
             } catch (JSONException e) {
-                throw new HostException("Invalid response", 999);
             }
         }
     }
