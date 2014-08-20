@@ -9,6 +9,7 @@ import pl.smsapi.api.action.sms.SMSGet;
 import pl.smsapi.api.action.sms.SMSSend;
 import pl.smsapi.api.response.CountableResponse;
 import pl.smsapi.api.response.MessageResponse;
+import pl.smsapi.api.response.SendStatusResponse;
 import pl.smsapi.api.response.StatusResponse;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.SmsapiTest;
@@ -42,9 +43,10 @@ public class SmsTest extends SmsapiTest {
                 .setTo(numberTest)
                 .setDateSent(time);
 
-        StatusResponse result = action.execute();
+        SendStatusResponse result = action.execute();
 
         System.out.println("SmsSend:");
+        System.out.println("  parts:" + result.getParts());
 
         if (result.getCount() > 0) {
             ids = new String[result.getCount()];

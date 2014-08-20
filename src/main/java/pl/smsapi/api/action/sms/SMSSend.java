@@ -3,16 +3,17 @@ package pl.smsapi.api.action.sms;
 import org.json.JSONObject;
 import pl.smsapi.StringUtils;
 import pl.smsapi.api.action.AbstractSendAction;
-import pl.smsapi.api.response.StatusResponse;
+import pl.smsapi.api.response.SendStatusResponse;
 
 import java.util.Calendar;
 
-public class SMSSend extends AbstractSendAction<SMSSend, StatusResponse> {
+public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
 
     public SMSSend() {
 
         setJson(true);
         params.put("encoding", "utf-8");
+        params.put("details", "1");
     }
 
     @Override
@@ -153,8 +154,8 @@ public class SMSSend extends AbstractSendAction<SMSSend, StatusResponse> {
         return this;
     }
 
-    protected StatusResponse createResponse(String data) {
+    protected SendStatusResponse createResponse(String data) {
         JSONObject jsonObject = new JSONObject(data);
-        return new StatusResponse(jsonObject.getInt("count"), jsonObject.optJSONArray("list"));
+        return new SendStatusResponse(jsonObject.getInt("count"), jsonObject.getInt("parts"), jsonObject.optJSONArray("list"));
     }
 }

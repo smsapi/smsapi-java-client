@@ -2,9 +2,9 @@ package pl.smsapi.api.action.mms;
 
 import org.json.JSONObject;
 import pl.smsapi.api.action.AbstractSendAction;
-import pl.smsapi.api.response.StatusResponse;
+import pl.smsapi.api.response.SendStatusResponse;
 
-public class MMSSend extends AbstractSendAction<MMSSend, StatusResponse> {
+public class MMSSend extends AbstractSendAction<MMSSend, SendStatusResponse> {
 
     public MMSSend() {
         setJson(true);
@@ -26,9 +26,9 @@ public class MMSSend extends AbstractSendAction<MMSSend, StatusResponse> {
         return this;
     }
 
-    protected StatusResponse createResponse(String data) {
+    protected SendStatusResponse createResponse(String data) {
         JSONObject jsonObject = new JSONObject(data);
-        return new StatusResponse(jsonObject.getInt("count"), jsonObject.optJSONArray("list"));
+        return new SendStatusResponse(jsonObject.getInt("count"), jsonObject.getInt("count"), jsonObject.optJSONArray("list"));
     }
 
     @Override
