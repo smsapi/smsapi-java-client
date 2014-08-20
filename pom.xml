@@ -4,7 +4,7 @@
     <groupId>pl.smsapi</groupId>
     <artifactId>smsapi-lib</artifactId>
     <packaging>jar</packaging>
-    <version>2.0</version>
+    <version>2.1</version>
     <name>smsapi-lib</name>
     <url>http://www.smsapi.pl/</url>
     <description></description>
