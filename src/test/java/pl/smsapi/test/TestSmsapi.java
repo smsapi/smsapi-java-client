@@ -2,6 +2,7 @@ package pl.smsapi.test;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import pl.smsapi.Client;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.exception.ClientException;
@@ -10,6 +11,7 @@ import pl.smsapi.proxy.ProxyNative;
 
 import java.io.*;
 
+@Ignore
 public class TestSmsapi {
 
     protected String fileToIds = "_ids_test.txt";
