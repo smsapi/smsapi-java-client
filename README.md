@@ -62,10 +62,6 @@ try {
 
 [2.0](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.0/)
 
-[1.1](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/1.1/)
-
-[1.0](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/1.0/)
-
 
 ## MAVEN
 
