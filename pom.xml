@@ -7,7 +7,7 @@
     <version>2.1</version>
     <name>smsapi-lib</name>
     <url>http://www.smsapi.pl/</url>
-    <description></description>
+    <description>SMSAPI client library</description>
 
     <scm>
         <url>https://github.com/smsapi/smsapi-java-client</url>
@@ -21,6 +21,13 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <name>Lukas</name>
+            <email>l.pajak@smsapi.pl</email>
+        </developer>
+    </developers>
 
     <properties>
         <project.dist.directory>${project.basedir}/dist/${project.version}/</project.dist.directory>
