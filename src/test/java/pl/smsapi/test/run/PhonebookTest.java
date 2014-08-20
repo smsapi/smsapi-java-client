@@ -7,11 +7,11 @@ import pl.smsapi.api.PhonebookFactory;
 import pl.smsapi.api.action.phonebook.*;
 import pl.smsapi.api.response.*;
 import pl.smsapi.exception.SmsapiException;
-import pl.smsapi.test.SmsapiTest;
+import pl.smsapi.test.TestSmsapi;
 
 import java.util.GregorianCalendar;
 
-public class PhonebookTest extends SmsapiTest {
+public class PhonebookTest extends TestSmsapi {
 
     private String groupTest = "mytest";
     private String groupTestEdit = "mytestedit";

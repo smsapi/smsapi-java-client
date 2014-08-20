@@ -10,11 +10,11 @@ import pl.smsapi.proxy.ProxyNative;
 
 import java.io.*;
 
-public class SmsapiTest {
+public class TestSmsapi {
 
     protected String fileToIds = "_ids_test.txt";
 
-    public SmsapiTest() {
+    public TestSmsapi() {
     }
 
     @Before

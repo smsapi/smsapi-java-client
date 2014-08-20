@@ -8,9 +8,9 @@ import pl.smsapi.api.response.CountableResponse;
 import pl.smsapi.api.response.SenderResponse;
 import pl.smsapi.api.response.SendersResponse;
 import pl.smsapi.exception.SmsapiException;
-import pl.smsapi.test.SmsapiTest;
+import pl.smsapi.test.TestSmsapi;
 
-public class SenderTest extends SmsapiTest {
+public class SenderTest extends TestSmsapi {
 
     private String senderTest = "test";
 

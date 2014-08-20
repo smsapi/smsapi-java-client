@@ -12,12 +12,12 @@ import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.api.response.SendStatusResponse;
 import pl.smsapi.api.response.StatusResponse;
 import pl.smsapi.exception.SmsapiException;
-import pl.smsapi.test.SmsapiTest;
+import pl.smsapi.test.TestSmsapi;
 
 import java.io.File;
 import java.util.Date;
 
-public class SmsTest extends SmsapiTest {
+public class SmsTest extends TestSmsapi {
 
     private String numberTest = "694562829";
     private String[] ids;

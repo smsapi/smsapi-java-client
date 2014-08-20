@@ -10,9 +10,9 @@ import pl.smsapi.api.response.PointsResponse;
 import pl.smsapi.api.response.UserResponse;
 import pl.smsapi.api.response.UsersResponse;
 import pl.smsapi.exception.SmsapiException;
-import pl.smsapi.test.SmsapiTest;
+import pl.smsapi.test.TestSmsapi;
 
-public class UserTest extends SmsapiTest {
+public class UserTest extends TestSmsapi {
 
     private String userTest = "junit";
 

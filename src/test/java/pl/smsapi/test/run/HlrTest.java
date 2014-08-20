@@ -5,9 +5,9 @@ import org.junit.Test;
 import pl.smsapi.api.action.hlr.HLRCheckNumber;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.proxy.ProxyNative;
-import pl.smsapi.test.SmsapiTest;
+import pl.smsapi.test.TestSmsapi;
 
-public class HlrTest extends SmsapiTest {
+public class HlrTest extends TestSmsapi {
 
     @Test
     @Ignore

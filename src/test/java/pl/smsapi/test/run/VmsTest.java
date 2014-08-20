@@ -11,13 +11,13 @@ import pl.smsapi.api.response.CountableResponse;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.api.response.StatusResponse;
 import pl.smsapi.exception.SmsapiException;
-import pl.smsapi.test.SmsapiTest;
+import pl.smsapi.test.TestSmsapi;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Date;
 
-public class VmsTest extends SmsapiTest {
+public class VmsTest extends TestSmsapi {
 
     private String numberTest = "694562829";
     private String[] ids;
