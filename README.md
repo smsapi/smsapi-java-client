@@ -58,6 +58,7 @@ try {
 ```
 
 ## JAVADOC
+[2.2](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.2/)
 [2.1](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.1/)
 [2.0](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.0/)
 [1.1](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/1.1/)
@@ -88,7 +89,7 @@ W pliku **pom.xml** należy dopisać:
 	<dependency>
 		<groupId>pl.smsapi</groupId>
 		<artifactId>smsapi-lib</artifactId>
-		<version>2.1</version>
+		<version>2.2</version>
 	</dependency>
     [...]
 </dependencies>

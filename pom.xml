@@ -30,6 +30,7 @@
     </developers>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.dist.directory>${project.basedir}/dist/${project.version}/</project.dist.directory>
     </properties>
 
