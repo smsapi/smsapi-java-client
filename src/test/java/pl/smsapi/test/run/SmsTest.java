@@ -41,7 +41,8 @@ public class SmsTest extends TestSmsapi {
         SMSSend action = apiFactory.actionSend()
                 .setText("test message")
                 .setTo(numberTest)
-                .setDateSent(time);
+                .setDateSent(time)
+                .setNotifyUrl("http://example.com/back");
 
         SendStatusResponse result = action.execute();
 

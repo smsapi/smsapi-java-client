@@ -100,4 +100,9 @@ public abstract class AbstractSendAction<T, TResponse> extends AbstractAction<TR
         params.put("partner_id", partner);
         return (T) this;
     }
+
+    public T setNotifyUrl(String url) {
+        params.put("notify_url", url);
+        return (T) this;
+    }
 }

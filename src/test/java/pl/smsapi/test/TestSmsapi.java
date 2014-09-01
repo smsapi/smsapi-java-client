@@ -124,7 +124,6 @@ public class TestSmsapi {
     }
 
     protected Proxy getProxy() {
-        //return new ProxyNative("http://api.smsapi.pl/");
-        return new ProxyNative("http://smsapi.local:8080/");
+        return new ProxyNative("http://api.smsapi.pl/");
     }
 }
