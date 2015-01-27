@@ -22,16 +22,6 @@ public class SMSDelete extends AbstractAction<CountableResponse> {
         return this;
     }
 
-    /**
-     * Set ID of message to delete.
-     * <p/>
-     * This id was returned after sending message.
-     */
-    public SMSDelete ids(String[] ids) {
-        params.put("sch_del", StringUtils.join(ids, '|'));
-        return this;
-    }
-
     protected CountableResponse createResponse(String data) {
         JSONObject jsonObject = new JSONObject(data);
         return new CountableResponse(jsonObject.getInt("count"));
