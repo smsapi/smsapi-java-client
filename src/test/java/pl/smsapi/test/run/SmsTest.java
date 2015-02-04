@@ -95,7 +95,7 @@ public class SmsTest extends TestSmsapi {
         ids = readIds();
 
         if (ids != null) {
-            SMSDelete action = apiFactory.actionDelete().ids(ids);
+            SMSDelete action = apiFactory.actionDelete().id(ids[0]);
 
             CountableResponse item = action.execute();
 
