@@ -15,7 +15,7 @@ try {
     client.setPasswordHash("passwordHash");
 
     SmsFactory smsApi = new SmsFactory(client);
-    Send action = smsApi.actionSend()
+    SMSSend action = smsApi.actionSend()
             .setText("test message")
             .setTo("xxxyyyzzz")
 			.setSender("Info"); //Pole nadawcy lub typ wiadomość 'ECO', '2Way'
