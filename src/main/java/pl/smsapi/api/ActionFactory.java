@@ -10,12 +10,12 @@ public abstract class ActionFactory {
     protected Proxy proxy;
 
     public ActionFactory() {
-        this.proxy = new ProxyNative("https://ssl.smsapi.pl/");
+        this.proxy = new ProxyNative("https://api.smsapi.pl/");
     }
 
     public ActionFactory(Client client) {
         this.client = client;
-        this.proxy = new ProxyNative("https://ssl.smsapi.pl/");
+        this.proxy = new ProxyNative("https://api.smsapi.pl/");
     }
 
     public ActionFactory(Client client, Proxy proxy) {
