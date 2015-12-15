@@ -74,7 +74,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <classpathPrefix></classpathPrefix>
+                            <classpathPrefix/>
                         </manifest>
                     </archive>
                     <outputDirectory>${project.dist.directory}</outputDirectory>
