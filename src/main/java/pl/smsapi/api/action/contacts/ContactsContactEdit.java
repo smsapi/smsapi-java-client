@@ -14,7 +14,7 @@ public class ContactsContactEdit extends AbstractContactsContactControl<Contacts
     }
 
     @Override
-    protected String httpMethodOverride() {
+    protected String httpMethod() {
         return "PUT";
     }
 }

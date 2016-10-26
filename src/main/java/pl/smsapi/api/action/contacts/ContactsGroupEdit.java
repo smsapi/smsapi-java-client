@@ -14,7 +14,7 @@ public class ContactsGroupEdit extends AbstractContactsGroupControl<ContactsGrou
     }
 
     @Override
-    protected String httpMethodOverride() {
+    protected String httpMethod() {
         return "PUT";
     }
 }

@@ -30,7 +30,7 @@ public class ProxyNative implements Proxy {
     }
 
     public String execute(String endpoint, Map<String, ?> data, Map<String, InputStream> files) throws Exception {
-        return execute(endpoint, data, files, null);
+        return execute(endpoint, data, files, "GET");
     }
 
     /**
@@ -54,10 +54,7 @@ public class ProxyNative implements Proxy {
         connection.setRequestProperty("Accept", "*");
         connection.setUseCaches(false);
         connection.setDoOutput(true);
-
-        if (httpMethod != null) {
-            connection.setRequestMethod(httpMethod);
-        }
+        connection.setRequestMethod(httpMethod);
 
         if (authenticationStrategy != null) {
             authenticationStrategy.applyAuthentication(connection, data);

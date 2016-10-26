@@ -8,7 +8,7 @@ public class ContactsContactAdd extends AbstractContactsContactControl<ContactsC
     }
 
     @Override
-    protected String httpMethodOverride() {
+    protected String httpMethod() {
         return "POST";
     }
 }

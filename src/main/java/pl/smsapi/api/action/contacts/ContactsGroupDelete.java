@@ -17,7 +17,7 @@ public class ContactsGroupDelete extends AbstractAction<RawResponse> {
     }
 
     @Override
-    protected String httpMethodOverride() {
+    protected String httpMethod() {
         return "DELETE";
     }
 

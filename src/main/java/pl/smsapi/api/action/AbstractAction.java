@@ -24,8 +24,8 @@ public abstract class AbstractAction<T> {
 
     abstract protected String endPoint();
 
-    protected String httpMethodOverride() {
-        return null;
+    protected String httpMethod() {
+        return "GET";
     }
 
     protected AbstractAction<T> setJson(boolean flag) {
@@ -58,7 +58,7 @@ public abstract class AbstractAction<T> {
             params.put("username", client.getUsername());
             params.put("password", client.getPassword());
 
-            String result = proxy.execute(endPoint(), params, files, httpMethodOverride());
+            String result = proxy.execute(endPoint(), params, files, httpMethod());
 
             handleError(result);
 

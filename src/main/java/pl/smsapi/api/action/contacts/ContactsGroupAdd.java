@@ -8,7 +8,7 @@ public class ContactsGroupAdd extends AbstractContactsGroupControl<ContactsGroup
     }
 
     @Override
-    protected String httpMethodOverride() {
+    protected String httpMethod() {
         return "POST";
     }
 }
