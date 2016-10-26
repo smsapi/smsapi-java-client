@@ -4,6 +4,10 @@ import pl.smsapi.Client;
 import pl.smsapi.api.action.phonebook.*;
 import pl.smsapi.proxy.Proxy;
 
+/**
+ * @deprecated As of 2.3, use ContactsFactory instead.
+ */
+@Deprecated
 public class PhonebookFactory extends ActionFactory {
 
     public PhonebookFactory(Client client) {

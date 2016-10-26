@@ -1,8 +1,10 @@
 package pl.smsapi.proxy;
 
+import pl.smsapi.api.authenticationStrategy.AuthenticationStrategy;
+
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,10 +15,22 @@ import java.util.Random;
 public class ProxyNative implements Proxy {
 
     private String baseUrl;
+    private AuthenticationStrategy authenticationStrategy;
 
     public ProxyNative(String url) {
 
-        baseUrl = url;
+        this.baseUrl = url;
+        this.authenticationStrategy = null;
+    }
+
+    public ProxyNative(String url, AuthenticationStrategy authenticationStrategy) {
+        this.baseUrl = url;
+        this.authenticationStrategy = authenticationStrategy;
+
+    }
+
+    public String execute(String endpoint, Map<String, ?> data, Map<String, InputStream> files) throws Exception {
+        return execute(endpoint, data, files, null);
     }
 
     /**
@@ -32,13 +46,22 @@ public class ProxyNative implements Proxy {
      * });
      * </code>
      */
-    public String execute(String endpoint, Map<String, ?> data, Map<String, InputStream> files) throws Exception {
+    public String execute(String endpoint, Map<String, ?> data, Map<String, InputStream> files, String httpMethod) throws Exception {
 
         URL url = new URL(baseUrl + endpoint);
-        URLConnection connection = url.openConnection();
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("User-Agent", "smsapi-lib/java " + System.getProperty("os.name"));
+        connection.setRequestProperty("Accept", "*");
         connection.setUseCaches(false);
         connection.setDoOutput(true);
+
+        if (httpMethod != null) {
+            connection.setRequestMethod(httpMethod);
+        }
+
+        if (authenticationStrategy != null) {
+            authenticationStrategy.applyAuthentication(connection, data);
+        }
 
         byte[] dataBytes;
 
@@ -54,10 +77,12 @@ public class ProxyNative implements Proxy {
         }
 
         connection.setRequestProperty("Content-Length", Integer.toString(dataBytes.length));
-        connection.getOutputStream().write(dataBytes);
 
-        connection.getOutputStream().flush();
-        connection.getOutputStream().close();
+        if (dataBytes.length != 0) {
+            connection.getOutputStream().write(dataBytes);
+            connection.getOutputStream().flush();
+            connection.getOutputStream().close();
+        }
 
         StringBuilder response = new StringBuilder();
         BufferedReader inputReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));

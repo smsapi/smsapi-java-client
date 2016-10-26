@@ -6,7 +6,6 @@ import pl.smsapi.Client;
 import pl.smsapi.exception.*;
 import pl.smsapi.proxy.Proxy;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -24,6 +23,10 @@ public abstract class AbstractAction<T> {
     protected HashMap<String, InputStream> files = new HashMap<String, InputStream>();
 
     abstract protected String endPoint();
+
+    protected String httpMethodOverride() {
+        return null;
+    }
 
     protected AbstractAction<T> setJson(boolean flag) {
 
@@ -55,7 +58,7 @@ public abstract class AbstractAction<T> {
             params.put("username", client.getUsername());
             params.put("password", client.getPassword());
 
-            String result = proxy.execute(endPoint(), params, files);
+            String result = proxy.execute(endPoint(), params, files, httpMethodOverride());
 
             handleError(result);
 
