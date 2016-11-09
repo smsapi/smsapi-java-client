@@ -2,6 +2,7 @@ package pl.smsapi.test.run;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import pl.smsapi.api.ContactsFactory;
 import pl.smsapi.api.action.contacts.*;
@@ -55,6 +56,7 @@ public class ContactsTest extends TestSmsapi {
     }
 
     @Test
+    @Ignore
     public void testList() throws SmsapiException {
         ContactsContactListResponse result = apiFactory.actionContactList().execute();
 
@@ -62,6 +64,7 @@ public class ContactsTest extends TestSmsapi {
     }
 
     @Test
+    @Ignore
     public void testListWithFiltering() throws SmsapiException {
         ContactsContactList action = apiFactory.actionContactList();
         action.filterByPhoneNumber(numberTest);
@@ -72,7 +75,8 @@ public class ContactsTest extends TestSmsapi {
     }
 
     @Test
-    public void testListWithFiltering2() throws SmsapiException {
+    @Ignore
+    public void testListWithFilteringAfterDeletion() throws SmsapiException {
         ContactsContactResponse testContact = findContactByPhoneNumber(numberTest);
         assertNotNull(testContact);
         deleteContact(testContact.getId());
@@ -86,6 +90,7 @@ public class ContactsTest extends TestSmsapi {
     }
 
     @Test
+    @Ignore
     public void testGet() throws SmsapiException {
         ContactsContactResponse result = apiFactory.actionContactGet(testContact.getId()).execute();
 
@@ -93,6 +98,7 @@ public class ContactsTest extends TestSmsapi {
     }
 
     @Test
+    @Ignore
     public void testEdit() throws SmsapiException {
         String anotherTestName = "Another test name";
 
@@ -104,6 +110,7 @@ public class ContactsTest extends TestSmsapi {
     }
 
     @Test
+    @Ignore
     public void testListGroup() throws SmsapiException {
         ContactsGroupListResponse result = apiFactory.actionGroupList().execute();
 
@@ -111,6 +118,7 @@ public class ContactsTest extends TestSmsapi {
     }
 
     @Test
+    @Ignore
     public void testGetGroup() throws SmsapiException {
         ContactsGroupResponse result = apiFactory.actionGroupGet(testGroup.getId()).execute();
 
@@ -118,6 +126,7 @@ public class ContactsTest extends TestSmsapi {
     }
 
     @Test
+    @Ignore
     public void testEditGroup() throws SmsapiException {
         String anotherTestName = "Another test name";
 
