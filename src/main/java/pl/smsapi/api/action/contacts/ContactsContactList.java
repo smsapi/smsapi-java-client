@@ -67,6 +67,11 @@ public class ContactsContactList extends AbstractAction<ContactsContactListRespo
     }
 
     @Override
+    protected String httpMethod() {
+        return "GET";
+    }
+
+    @Override
     protected ContactsContactListResponse createResponse(String data) {
         JSONObject jsonObject = new JSONObject(data);
         return new ContactsContactListResponse(jsonObject.getInt("size"), jsonObject.getJSONArray("collection"));

@@ -11,6 +11,11 @@ public class ContactsGroupList extends AbstractAction<ContactsGroupListResponse>
     }
 
     @Override
+    protected String httpMethod() {
+        return "GET";
+    }
+
+    @Override
     protected ContactsGroupListResponse createResponse(String data) {
         JSONObject jsonObject = new JSONObject(data);
         return new ContactsGroupListResponse(jsonObject.getInt("size"), jsonObject.getJSONArray("collection"));

@@ -18,6 +18,11 @@ public class ContactsGroupGet extends AbstractAction<ContactsGroupResponse> {
     }
 
     @Override
+    protected String httpMethod() {
+        return "GET";
+    }
+
+    @Override
     protected ContactsGroupResponse createResponse(String data) {
         JSONObject jsonObject = new JSONObject(data);
         return new ContactsGroupResponse(

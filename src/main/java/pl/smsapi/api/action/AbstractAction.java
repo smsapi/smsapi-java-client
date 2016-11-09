@@ -25,7 +25,7 @@ public abstract class AbstractAction<T> {
     abstract protected String endPoint();
 
     protected String httpMethod() {
-        return "GET";
+        return "POST";
     }
 
     protected AbstractAction<T> setJson(boolean flag) {

@@ -28,7 +28,7 @@ public class ProxyNative implements Proxy {
     }
 
     public String execute(String endpoint, Map<String, ?> data, Map<String, InputStream> files) throws Exception {
-        return execute(endpoint, data, files, "GET");
+        return execute(endpoint, data, files, "POST");
     }
 
     /**
