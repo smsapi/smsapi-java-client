@@ -4,13 +4,11 @@ import pl.smsapi.api.authenticationStrategy.AuthenticationStrategy;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class ProxyNative implements Proxy {
 
@@ -47,8 +45,14 @@ public class ProxyNative implements Proxy {
      * </code>
      */
     public String execute(String endpoint, Map<String, ?> data, Map<String, InputStream> files, String httpMethod) throws Exception {
+        String authenticationHeader = null;
 
-        URL url = new URL(baseUrl + endpoint);
+        if (authenticationStrategy != null) {
+            authenticationHeader = authenticationStrategy.getAuthenticationHeader(data);
+            removeAuthFromData(data);
+        }
+
+        URL url = createUrl(httpMethod, endpoint, data);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("User-Agent", "smsapi-lib/java " + System.getProperty("os.name"));
         connection.setRequestProperty("Accept", "*");
@@ -56,8 +60,12 @@ public class ProxyNative implements Proxy {
         connection.setDoOutput(true);
         connection.setRequestMethod(httpMethod);
 
-        if (authenticationStrategy != null) {
-            authenticationStrategy.applyAuthentication(connection, data);
+        if (authenticationHeader != null) {
+            connection.setRequestProperty("Authorization", authenticationHeader);
+        }
+
+        if (httpMethod.equals("GET")) {
+            data.clear();
         }
 
         byte[] dataBytes;
@@ -100,9 +108,24 @@ public class ProxyNative implements Proxy {
         return "SMSAPI-" + format.format(new Date()) + generator.nextInt() + "-boundary";
     }
 
-    protected byte[] createDataStream(Map<String, ?> data) throws IOException {
+    protected URL createUrl(String httpMethod, String endpoint, Map<String, ?> data) throws UnsupportedEncodingException, MalformedURLException {
+        String urlString = baseUrl + endpoint;
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        if (httpMethod.equals("GET") && !data.isEmpty()) {
+            String queryString = createQueryString(data);
+
+            if (urlString.contains("?")) {
+                urlString = urlString + '&' + queryString;
+            } else {
+                urlString = urlString + '?' + queryString;
+            }
+        }
+
+        return new URL(urlString);
+    }
+
+    protected String createQueryString(Map<String, ?> data) throws UnsupportedEncodingException {
+        StringBuilder stringBuilder = new StringBuilder();
 
         Iterator<? extends Map.Entry<String, ?>> entryIterator = data.entrySet().iterator();
 
@@ -111,12 +134,22 @@ public class ProxyNative implements Proxy {
             Map.Entry<String, ?> entry = entryIterator.next();
 
             String record = encodeUrlParam(entry.getKey()) + "=" + encodeUrlParam(entry.getValue().toString());
-            stream.write(record.getBytes());
+            stringBuilder.append(record);
 
             if (entryIterator.hasNext()) {
-                stream.write("&".getBytes());
+                stringBuilder.append('&');
             }
         }
+
+        return stringBuilder.toString();
+    }
+
+    protected byte[] createDataStream(Map<String, ?> data) throws IOException {
+        String queryString = createQueryString(data);
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        stream.write(queryString.getBytes());
 
         return stream.toByteArray();
     }
@@ -159,5 +192,10 @@ public class ProxyNative implements Proxy {
 
     protected String encodeUrlParam(String s) throws UnsupportedEncodingException {
         return URLEncoder.encode(s, "UTF-8");
+    }
+
+    protected void removeAuthFromData(Map<String, ?> data) {
+        data.remove("username");
+        data.remove("password");
     }
 }

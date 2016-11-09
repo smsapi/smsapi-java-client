@@ -4,10 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import pl.smsapi.api.ContactsFactory;
-import pl.smsapi.api.action.contacts.ContactsContactAdd;
-import pl.smsapi.api.action.contacts.ContactsContactEdit;
-import pl.smsapi.api.action.contacts.ContactsGroupAdd;
-import pl.smsapi.api.action.contacts.ContactsGroupEdit;
+import pl.smsapi.api.action.contacts.*;
 import pl.smsapi.api.response.RawResponse;
 import pl.smsapi.api.response.contacts.*;
 import pl.smsapi.exception.SmsapiException;
@@ -16,43 +13,44 @@ import pl.smsapi.test.TestSmsapi;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class ContactsTest extends TestSmsapi {
     private String numberTest = "694562829";
+    private String testGroupIdx = "testgroupidx";
 
     private ContactsFactory apiFactory;
 
     private ContactsContactResponse testContact;
     private ContactsGroupResponse testGroup;
 
-    @Override
     @Before
-    public void setUp() {
-        super.setUp();
-
+    public void before() throws SmsapiException {
         apiFactory = new ContactsFactory(getAuthorizationClient());
 
-        try {
-            testContact = createTestContact();
-            testGroup = createTestGroup();
-        } catch (SmsapiException e) {
-            System.out.println(e);
-            System.exit(1);
-        }
+        deleteTestData();
+
+        testContact = createTestContact();
+        testGroup = createTestGroup();
     }
 
-    @Override
     @After
-    public void tearDown() {
-        super.tearDown();
+    public void after() throws SmsapiException {
+        deleteTestData();
+    }
 
-        try {
-            deleteContact(testContact);
-            deleteGroup(testGroup);
-        } catch (SmsapiException e) {
-            System.out.println(e);
-            System.exit(1);
+    private void deleteTestData() throws SmsapiException {
+        ContactsContactResponse testContact = findContactByPhoneNumber(numberTest);
+        ContactsGroupResponse testGroup = findGroupByIdx(testGroupIdx);
+
+        if (testContact != null) {
+            deleteContact(testContact.getId());
+        }
+
+        if (testGroup != null) {
+            deleteGroup(testGroup.getId());
         }
     }
 
@@ -61,6 +59,30 @@ public class ContactsTest extends TestSmsapi {
         ContactsContactListResponse result = apiFactory.actionContactList().execute();
 
         assertTrue(listContainsContact(result.getList(), testContact));
+    }
+
+    @Test
+    public void testListWithFiltering() throws SmsapiException {
+        ContactsContactList action = apiFactory.actionContactList();
+        action.filterByPhoneNumber(numberTest);
+
+        ContactsContactListResponse result = action.execute();
+
+        assertTrue(listContainsContact(result.getList(), testContact));
+    }
+
+    @Test
+    public void testListWithFiltering2() throws SmsapiException {
+        ContactsContactResponse testContact = findContactByPhoneNumber(numberTest);
+        assertNotNull(testContact);
+        deleteContact(testContact.getId());
+
+        ContactsContactList action = apiFactory.actionContactList();
+        action.filterByPhoneNumber(numberTest);
+
+        ContactsContactListResponse result = action.execute();
+
+        assertFalse(listContainsContact(result.getList(), testContact));
     }
 
     @Test
@@ -120,22 +142,22 @@ public class ContactsTest extends TestSmsapi {
         return action.execute();
     }
 
-    private RawResponse deleteContact(ContactsContactResponse contact) throws SmsapiException {
-        return apiFactory.actionContactDelete(contact.getId()).execute();
+    private RawResponse deleteContact(String contactId) throws SmsapiException {
+        return apiFactory.actionContactDelete(contactId).execute();
     }
 
     private ContactsGroupResponse createTestGroup() throws SmsapiException {
         ContactsGroupAdd action = apiFactory.actionGroupAdd();
 
-        action.setName("Test group")
+        action.setName("Test Group Name")
                 .setDescription("This is a test group created by JUnit tests.")
-                .setIdx("testgroupidx");
+                .setIdx(testGroupIdx);
 
         return action.execute();
     }
 
-    private RawResponse deleteGroup(ContactsGroupResponse group) throws SmsapiException {
-        return apiFactory.actionGroupDelete(group.getId()).execute();
+    private RawResponse deleteGroup(String groupId) throws SmsapiException {
+        return apiFactory.actionGroupDelete(groupId).execute();
     }
 
     private boolean listContainsContact(List<ContactsContactResponse> contactList, ContactsContactResponse testedContact) {
@@ -156,5 +178,30 @@ public class ContactsTest extends TestSmsapi {
         }
 
         return false;
+    }
+
+    private ContactsContactResponse findContactByPhoneNumber(String phoneNumber) throws SmsapiException {
+        ContactsContactList action = apiFactory.actionContactList();
+        action.filterByPhoneNumber(phoneNumber);
+
+        ContactsContactListResponse result = action.execute();
+
+        if (result.getList().isEmpty()) {
+            return null;
+        }
+
+        return result.getList().get(0);
+    }
+
+    private ContactsGroupResponse findGroupByIdx(String idx) throws SmsapiException {
+        ContactsGroupListResponse result = apiFactory.actionGroupList().execute();
+
+        for (ContactsGroupResponse group : result.getList()) {
+            if (group.getIdx().equals(idx)) {
+                return group;
+            }
+        }
+
+        return null;
     }
 }
