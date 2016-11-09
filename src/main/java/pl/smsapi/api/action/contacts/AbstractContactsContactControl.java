@@ -45,6 +45,9 @@ abstract public class AbstractContactsContactControl<T> extends AbstractAction<C
         return (T) this;
     }
 
+    /**
+     * @param birthdayDate Date in YYYY-MM-DD format.
+     */
     public T setBirthdayDate(String birthdayDate) {
         params.put("birthday_date", birthdayDate);
         return (T) this;
