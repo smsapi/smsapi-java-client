@@ -1,4 +1,4 @@
-package pl.smsapi.test.unit;
+package pl.smsapi.test.integration;
 
 import org.junit.Test;
 import pl.smsapi.Client;
