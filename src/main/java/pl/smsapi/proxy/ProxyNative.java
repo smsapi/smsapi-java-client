@@ -13,22 +13,17 @@ import java.util.*;
 public class ProxyNative implements Proxy {
 
     private String baseUrl;
-    private AuthenticationStrategy authenticationStrategy;
 
     public ProxyNative(String url) {
 
         this.baseUrl = url;
-        this.authenticationStrategy = null;
     }
 
-    public ProxyNative(String url, AuthenticationStrategy authenticationStrategy) {
-        this.baseUrl = url;
-        this.authenticationStrategy = authenticationStrategy;
-
-    }
-
-    public String execute(String endpoint, Map<String, ?> data, Map<String, InputStream> files) throws Exception {
-        return execute(endpoint, data, files, "POST");
+    /**
+     * @deprecated Use execute(String endpoint, Map<String, String> data, Map<String, InputStream> files, String httpMethod, AuthenticationStrategy authenticationStrategy) instead.
+     */
+    public String execute(String endpoint, Map<String, String> data, Map<String, InputStream> files) throws Exception {
+        return execute(endpoint, data, files, "POST", null);
     }
 
     /**
@@ -44,14 +39,7 @@ public class ProxyNative implements Proxy {
      * });
      * </code>
      */
-    public String execute(String endpoint, Map<String, ?> data, Map<String, InputStream> files, String httpMethod) throws Exception {
-        String authenticationHeader = null;
-
-        if (authenticationStrategy != null) {
-            authenticationHeader = authenticationStrategy.getAuthenticationHeader(data);
-            removeAuthFromData(data);
-        }
-
+    public String execute(String endpoint, Map<String, String> data, Map<String, InputStream> files, String httpMethod, AuthenticationStrategy authenticationStrategy) throws Exception {
         URL url = createUrl(httpMethod, endpoint, data);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("User-Agent", "smsapi-lib/java " + System.getProperty("os.name"));
@@ -60,8 +48,12 @@ public class ProxyNative implements Proxy {
         connection.setDoOutput(true);
         connection.setRequestMethod(httpMethod);
 
-        if (authenticationHeader != null) {
-            connection.setRequestProperty("Authorization", authenticationHeader);
+        if (authenticationStrategy != null) {
+            String authenticationHeader = authenticationStrategy.getAuthenticationHeader();
+
+            if (authenticationHeader != null) {
+                connection.setRequestProperty("Authorization", authenticationHeader);
+            }
         }
 
         if (httpMethod.equals("GET")) {
@@ -192,10 +184,5 @@ public class ProxyNative implements Proxy {
 
     protected String encodeUrlParam(String s) throws UnsupportedEncodingException {
         return URLEncoder.encode(s, "UTF-8");
-    }
-
-    protected void removeAuthFromData(Map<String, ?> data) {
-        data.remove("username");
-        data.remove("password");
     }
 }

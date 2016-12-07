@@ -8,9 +8,19 @@ public class Client {
 
 	protected String username;
 	protected String password;
+	protected String token;
+
+	private Client() {}
 
 	public Client(String username) throws ClientException {
 		setUsername(username);
+	}
+
+	public static Client createFromToken(String token) {
+		Client client = new Client();
+		client.setToken(token);
+
+		return client;
 	}
 
 	public void setUsername(String username) throws ClientException {
@@ -19,7 +29,7 @@ public class Client {
 			throw new ClientException("Username can not be empty");
 		}
 
-
+		this.token = null;
 		this.username = username;
 	}
 
@@ -29,7 +39,7 @@ public class Client {
 			throw new ClientException("Password can not be empty");
 		}
 
-
+		this.token = null;
 		this.password = password;
 	}
 
@@ -40,12 +50,22 @@ public class Client {
 		setPasswordHash(hashPassword);
 	}
 
+	public void setToken(String token) {
+		this.username = null;
+		this.password = null;
+		this.token = token;
+	}
+
 	public String getUsername() {
 		return username;
 	}
 
 	public String getPassword() {
 		return password;
+	}
+
+	public String getToken() {
+		return token;
 	}
 
 	public static String MD5Digest(String str) throws ClientException {

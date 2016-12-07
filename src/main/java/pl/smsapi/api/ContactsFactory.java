@@ -12,7 +12,7 @@ public class ContactsFactory extends ActionFactory {
 
     public ContactsFactory(Client client) {
         super(client);
-        this.proxy = new ProxyNative("https://api.smsapi.pl/contacts/", new BasicAuthentication());
+        this.proxy = new ProxyNative("https://api.smsapi.pl/contacts/");
     }
 
     public ContactsFactory(Client client, Proxy proxy) {
