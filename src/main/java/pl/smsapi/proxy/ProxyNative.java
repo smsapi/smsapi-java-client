@@ -1,6 +1,7 @@
 package pl.smsapi.proxy;
 
 import pl.smsapi.api.authenticationStrategy.AuthenticationStrategy;
+import pl.smsapi.api.authenticationStrategy.BasicAuthenticationStrategy;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -23,7 +24,15 @@ public class ProxyNative implements Proxy {
      * @deprecated Use execute(String endpoint, Map<String, String> data, Map<String, InputStream> files, String httpMethod, AuthenticationStrategy authenticationStrategy) instead.
      */
     public String execute(String endpoint, Map<String, String> data, Map<String, InputStream> files) throws Exception {
-        return execute(endpoint, data, files, "POST", null);
+        String username = data.get("username");
+        data.remove("username");
+
+        String password = data.get("password");
+        data.remove("password");
+
+        AuthenticationStrategy authenticationStrategy = new BasicAuthenticationStrategy(username, password);
+
+        return execute(endpoint, data, files, "POST", authenticationStrategy);
     }
 
     /**
@@ -48,12 +57,10 @@ public class ProxyNative implements Proxy {
         connection.setDoOutput(true);
         connection.setRequestMethod(httpMethod);
 
-        if (authenticationStrategy != null) {
-            String authenticationHeader = authenticationStrategy.getAuthenticationHeader();
+        String authenticationHeader = authenticationStrategy.getAuthenticationHeader();
 
-            if (authenticationHeader != null) {
-                connection.setRequestProperty("Authorization", authenticationHeader);
-            }
+        if (authenticationHeader != null) {
+            connection.setRequestProperty("Authorization", authenticationHeader);
         }
 
         if (httpMethod.equals("GET")) {

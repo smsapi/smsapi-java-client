@@ -2,11 +2,11 @@ package pl.smsapi.api.authenticationStrategy;
 
 import org.apache.commons.codec.binary.Base64;
 
-public class BasicAuthentication implements AuthenticationStrategy {
+public class BasicAuthenticationStrategy implements AuthenticationStrategy {
     private String username;
     private String password;
 
-    public BasicAuthentication(String username, String password) {
+    public BasicAuthenticationStrategy(String username, String password) {
         this.username = username;
         this.password = password;
     }

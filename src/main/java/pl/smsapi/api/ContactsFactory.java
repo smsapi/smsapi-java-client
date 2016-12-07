@@ -2,9 +2,6 @@ package pl.smsapi.api;
 
 import pl.smsapi.Client;
 import pl.smsapi.api.action.contacts.*;
-import pl.smsapi.api.authenticationStrategy.BasicAuthentication;
-import pl.smsapi.api.response.contacts.ContactsContactResponse;
-import pl.smsapi.api.response.contacts.ContactsGroupResponse;
 import pl.smsapi.proxy.Proxy;
 import pl.smsapi.proxy.ProxyNative;
 
