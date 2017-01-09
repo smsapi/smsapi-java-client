@@ -4,8 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import pl.smsapi.Client;
 import pl.smsapi.api.authenticationStrategy.AuthenticationStrategy;
-import pl.smsapi.api.authenticationStrategy.BasicAuthenticationStrategy;
-import pl.smsapi.api.authenticationStrategy.BearerAuthenticationStrategy;
 import pl.smsapi.exception.*;
 import pl.smsapi.proxy.Proxy;
 
@@ -57,13 +55,7 @@ public abstract class AbstractAction<T> {
         T response = null;
 
         try {
-            AuthenticationStrategy authenticationStrategy;
-
-            if (client.getToken() != null) {
-                authenticationStrategy = new BearerAuthenticationStrategy(client.getToken());
-            } else {
-                authenticationStrategy = new BasicAuthenticationStrategy(client.getUsername(), client.getPassword());
-            }
+            AuthenticationStrategy authenticationStrategy = client.getAuthenticationStrategy();
 
             String result = proxy.execute(endPoint(), params, files, httpMethod(), authenticationStrategy);
 

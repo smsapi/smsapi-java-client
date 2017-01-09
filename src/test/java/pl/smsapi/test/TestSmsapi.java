@@ -3,7 +3,7 @@ package pl.smsapi.test;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
-import pl.smsapi.Client;
+import pl.smsapi.BasicAuthClient;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.exception.ClientException;
 import pl.smsapi.proxy.Proxy;
@@ -27,10 +27,10 @@ public class TestSmsapi {
     public void tearDown() {
     }
 
-    protected Client getAuthorizationClient() {
+    protected BasicAuthClient getAuthorizationClient() {
 
         try {
-            Client client = new Client("login");
+            BasicAuthClient client = new BasicAuthClient("login");
             client.setPasswordHash("1c29135e8dc2245721632ee1f5adb22e");
             return client;
         } catch (ClientException ex) {
