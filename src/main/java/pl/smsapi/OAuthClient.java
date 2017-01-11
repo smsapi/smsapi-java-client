@@ -1,32 +1,18 @@
 package pl.smsapi;
 
-import pl.smsapi.api.authenticationStrategy.AuthenticationStrategy;
 import pl.smsapi.api.authenticationStrategy.BearerAuthenticationStrategy;
 import pl.smsapi.exception.ClientException;
 
 public class OAuthClient implements Client {
-	private String token;
+    private final String token;
 
-	private OAuthClient() {}
+    public OAuthClient(String token) throws ClientException {
+        assert token != null && !token.isEmpty() : "Token is null";
+        this.token = token;
+    }
 
-	public OAuthClient(String token) throws ClientException {
-		setToken(token);
-	}
-
-	public void setToken(String token) throws ClientException {
-		if (token == null || token.isEmpty()) {
-			throw new ClientException("Token can not be empty");
-		}
-
-		this.token = token;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	@Override
-	public AuthenticationStrategy getAuthenticationStrategy() {
-		return new BearerAuthenticationStrategy(this.token);
-	}
+    @Override
+    public BearerAuthenticationStrategy getAuthenticationStrategy() {
+        return new BearerAuthenticationStrategy(token);
+    }
 }

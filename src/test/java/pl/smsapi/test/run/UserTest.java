@@ -12,17 +12,16 @@ import pl.smsapi.api.response.UsersResponse;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
 
-public class UserTest extends TestSmsapi {
+import java.util.Random;
 
+@Ignore
+public class UserTest extends TestSmsapi {
     private String userTest = "junit";
 
     UserFactory apiFactory;
 
-    @Override
     @Before
     public void setUp() {
-        super.setUp();
-
         apiFactory = new UserFactory(getAuthorizationClient(), getProxy());
     }
 
@@ -41,11 +40,9 @@ public class UserTest extends TestSmsapi {
     }
 
     @Test
-    @Ignore
     public void userAddTest() throws SmsapiException {
-
         UserAdd action = apiFactory.actionAdd()
-                .setUsername(userTest)
+                .setUsername(userTest + new Random().nextLong())
                 .setPassword(BasicAuthClient.MD5Digest("100costma100"))
                 .setPasswordApi(BasicAuthClient.MD5Digest("200costam200"))
                 .setActive(true)
@@ -60,9 +57,7 @@ public class UserTest extends TestSmsapi {
     }
 
     @Test
-    @Ignore
     public void userListTest() throws SmsapiException {
-
         UsersResponse result = apiFactory.actionList().execute();
 
         System.out.println("UserList:");
@@ -73,9 +68,7 @@ public class UserTest extends TestSmsapi {
     }
 
     @Test
-    @Ignore
     public void userPointsTest() throws SmsapiException {
-
         PointsResponse item = apiFactory.actionGetPoints().execute();
 
         System.out.println("GetPoints:");

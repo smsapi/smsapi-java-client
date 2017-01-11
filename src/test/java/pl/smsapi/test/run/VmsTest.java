@@ -17,25 +17,20 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Date;
 
+@Ignore
 public class VmsTest extends TestSmsapi {
-
     private String numberTest = "694562829";
     private String[] ids;
 
     VmsFactory apiFactory;
 
-    @Override
     @Before
     public void setUp() {
-        super.setUp();
-
         apiFactory = new VmsFactory(getAuthorizationClient(), getProxy());
     }
 
     @Test
-    @Ignore
     public void vmsSendTtsTest() throws SmsapiException {
-
         final long time = (new Date().getTime() / 1000) + 86400;
 
         final String tts = "to jest test";
@@ -67,9 +62,7 @@ public class VmsTest extends TestSmsapi {
     }
 
     @Test
-    @Ignore
     public void vmsSendFileTest() throws FileNotFoundException, SmsapiException {
-
         final long time = (new Date().getTime() / 1000) + 86400;
 
         final File fileAudio = new File("src/test/java/pl/smsapi/test/voice_small.wav");
@@ -103,9 +96,7 @@ public class VmsTest extends TestSmsapi {
     }
 
     @Test
-    @Ignore
     public void vmsGetTest() throws SmsapiException {
-
         System.out.println("VmsGet:");
         ids = readIds();
 
@@ -121,9 +112,7 @@ public class VmsTest extends TestSmsapi {
     }
 
     @Test
-    @Ignore
     public void vmsDeleteTest() throws SmsapiException {
-
         System.out.println("VmsDelete:");
         ids = readIds();
 

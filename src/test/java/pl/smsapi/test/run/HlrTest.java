@@ -7,15 +7,13 @@ import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.proxy.ProxyNative;
 import pl.smsapi.test.TestSmsapi;
 
+@Ignore
 public class HlrTest extends TestSmsapi {
-
     @Test
-    @Ignore
     public void checkNumberTest() throws SmsapiException {
-
         HLRCheckNumber action = new HLRCheckNumber();
         action.client(getAuthorizationClient());
-        action.proxy(new ProxyNative("http://smsapi_panel.lpajak.devsms.com/"));
+        action.proxy(getProxy());
 
         action.setNumber("500600700");
 

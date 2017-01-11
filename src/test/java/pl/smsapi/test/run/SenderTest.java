@@ -10,22 +10,18 @@ import pl.smsapi.api.response.SendersResponse;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
 
+@Ignore
 public class SenderTest extends TestSmsapi {
-
     private String senderTest = "test";
 
     SenderFactory apiFactory;
 
-    @Override
     @Before
     public void setUp() {
-        super.setUp();
-
         apiFactory = new SenderFactory(getAuthorizationClient(), getProxy());
     }
 
     private void renderSenderItem(SenderResponse item) {
-
         if (item != null) {
             System.out.println("Sendername: " + item.getName()
                     + " Status: " + item.getStatus()
@@ -36,27 +32,21 @@ public class SenderTest extends TestSmsapi {
     }
 
     @Test
-    @Ignore
     public void senderAdd() throws SmsapiException {
-
         CountableResponse item = apiFactory.actionAdd(senderTest).execute();
 
         System.out.println("SenderAdd:" + item.getCount());
     }
 
     @Test
-    @Ignore
     public void senderDefault() throws SmsapiException {
-
         CountableResponse item = apiFactory.actionSetDefault("ECO").execute();
 
         System.out.println("SenderAdd:" + item.getCount());
     }
 
     @Test
-    @Ignore
     public void senderList() throws SmsapiException {
-
         SendersResponse result = apiFactory.actionList().execute();
 
         System.out.println("SenderList:");
@@ -67,9 +57,7 @@ public class SenderTest extends TestSmsapi {
     }
 
     @Test
-    @Ignore
     public void senderDelete() throws SmsapiException {
-
         CountableResponse item = apiFactory.actionDelete(senderTest).execute();
 
         System.out.println("SenderDelete:");

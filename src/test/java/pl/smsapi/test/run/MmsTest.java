@@ -15,25 +15,20 @@ import pl.smsapi.test.TestSmsapi;
 
 import java.util.Date;
 
+@Ignore
 public class MmsTest extends TestSmsapi {
-
     private String numberTest = "694562829";
     private String[] ids;
 
     MmsFactory apiFactory;
 
-    @Override
     @Before
     public void setUp() {
-        super.setUp();
-
         apiFactory = new MmsFactory(getAuthorizationClient(), getProxy());
     }
 
     @Test
-    @Ignore
     public void mmsSendTest() throws SmsapiException {
-
         final long time = (new Date().getTime() / 1000) + 86400;
 
         final String smil = "<smil><head><layout><root-layout height='100%' width='100%'/><region id='Image' width='100%' height='100%' left='0' top='0'/></layout></head><body><par><img src='http://www.smsapi.pl/assets/img/pages/errors/404.jpg' region='Image' /></par></body></smil>";
@@ -68,9 +63,7 @@ public class MmsTest extends TestSmsapi {
     }
 
     @Test
-    @Ignore
     public void mmsGetTest() throws SmsapiException {
-
         System.out.println("MmsGet:");
         ids = readIds();
 
@@ -86,9 +79,7 @@ public class MmsTest extends TestSmsapi {
     }
 
     @Test
-    @Ignore
     public void mmsDeleteTest() throws SmsapiException {
-
         System.out.println("MmsDelete:");
         ids = readIds();
 

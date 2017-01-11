@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class AbstractActionTest {
     @Test
     public void testItShouldAuthenticateUsingBasicStrategyWhenUsingBasicAuthClient() throws SmsapiException {
-        BasicAuthClient client = new BasicAuthClient("some username");
+        BasicAuthClient client = BasicAuthClient.createFromRawPassword("<username>", "<password>");
         ProxyMock proxy = new ProxyMock();
 
         ActionMock action = new ActionMock();
@@ -27,7 +27,7 @@ public class AbstractActionTest {
 
     @Test
     public void testItShouldAuthenticateUsingBearerStrategyWhenUsingOAuthClient() throws SmsapiException {
-        OAuthClient client = new OAuthClient("some token");
+        OAuthClient client = new OAuthClient("<token>");
         ProxyMock proxy = new ProxyMock();
 
         ActionMock action = new ActionMock();

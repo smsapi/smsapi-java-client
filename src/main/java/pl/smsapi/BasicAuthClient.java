@@ -1,77 +1,52 @@
 package pl.smsapi;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import pl.smsapi.api.authenticationStrategy.BasicAuthenticationStrategy;
 import pl.smsapi.exception.ClientException;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class BasicAuthClient implements Client {
+    private final String username;
+    private final String password;
 
-	protected String username;
-	protected String password;
+    public BasicAuthClient(String username, String password) throws ClientException {
+        assert username != null && !username.isEmpty() : "Username is empty";
+        assert password != null && !password.isEmpty() : "Password is empty";
+        this.username = username;
+        this.password = password;
+    }
 
-	private BasicAuthClient() {}
+    public static String MD5Digest(String str) throws ClientException {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
 
-	public BasicAuthClient(String username) throws ClientException {
-		setUsername(username);
-	}
+            md.update(str.getBytes());
 
-	public void setUsername(String username) throws ClientException {
+            byte byteData[] = md.digest();
 
-		if (username == null || username.isEmpty()) {
-			throw new ClientException("Username can not be empty");
-		}
+            StringBuilder sb = new StringBuilder();
+            for (byte b : byteData) {
+                sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
+            }
 
-		this.username = username;
-	}
+            return sb.toString();
 
-	public void setPasswordHash(String password) throws ClientException {
+        } catch (NoSuchAlgorithmException ex) {
+            throw new ClientException(ex);
+        }
+    }
 
-		if (password == null || password.isEmpty()) {
-			throw new ClientException("Password can not be empty");
-		}
+    public static BasicAuthClient createFromRawPassword(String username, String password) throws ClientException {
+        return new BasicAuthClient(username, MD5Digest(password));
+    }
 
-		this.password = password;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setPasswordRAW(String password) throws ClientException {
-
-        String hashPassword = BasicAuthClient.MD5Digest(password);
-
-		setPasswordHash(hashPassword);
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public static String MD5Digest(String str) throws ClientException {
-		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
-
-			md.update(str.getBytes());
-
-			byte byteData[] = md.digest();
-
-			StringBuffer sb = new StringBuffer();
-			for (int i = 0; i < byteData.length; i++) {
-				sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
-			}
-
-			return sb.toString();
-
-		} catch (NoSuchAlgorithmException ex) {
-			throw new ClientException(ex.getMessage());
-		}
-	}
-
-	@Override
-	public BasicAuthenticationStrategy getAuthenticationStrategy() {
-		return new BasicAuthenticationStrategy(this.username, this.password);
-	}
+    @Override
+    public BasicAuthenticationStrategy getAuthenticationStrategy() {
+        return new BasicAuthenticationStrategy(username, password);
+    }
 }

@@ -17,25 +17,20 @@ import pl.smsapi.test.TestSmsapi;
 import java.io.File;
 import java.util.Date;
 
+@Ignore
 public class SmsTest extends TestSmsapi {
 
+    SmsFactory apiFactory;
     private String numberTest = "694562829";
     private String[] ids;
 
-    SmsFactory apiFactory;
-
-    @Override
     @Before
     public void setUp() {
-        super.setUp();
-
         apiFactory = new SmsFactory(getAuthorizationClient(), getProxy());
     }
 
     @Test
-    @Ignore
     public void smsSendTest() throws SmsapiException {
-
         final long time = (new Date().getTime() / 1000) + 86400;
 
         SMSSend action = apiFactory.actionSend()
@@ -69,9 +64,7 @@ public class SmsTest extends TestSmsapi {
     }
 
     @Test
-    @Ignore
     public void smsGetTest() throws SmsapiException {
-
         System.out.println("SmsGet:");
         ids = readIds();
 
@@ -88,9 +81,7 @@ public class SmsTest extends TestSmsapi {
     }
 
     @Test
-    @Ignore
     public void smsDeleteTest() throws SmsapiException {
-
         System.out.println("SmsDelete:");
         ids = readIds();
 
