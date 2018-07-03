@@ -153,7 +153,16 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
 
         return this;
     }
-
+    
+    /**
+     * Set time restriction mode.
+     * Add SMS to the queue.
+     */
+    public SMSSend setTimeRestriction(String time_restriction) {
+        params.put("time_restriction", time_restriction);
+        return this;
+    }
+    
     protected SendStatusResponse createResponse(String data) {
         JSONObject jsonObject = new JSONObject(data);
         return new SendStatusResponse(jsonObject.getInt("count"), jsonObject.getInt("parts"), jsonObject.optJSONArray("list"));
