@@ -156,10 +156,9 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
     
     /**
      * Set time restriction mode.
-     * Add SMS to the queue.
      */
-    public SMSSend setTimeRestriction(String time_restriction) {
-        params.put("time_restriction", time_restriction);
+    public SMSSend setTimeRestriction(String timeRestriction) {
+        params.put("timerestriction", timeRestriction);
         return this;
     }
     
