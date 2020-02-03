@@ -10,7 +10,7 @@ Przykład wysyłki:
 ```java
 package com.example.smsapi_java_client_example;
 
-import pl.smsapi.BasicAuthClient;
+import pl.smsapi.OAuthClient;
 import pl.smsapi.api.SmsFactory;
 import pl.smsapi.api.action.sms.SMSSend;
 import pl.smsapi.api.response.MessageResponse;
@@ -21,8 +21,8 @@ import pl.smsapi.exception.SmsapiException;
 public class Main {
     public static void main(String args[]) {
         try {
-            String passwordHash = "00000000000000000000000000000000";
-            BasicAuthClient client = new BasicAuthClient("username", passwordHash);
+            String oauthToken = "00000000000000000000000000000000";
+            OAuthClient client = new OAuthClient(oauthToken);
 
             SmsFactory smsApi = new SmsFactory(client);
             String phoneNumber = "000000000";
