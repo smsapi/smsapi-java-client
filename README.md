@@ -67,7 +67,7 @@ public class Main {
 
 ## MAVEN
 
-W pliku **pom.xml** należy dopisać:
+Please add following in **pom.xml** file:
 
 ```xml
     <repositories>
