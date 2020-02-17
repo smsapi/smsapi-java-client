@@ -1,12 +1,11 @@
 java-client
 ===========
 
-Klient napisany w języku Java, pozwalający na wysyłanie wiadomości SMS, MMS, VMS oraz zarządzanie kontem w serwisie SMSAPI.pl
+Client for SMSAPI.
 
-wymagane dołaczenie bibloteki:
-https://github.com/douglascrockford/JSON-java
+Library https://github.com/douglascrockford/JSON-java is required.
 
-Przykład wysyłki:
+Example of using library:
 ```java
 package com.example.smsapi_java_client_example;
 
@@ -19,12 +18,16 @@ import pl.smsapi.exception.ClientException;
 import pl.smsapi.exception.SmsapiException;
 
 public class Main {
+    final static String urlForPlSmsapi = "http://api.smsapi.com/";
+    final static String urlForComSmsapi = "http://api.smsapi.pl/";
+    
     public static void main(String args[]) {
         try {
             String oauthToken = "00000000000000000000000000000000";
             OAuthClient client = new OAuthClient(oauthToken);
+	    ProxyNative proxyToPlOrComSmsapi = new ProxyNative(urlForPlSmsapi);
 
-            SmsFactory smsApi = new SmsFactory(client);
+            SmsFactory smsApi = new SmsFactory(client, proxyToPlOrComSmsapi);
             String phoneNumber = "000000000";
             SMSSend action = smsApi.actionSend()
                     .setText("test")
@@ -36,15 +39,6 @@ public class Main {
                 System.out.println(status.getNumber() + " " + status.getStatus());
             }
         } catch (ClientException e) {
-	/**
-     	* 101 Niepoprawne lub brak danych autoryzacji.
-     	* 102 Nieprawidłowy login lub hasło
-     	* 103 Brak punków dla tego użytkownika
-     	* 105 Błędny adres IP
-     	* 110 Usługa nie jest dostępna na danym koncie
-     	* 1000 Akcja dostępna tylko dla użytkownika głównego
-     	* 1001 Nieprawidłowa akcja
-     	*/
             e.printStackTrace();
         } catch (SmsapiException e) {
             e.printStackTrace();
@@ -53,6 +47,14 @@ public class Main {
 }
 ```
 
+### How to use *SMSAPI.PL* client?
+```java
+	ProxyNative proxyToPlOrComSmsapi = new ProxyNative(urlForPlSmsapi);
+```
+### How to use *SMSAPI.COM* client?
+```java
+	ProxyNative proxyToPlOrComSmsapi = new ProxyNative(urlForComSmsapi);
+```
 
 ## JAVADOC
 [2.3](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.3/)
