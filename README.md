@@ -18,8 +18,8 @@ import pl.smsapi.exception.ClientException;
 import pl.smsapi.exception.SmsapiException;
 
 public class Main {
-    final static String urlForPlSmsapi = "http://api.smsapi.com/";
-    final static String urlForComSmsapi = "http://api.smsapi.pl/";
+    final static String urlForPlSmsapi = "http://api.smsapi.pl/";
+    final static String urlForComSmsapi = "http://api.smsapi.com/";
     
     public static void main(String args[]) {
         try {
