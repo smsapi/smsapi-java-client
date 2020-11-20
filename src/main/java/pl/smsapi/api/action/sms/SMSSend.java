@@ -154,6 +154,12 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
         return this;
     }
 
+    public SMSSend setDiscountGroup(String $discountGroupName)
+    {
+        params.put("discount_group", $discountGroupName);
+        return this;
+    }
+
     protected SendStatusResponse createResponse(String data) {
         JSONObject jsonObject = new JSONObject(data);
         return new SendStatusResponse(jsonObject.getInt("count"), jsonObject.getInt("parts"), jsonObject.optJSONArray("list"));
