@@ -110,7 +110,6 @@
                     <source>8</source>
                     <jarOutputDirectory>${project.dist.directory}</jarOutputDirectory>
                     <additionalJOption>-Xdoclint:none</additionalJOption>
-                    <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
                 </configuration>
                 <executions>
                     <execution>
