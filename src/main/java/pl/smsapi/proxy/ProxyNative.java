@@ -21,7 +21,7 @@ public class ProxyNative implements Proxy {
     }
 
     /**
-     * @deprecated Use execute(String endpoint, Map<String, String> data, Map<String, InputStream> files, String httpMethod, AuthenticationStrategy authenticationStrategy) instead.
+     * @deprecated
      */
     public String execute(String endpoint, Map<String, String> data, Map<String, InputStream> files) throws Exception {
         String username = data.get("username");
