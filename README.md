@@ -1,9 +1,42 @@
-java-client
-===========
+# SMSAPI JAVA Client
 
-Client for SMSAPI.
+## How to install
+
+JARs, POMs and docs available are at https://labs.smsapi.com/maven.
 
 Library https://github.com/douglascrockford/JSON-java is required.
+
+### How to install using Maven
+
+Add following in your project **pom.xml** file:
+
+ * in `<repositories>` section add SMSAPI repository:
+
+```xml
+<repository>
+    <releases>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+        <checksumPolicy>fail</checksumPolicy>
+    </releases>
+    <id>smsapi</id>
+    <name>smsapi</name>
+    <url>https://labs.smsapi.com/maven/</url>
+    <layout>default</layout>
+</repository>
+```
+
+ * in `<dependencies>` section add SMSAPI dependency:
+
+```xml
+<dependency>
+    <groupId>pl.smsapi</groupId>
+    <artifactId>smsapi-lib</artifactId>
+    <version>2.4</version>
+</dependency>
+```
+
+## How to use
 
 Example of using library:
 ```java
@@ -47,11 +80,11 @@ public class Main {
 }
 ```
 
-### How to use *SMSAPI.PL* client?
+### How to use *SMSAPI.PL* client
 ```java
 	ProxyNative proxyToPlOrComSmsapi = new ProxyNative(urlForPlSmsapi);
 ```
-### How to use *SMSAPI.COM* client?
+### How to use *SMSAPI.COM* client
 ```java
 	ProxyNative proxyToPlOrComSmsapi = new ProxyNative(urlForComSmsapi);
 ```
@@ -64,34 +97,6 @@ public class Main {
 [2.1](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.1/)
 
 [2.0](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.0/)
-
-## MAVEN
-
-Please add following in **pom.xml** file:
-
-```xml
-    <repositories>
-        <repository>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </releases>
-            <id>smsapi</id>
-            <name>smsapi</name>
-            <url>http://labs.smsapi.com/maven/</url>
-            <layout>default</layout>
-        </repository>
-    </repositories>
-    <dependencies>
-        <dependency>
-            <groupId>pl.smsapi</groupId>
-            <artifactId>smsapi-lib</artifactId>
-            <version>2.4</version>
-        </dependency>
-    </dependencies>
-</project>
-```
 
 ## LICENSE
 [Apache 2.0 License](https://github.com/smsapi/smsapi-java-client/blob/master/LICENSE)
