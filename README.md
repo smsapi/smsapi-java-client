@@ -36,6 +36,32 @@ Add following in your project **pom.xml** file:
 </dependency>
 ```
 
+### How to install using Gradle
+
+Add following in your project **build.gradle** file:
+
+ * in `plugins` section:
+
+```
+id 'java'
+id 'java-library'
+```
+
+ * in `repositories` section:
+
+```
+mavenCentral()
+maven {
+    url 'https://labs.smsapi.com/maven/'
+}
+```
+
+ * in `dependencies` section:
+
+```
+api 'pl.smsapi:smsapi-lib:2.5'
+```
+
 ## How to use
 
 Example of using library:
