@@ -64,55 +64,157 @@ api 'pl.smsapi:smsapi-lib:2.5'
 
 ## How to use
 
-Example of using library:
-```java
-package com.example.smsapi_java_client_example;
+To use SMSAPI.PL set proxy URL to **http://api.smsapi.pl/**.
+To use SMSAPI.COM set proxy URL to **http://api.smsapi.com/**.
 
+### How to send SMS
+
+```java
 import pl.smsapi.OAuthClient;
 import pl.smsapi.api.SmsFactory;
 import pl.smsapi.api.action.sms.SMSSend;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.api.response.StatusResponse;
-import pl.smsapi.exception.ClientException;
 import pl.smsapi.exception.SmsapiException;
+import pl.smsapi.proxy.ProxyNative;
 
-public class Main {
-    final static String urlForPlSmsapi = "http://api.smsapi.pl/";
-    final static String urlForComSmsapi = "http://api.smsapi.com/";
-    
-    public static void main(String args[]) {
+import java.util.Optional;
+
+/**
+ * Example output:
+ *
+ * Phone number: 48000000000
+ * Shipment id: 6124CC3C3463351AD569127F
+ * Shipment status: QUEUE
+ */
+public class Example {
+    public static void main(String[] args) {
         try {
             String oauthToken = "00000000000000000000000000000000";
             OAuthClient client = new OAuthClient(oauthToken);
-	    ProxyNative proxyToPlOrComSmsapi = new ProxyNative(urlForPlSmsapi);
+            ProxyNative proxy = new ProxyNative("https://api.smsapi.pl/");
 
-            SmsFactory smsApi = new SmsFactory(client, proxyToPlOrComSmsapi);
-            String phoneNumber = "000000000";
+            SmsFactory smsApi = new SmsFactory(client, proxy);
+
             SMSSend action = smsApi.actionSend()
-                    .setText("test")
-                    .setTo(phoneNumber);
+                    .setTo("000000000")
+                    .setText("test");
 
             StatusResponse result = action.execute();
 
-            for (MessageResponse status : result.getList() ) {
-                System.out.println(status.getNumber() + " " + status.getStatus());
+            Optional<MessageResponse> status = result.getList().stream().findFirst();
+            if (status.isEmpty()) {
+                throw new RuntimeException();
             }
-        } catch (ClientException e) {
-            e.printStackTrace();
+
+            System.out.println("Phone number: " + status.get().getNumber());
+            System.out.println("Shipment id: " + status.get().getId());
+            System.out.println("Shipment status: " + status.get().getStatus());
+
         } catch (SmsapiException e) {
-            e.printStackTrace();
+            System.out.println("Exception: " + e.getMessage());
         }
     }
 }
 ```
 
-### How to use *SMSAPI.PL* client
+### How to send SMS to many recipients
+
 ```java
-	ProxyNative proxyToPlOrComSmsapi = new ProxyNative(urlForPlSmsapi);
+import pl.smsapi.OAuthClient;
+import pl.smsapi.api.SmsFactory;
+import pl.smsapi.api.action.sms.SMSSend;
+import pl.smsapi.api.response.MessageResponse;
+import pl.smsapi.api.response.StatusResponse;
+import pl.smsapi.exception.SmsapiException;
+import pl.smsapi.proxy.ProxyNative;
+
+/**
+ * Example output:
+ *
+ * Phone number: 48000000000
+ * Shipment id: 6124CFBF3463350568CC428E
+ * Shipment status: QUEUE
+ * Phone number: 48000000001
+ * Shipment id: 6124CFBF3463350568CC428F
+ * Shipment status: QUEUE
+ */
+public class Example {
+    public static void main(String[] args) {
+        try {
+            String oauthToken = "00000000000000000000000000000000";
+            OAuthClient client = new OAuthClient(oauthToken);
+            ProxyNative proxy = new ProxyNative("https://api.smsapi.pl/");
+
+            SmsFactory smsApi = new SmsFactory(client, proxy);
+
+            String[] to = {"000000000", "000000001"};
+
+            SMSSend action = smsApi.actionSend()
+                    .setTo(to)
+                    .setText("test");
+
+            StatusResponse result = action.execute();
+
+            for (MessageResponse status : result.getList() ) {
+                System.out.println("Phone number: " + status.getNumber());
+                System.out.println("Shipment id: " + status.getId());
+                System.out.println("Shipment status: " + status.getStatus());
+            }
+        } catch (SmsapiException e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+    }
+}
+
 ```
-### How to use *SMSAPI.COM* client
+
+### How to get shipment status
+
 ```java
-	ProxyNative proxyToPlOrComSmsapi = new ProxyNative(urlForComSmsapi);
+import pl.smsapi.OAuthClient;
+import pl.smsapi.api.SmsFactory;
+import pl.smsapi.api.action.sms.SMSGet;
+import pl.smsapi.api.response.MessageResponse;
+import pl.smsapi.api.response.StatusResponse;
+import pl.smsapi.exception.SmsapiException;
+import pl.smsapi.proxy.ProxyNative;
+
+import java.util.Optional;
+
+/**
+ * Example output:
+ *
+ * Phone number: 48500000000
+ * Shipment id: 6124D61434633525780D4F3B
+ * Shipment status: SENT
+ */
+public class Example2ci {
+    public static void main(String[] args) {
+        try {
+            String oauthToken = "00000000000000000000000000000000";
+            OAuthClient client = new OAuthClient(oauthToken);
+            ProxyNative proxy = new ProxyNative("https://api.smsapi.pl/");
+
+            SmsFactory smsApi = new SmsFactory(client, proxy);
+
+            String shipmentId = "6124D61434633525780D4F3B";
+            SMSGet getAction = smsApi.actionGet(shipmentId);
+
+            StatusResponse shipmentStatus = getAction.execute();
+            Optional<MessageResponse> statusAfterGet = shipmentStatus.getList().stream().findFirst();
+            if (statusAfterGet.isEmpty()) {
+                throw new RuntimeException();
+            }
+
+            System.out.println("Phone number: " + statusAfterGet.get().getNumber());
+            System.out.println("Shipment id: " + statusAfterGet.get().getId());
+            System.out.println("Shipment status: " + statusAfterGet.get().getStatus());
+        } catch (SmsapiException e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+    }
+}
 ```
 
 ## JAVADOC
