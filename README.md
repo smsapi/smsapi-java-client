@@ -64,8 +64,8 @@ api 'pl.smsapi:smsapi-lib:2.5'
 
 ## How to use
 
-To use SMSAPI.PL set proxy URL to **http://api.smsapi.pl/**.
-To use SMSAPI.COM set proxy URL to **http://api.smsapi.com/**.
+To use SMSAPI.PL set proxy URL to **https//api.smsapi.pl/**.
+To use SMSAPI.COM set proxy URL to **https://api.smsapi.com/**.
 
 ### How to send SMS
 
