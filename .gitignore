@@ -5,3 +5,4 @@ manifest.mf
 _ids_test.txt
 /.idea/
 /*.iml
+/target/

@@ -4,14 +4,23 @@
     <groupId>pl.smsapi</groupId>
     <artifactId>smsapi-lib</artifactId>
     <packaging>jar</packaging>
-    <version>2.5</version>
+    <version>3.0.0-SNAPSHOT</version>
     <name>smsapi-lib</name>
     <url>http://www.smsapi.pl/</url>
     <description>SMSAPI client library</description>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/smsapi/smsapi-java-client</url>
+        </repository>
+    </distributionManagement>
+
     <scm>
-        <url>https://github.com/smsapi/smsapi-java-client</url>
-        <connection>https://github.com/smsapi/smsapi-java-client</connection>
+        <url>https://github.com/smsapi/smsapi-java-client.git</url>
+        <connection>scm:git:ssh://git@github.com/smsapi/smsapi-java-client.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/smsapi/smsapi-java-client.git</developerConnection>
     </scm>
 
     <licenses>
@@ -30,6 +39,7 @@
     </developers>
 
     <properties>
+        <maven.compiler.release>8</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.dist.directory>${project.basedir}/dist/${project.version}/</project.dist.directory>
     </properties>
@@ -63,13 +73,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
