@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>pl.smsapi</groupId>
     <artifactId>smsapi-lib</artifactId>
     <packaging>jar</packaging>
-    <version>3.0.0-RC1-SNAPSHOT</version>
+    <version>3.0.0-RC1</version>
     <name>smsapi-lib</name>
     <url>http://www.smsapi.pl/</url>
     <description>SMSAPI client library</description>
@@ -21,7 +20,8 @@
         <url>https://github.com/smsapi/smsapi-java-client.git</url>
         <connection>scm:git:ssh://git@github.com/smsapi/smsapi-java-client.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/smsapi/smsapi-java-client.git</developerConnection>
-    </scm>
+      <tag>v3.0.0-RC1</tag>
+  </scm>
 
     <licenses>
         <license>
@@ -91,7 +91,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <classpathPrefix/>
+                            <classpathPrefix />
                         </manifest>
                     </archive>
                     <outputDirectory>${project.dist.directory}</outputDirectory>
