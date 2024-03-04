@@ -2,10 +2,6 @@
 
 ## How to install
 
-JARs, POMs and docs available are at https://labs.smsapi.com/maven.
-
-Library https://github.com/douglascrockford/JSON-java is required.
-
 ### How to install using GitHub Packages
 
 Read https://docs.github.com/en/packages/learn-github-packages/installing-a-package 
