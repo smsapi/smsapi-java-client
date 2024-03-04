@@ -103,14 +103,11 @@ public class Example {
 
             StatusResponse result = action.execute();
 
-            Optional<MessageResponse> status = result.getList().stream().findFirst();
-            if (status.isEmpty()) {
-                throw new RuntimeException();
-            }
+            MessageResponse status = result.getList().get(0);
 
-            System.out.println("Phone number: " + status.get().getNumber());
-            System.out.println("Shipment id: " + status.get().getId());
-            System.out.println("Shipment status: " + status.get().getStatus());
+            System.out.println("Phone number: " + status.getNumber());
+            System.out.println("Shipment id: " + status.getId());
+            System.out.println("Shipment status: " + status.getStatus());
 
         } catch (SmsapiException e) {
             System.out.println("Exception: " + e.getMessage());
@@ -203,14 +200,11 @@ public class Example2ci {
             SMSGet getAction = smsApi.actionGet(shipmentId);
 
             StatusResponse shipmentStatus = getAction.execute();
-            Optional<MessageResponse> statusAfterGet = shipmentStatus.getList().stream().findFirst();
-            if (statusAfterGet.isEmpty()) {
-                throw new RuntimeException();
-            }
+            MessageResponse statusAfterGet = shipmentStatus.getList().get(0);
 
-            System.out.println("Phone number: " + statusAfterGet.get().getNumber());
-            System.out.println("Shipment id: " + statusAfterGet.get().getId());
-            System.out.println("Shipment status: " + statusAfterGet.get().getStatus());
+            System.out.println("Phone number: " + statusAfterGet.getNumber());
+            System.out.println("Shipment id: " + statusAfterGet.getId());
+            System.out.println("Shipment status: " + statusAfterGet.getStatus());
         } catch (SmsapiException e) {
             System.out.println("Exception: " + e.getMessage());
         }
