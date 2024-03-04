@@ -6,7 +6,9 @@ JARs, POMs and docs available are at https://labs.smsapi.com/maven.
 
 Library https://github.com/douglascrockford/JSON-java is required.
 
-### How to install using Maven
+### How to install using GitHub Packages
+
+Read https://docs.github.com/en/packages/learn-github-packages/installing-a-package 
 
 Add following in your project **pom.xml** file:
 
@@ -14,15 +16,9 @@ Add following in your project **pom.xml** file:
 
 ```xml
 <repository>
-    <releases>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>fail</checksumPolicy>
-    </releases>
-    <id>smsapi</id>
-    <name>smsapi</name>
-    <url>https://labs.smsapi.com/maven/</url>
-    <layout>default</layout>
+    <id>github-smsapi</id>
+    <name>SMSAPI Java Client GitHub Packages</name>
+    <url>https://maven.pkg.github.com/smsapi/smsapi-java-client</url>
 </repository>
 ```
 
@@ -32,34 +28,8 @@ Add following in your project **pom.xml** file:
 <dependency>
     <groupId>pl.smsapi</groupId>
     <artifactId>smsapi-lib</artifactId>
-    <version>2.4</version>
+    <version>3.0.0-RC1</version>
 </dependency>
-```
-
-### How to install using Gradle
-
-Add following in your project **build.gradle** file:
-
- * in `plugins` section:
-
-```
-id 'java'
-id 'java-library'
-```
-
- * in `repositories` section:
-
-```
-mavenCentral()
-maven {
-    url 'https://labs.smsapi.com/maven/'
-}
-```
-
- * in `dependencies` section:
-
-```
-api 'pl.smsapi:smsapi-lib:2.5'
 ```
 
 ## How to use
