@@ -190,6 +190,3 @@ public class Example2ci {
 [2.1](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.1/)
 
 [2.0](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.0/)
-
-## LICENSE
-[Apache 2.0 License](https://github.com/smsapi/smsapi-java-client/blob/master/LICENSE)
