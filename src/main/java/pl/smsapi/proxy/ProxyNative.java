@@ -21,21 +21,6 @@ public class ProxyNative implements Proxy {
     }
 
     /**
-     * @deprecated
-     */
-    public String execute(String endpoint, Map<String, String> data, Map<String, InputStream> files) throws Exception {
-        String username = data.get("username");
-        data.remove("username");
-
-        String password = data.get("password");
-        data.remove("password");
-
-        AuthenticationStrategy authenticationStrategy = new BasicAuthenticationStrategy(username, password);
-
-        return execute(endpoint, data, files, "POST", authenticationStrategy);
-    }
-
-    /**
      * Execute
      * <p/>
      * Disable ssl hostname verification
