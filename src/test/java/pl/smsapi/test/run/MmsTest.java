@@ -10,6 +10,7 @@ import pl.smsapi.api.action.mms.MMSSend;
 import pl.smsapi.api.response.CountableResponse;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.api.response.StatusResponse;
+import pl.smsapi.exception.ClientException;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
 
@@ -23,7 +24,7 @@ public class MmsTest extends TestSmsapi {
     MmsFactory apiFactory;
 
     @Before
-    public void setUp() {
+    public void setUp() throws ClientException {
         apiFactory = new MmsFactory(getAuthorizationClient(), getProxy());
     }
 

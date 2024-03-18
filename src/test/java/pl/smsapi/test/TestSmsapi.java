@@ -1,31 +1,23 @@
 package pl.smsapi.test;
 
 import org.junit.Ignore;
-import pl.smsapi.BasicAuthClient;
+import pl.smsapi.Client;
+import pl.smsapi.OAuthClient;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.exception.ClientException;
 import pl.smsapi.proxy.Proxy;
 import pl.smsapi.proxy.ProxyNative;
 
 import java.io.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 @Ignore
 public class TestSmsapi {
     protected String fileToIds = "_ids_test.txt";
 
-    protected BasicAuthClient getAuthorizationClient() {
-
-        try {
-            return BasicAuthClient.createFromRawPassword("<username>", "<password>");
-        } catch (ClientException ex) {
-            /*
-             * 101 Niepoprawne lub brak danych autoryzacji. 102 Nieprawidłowy login lub hasło 103 Brak punków dla tego
-             * użytkownika 105 Błędny adres IP 110 Usługa nie jest dostępna na danym koncie 1000 Akcja dostępna tylko
-             * dla użytkownika głównego 1001 Nieprawidłowa akcja
-             */
-            System.out.println(ex.getMessage());
-        }
-        return null;
+    protected Client getAuthorizationClient() throws ClientException {
+        return new OAuthClient("<token>");
     }
 
     protected String[] readIds() {
@@ -105,5 +97,25 @@ public class TestSmsapi {
 
     protected Proxy getProxy() {
         return new ProxyNative("http://api.smsapi.pl/");
+    }
+
+    public static String MD5Digest(String str) throws ClientException {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            md.update(str.getBytes());
+
+            byte[] byteData = md.digest();
+
+            StringBuilder sb = new StringBuilder();
+            for (byte b : byteData) {
+                sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
+            }
+
+            return sb.toString();
+
+        } catch (NoSuchAlgorithmException ex) {
+            throw new ClientException(ex);
+        }
     }
 }
