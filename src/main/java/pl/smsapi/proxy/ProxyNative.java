@@ -1,7 +1,6 @@
 package pl.smsapi.proxy;
 
 import pl.smsapi.api.authenticationStrategy.AuthenticationStrategy;
-import pl.smsapi.api.authenticationStrategy.BasicAuthenticationStrategy;
 
 import java.io.*;
 import java.net.HttpURLConnection;
