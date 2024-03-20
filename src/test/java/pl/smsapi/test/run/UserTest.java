@@ -3,6 +3,7 @@ package pl.smsapi.test.run;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import pl.smsapi.BasicAuthClient;
 import pl.smsapi.api.UserFactory;
 import pl.smsapi.api.action.user.UserAdd;
 import pl.smsapi.api.response.PointsResponse;
@@ -43,8 +44,8 @@ public class UserTest extends TestSmsapi {
     public void userAddTest() throws SmsapiException {
         UserAdd action = apiFactory.actionAdd()
                 .setUsername(userTest + new Random().nextLong())
-                .setPassword(TestSmsapi.MD5Digest("100costma100"))
-                .setPasswordApi(TestSmsapi.MD5Digest("200costam200"))
+                .setPassword(BasicAuthClient.MD5Digest("100costma100"))
+                .setPasswordApi(BasicAuthClient.MD5Digest("200costam200"))
                 .setActive(true)
                 .setLimit(5.5)
                 .setFullAccessPhoneBook(true);

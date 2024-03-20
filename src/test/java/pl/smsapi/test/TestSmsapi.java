@@ -9,8 +9,6 @@ import pl.smsapi.proxy.Proxy;
 import pl.smsapi.proxy.ProxyNative;
 
 import java.io.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 @Ignore
 public class TestSmsapi {
@@ -97,25 +95,5 @@ public class TestSmsapi {
 
     protected Proxy getProxy() {
         return new ProxyNative("http://api.smsapi.pl/");
-    }
-
-    public static String MD5Digest(String str) throws ClientException {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-
-            md.update(str.getBytes());
-
-            byte[] byteData = md.digest();
-
-            StringBuilder sb = new StringBuilder();
-            for (byte b : byteData) {
-                sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
-            }
-
-            return sb.toString();
-
-        } catch (NoSuchAlgorithmException ex) {
-            throw new ClientException(ex);
-        }
     }
 }
