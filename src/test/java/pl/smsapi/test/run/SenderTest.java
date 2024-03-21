@@ -7,6 +7,7 @@ import pl.smsapi.api.SenderFactory;
 import pl.smsapi.api.response.CountableResponse;
 import pl.smsapi.api.response.SenderResponse;
 import pl.smsapi.api.response.SendersResponse;
+import pl.smsapi.exception.ClientException;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
 
@@ -17,7 +18,7 @@ public class SenderTest extends TestSmsapi {
     SenderFactory apiFactory;
 
     @Before
-    public void setUp() {
+    public void setUp() throws ClientException {
         apiFactory = new SenderFactory(getAuthorizationClient(), getProxy());
     }
 

@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class AbstractActionTest {
     @Test
     public void testItShouldAuthenticateUsingBasicStrategyWhenUsingBasicAuthClient() throws SmsapiException {
-        BasicAuthClient client = BasicAuthClient.createFromRawPassword("<username>", "<password>");
+        BasicAuthClient client = new BasicAuthClient("<username>", "<password>");
         ProxyMock proxy = new ProxyMock();
 
         ActionMock action = new ActionMock();

@@ -11,6 +11,7 @@ import pl.smsapi.api.response.CountableResponse;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.api.response.SendStatusResponse;
 import pl.smsapi.api.response.StatusResponse;
+import pl.smsapi.exception.ClientException;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
 
@@ -25,7 +26,7 @@ public class SmsTest extends TestSmsapi {
     private String[] ids;
 
     @Before
-    public void setUp() {
+    public void setUp() throws ClientException {
         apiFactory = new SmsFactory(getAuthorizationClient(), getProxy());
     }
 

@@ -6,6 +6,7 @@ import org.junit.Test;
 import pl.smsapi.api.PhonebookFactory;
 import pl.smsapi.api.action.phonebook.*;
 import pl.smsapi.api.response.*;
+import pl.smsapi.exception.ClientException;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
 
@@ -21,7 +22,7 @@ public class PhonebookTest extends TestSmsapi {
     PhonebookFactory apiFactory;
 
     @Before
-    public void setUp() {
+    public void setUp() throws ClientException {
         apiFactory = new PhonebookFactory(getAuthorizationClient(), getProxy());
     }
 

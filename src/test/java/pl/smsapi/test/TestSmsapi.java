@@ -1,7 +1,8 @@
 package pl.smsapi.test;
 
 import org.junit.Ignore;
-import pl.smsapi.BasicAuthClient;
+import pl.smsapi.Client;
+import pl.smsapi.OAuthClient;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.exception.ClientException;
 import pl.smsapi.proxy.Proxy;
@@ -13,19 +14,8 @@ import java.io.*;
 public class TestSmsapi {
     protected String fileToIds = "_ids_test.txt";
 
-    protected BasicAuthClient getAuthorizationClient() {
-
-        try {
-            return BasicAuthClient.createFromRawPassword("<username>", "<password>");
-        } catch (ClientException ex) {
-            /*
-             * 101 Niepoprawne lub brak danych autoryzacji. 102 Nieprawidłowy login lub hasło 103 Brak punków dla tego
-             * użytkownika 105 Błędny adres IP 110 Usługa nie jest dostępna na danym koncie 1000 Akcja dostępna tylko
-             * dla użytkownika głównego 1001 Nieprawidłowa akcja
-             */
-            System.out.println(ex.getMessage());
-        }
-        return null;
+    protected Client getAuthorizationClient() throws ClientException {
+        return new OAuthClient("<token>");
     }
 
     protected String[] readIds() {

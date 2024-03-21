@@ -9,6 +9,7 @@ import pl.smsapi.api.action.user.UserAdd;
 import pl.smsapi.api.response.PointsResponse;
 import pl.smsapi.api.response.UserResponse;
 import pl.smsapi.api.response.UsersResponse;
+import pl.smsapi.exception.ClientException;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
 
@@ -21,7 +22,7 @@ public class UserTest extends TestSmsapi {
     UserFactory apiFactory;
 
     @Before
-    public void setUp() {
+    public void setUp() throws ClientException {
         apiFactory = new UserFactory(getAuthorizationClient(), getProxy());
     }
 
