@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - `pl.smsapi.BasicAuthClient` marked as deprecated
 
 ### Removed
+- legacy `phonebook.do` contacts API support
+
+### Removed
 - deprecated `pl.smsapi.proxy.Proxy#execute` method
 
 ## [3.0.0-RC2] - 2024-03-04
