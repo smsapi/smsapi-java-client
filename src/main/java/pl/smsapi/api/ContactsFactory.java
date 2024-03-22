@@ -7,6 +7,10 @@ import pl.smsapi.proxy.ProxyNative;
 
 public class ContactsFactory extends ActionFactory {
 
+    /**
+     * @deprecated use {@link ContactsFactory(Client, Proxy)} instead
+     */
+    @Deprecated
     public ContactsFactory(Client client) {
         super(client);
         this.proxy = new ProxyNative("https://api.smsapi.pl/contacts/");
