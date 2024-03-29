@@ -8,6 +8,10 @@ import pl.smsapi.proxy.Proxy;
 
 public class VmsFactory extends ActionFactory {
 
+    /**
+     * @deprecated use {@link VmsFactory(Client, Proxy)} instead
+     */
+    @Deprecated
     public VmsFactory(Client client) {
         super(client);
     }

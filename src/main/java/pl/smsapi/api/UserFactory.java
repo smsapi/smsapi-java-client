@@ -9,6 +9,10 @@ import pl.smsapi.proxy.Proxy;
 
 public class UserFactory extends ActionFactory {
 
+    /**
+     * @deprecated use {@link UserFactory(Client, Proxy)} instead
+     */
+    @Deprecated
     public UserFactory(Client client) {
         super(client);
     }
