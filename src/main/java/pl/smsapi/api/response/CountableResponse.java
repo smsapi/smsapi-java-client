@@ -5,7 +5,6 @@ public class CountableResponse implements Response {
     protected int count;
 
     public CountableResponse(int count) {
-
         this.count = count;
     }
 

@@ -2,33 +2,25 @@ package pl.smsapi.api.response.contacts;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import pl.smsapi.api.response.CountableResponse;
+import pl.smsapi.api.response.ListResponse;
 
-import java.util.ArrayList;
+public class ContactsGroupListResponse extends ListResponse<ContactsGroupResponse> {
 
-public class ContactsGroupListResponse extends CountableResponse {
-    private ArrayList<ContactsGroupResponse> list = new ArrayList<ContactsGroupResponse>();
-
-    public ContactsGroupListResponse(int count, JSONArray list) {
-        super(count);
-
-        final int n = list.length();
-        for (int i = 0; i < n; i++) {
-            JSONObject row = list.getJSONObject(i);
-            this.list.add(new ContactsGroupResponse(
-                    row.optString("id"),
-                    row.optString("name"),
-                    row.optString("description"),
-                    row.optString("date_created"),
-                    row.optString("date_updated"),
-                    row.optString("created_by"),
-                    row.optString("idx"),
-                    row.optJSONArray("permissions")
-            ));
-        }
+    public ContactsGroupListResponse(int count, JSONArray jsonArray) {
+        super(count, jsonArray);
     }
 
-    public ArrayList<ContactsGroupResponse> getList() {
-        return list;
+    @Override
+    protected ContactsGroupResponse buildItem(JSONObject jsonObject) {
+        return new ContactsGroupResponse(
+            jsonObject.optString("id"),
+            jsonObject.optString("name"),
+            jsonObject.optString("description"),
+            jsonObject.optString("date_created"),
+            jsonObject.optString("date_updated"),
+            jsonObject.optString("created_by"),
+            jsonObject.optString("idx"),
+            jsonObject.optJSONArray("permissions")
+        );
     }
 }

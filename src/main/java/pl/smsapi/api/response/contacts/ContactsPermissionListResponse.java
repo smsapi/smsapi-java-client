@@ -2,30 +2,22 @@ package pl.smsapi.api.response.contacts;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import pl.smsapi.api.response.CountableResponse;
+import pl.smsapi.api.response.ListResponse;
 
-import java.util.ArrayList;
+public class ContactsPermissionListResponse extends ListResponse<ContactsPermissionResponse> {
 
-public class ContactsPermissionListResponse extends CountableResponse {
-    private ArrayList<ContactsPermissionResponse> list = new ArrayList<ContactsPermissionResponse>();
-
-    public ContactsPermissionListResponse(int count, JSONArray list) {
-        super(count);
-
-        final int n = list.length();
-        for (int i = 0; i < n; i++) {
-            JSONObject row = list.getJSONObject(i);
-            this.list.add(new ContactsPermissionResponse(
-                    row.optString("group_id"),
-                    row.optString("username"),
-                    row.optBoolean("write"),
-                    row.optBoolean("read"),
-                    row.optBoolean("send")
-            ));
-        }
+    public ContactsPermissionListResponse(int count, JSONArray jsonArray) {
+        super(count, jsonArray);
     }
 
-    public ArrayList<ContactsPermissionResponse> getList() {
-        return list;
+    @Override
+    protected ContactsPermissionResponse buildItem(JSONObject jsonObject) {
+        return new ContactsPermissionResponse(
+            jsonObject.optString("group_id"),
+            jsonObject.optString("username"),
+            jsonObject.optBoolean("write"),
+            jsonObject.optBoolean("read"),
+            jsonObject.optBoolean("send")
+        );
     }
 }
