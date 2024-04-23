@@ -18,6 +18,7 @@ public class SenderTest extends TestSmsapi {
 
     @Before
     public void setUp() {
+        super.setUp();
         apiFactory = new SenderFactory(client, proxy);
     }
 

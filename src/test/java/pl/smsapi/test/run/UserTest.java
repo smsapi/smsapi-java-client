@@ -22,6 +22,7 @@ public class UserTest extends TestSmsapi {
 
     @Before
     public void setUp() {
+        super.setUp();
         apiFactory = new UserFactory(client, proxy);
     }
 

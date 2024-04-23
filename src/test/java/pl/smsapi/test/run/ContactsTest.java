@@ -29,7 +29,8 @@ public class ContactsTest extends TestSmsapi {
     private ContactsGroupResponse testGroup;
 
     @Before
-    public void before() throws SmsapiException {
+    public void setup() throws SmsapiException {
+        super.setUp();
         apiFactory = new ContactsFactory(client, proxy);
 
         deleteTestData();

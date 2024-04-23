@@ -26,6 +26,7 @@ public class VmsTest extends TestSmsapi {
 
     @Before
     public void setUp() {
+        super.setUp();
         apiFactory = new VmsFactory(client, proxy);
     }
 

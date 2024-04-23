@@ -24,6 +24,7 @@ public class MmsTest extends TestSmsapi {
 
     @Before
     public void setUp() {
+        super.setUp();
         apiFactory = new MmsFactory(client, proxy);
     }
 
