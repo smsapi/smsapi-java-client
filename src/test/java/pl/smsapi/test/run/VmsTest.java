@@ -10,7 +10,6 @@ import pl.smsapi.api.action.vms.VMSSend;
 import pl.smsapi.api.response.CountableResponse;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.api.response.StatusResponse;
-import pl.smsapi.exception.ClientException;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
 
@@ -26,8 +25,8 @@ public class VmsTest extends TestSmsapi {
     VmsFactory apiFactory;
 
     @Before
-    public void setUp() throws ClientException {
-        apiFactory = new VmsFactory(getAuthorizationClient(), getProxy());
+    public void setUp() {
+        apiFactory = new VmsFactory(client, proxy);
     }
 
     @Test

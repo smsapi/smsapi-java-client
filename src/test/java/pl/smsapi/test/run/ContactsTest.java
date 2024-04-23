@@ -30,7 +30,7 @@ public class ContactsTest extends TestSmsapi {
 
     @Before
     public void before() throws SmsapiException {
-        apiFactory = new ContactsFactory(getAuthorizationClient(), getProxy());
+        apiFactory = new ContactsFactory(client, proxy);
 
         deleteTestData();
 

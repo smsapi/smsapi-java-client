@@ -8,3 +8,5 @@ _ids_test.txt
 /target/
 /pom.xml.releaseBackup
 /release.properties
+
+/src/test/config/config.json

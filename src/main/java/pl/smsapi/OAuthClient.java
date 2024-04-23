@@ -1,12 +1,11 @@
 package pl.smsapi;
 
 import pl.smsapi.api.authenticationStrategy.BearerAuthenticationStrategy;
-import pl.smsapi.exception.ClientException;
 
 public class OAuthClient implements Client {
     private final String token;
 
-    public OAuthClient(String token) throws ClientException {
+    public OAuthClient(String token) {
         assert token != null && !token.isEmpty() : "Token is null";
         this.token = token;
     }

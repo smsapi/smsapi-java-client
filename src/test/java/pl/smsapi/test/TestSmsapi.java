@@ -1,21 +1,46 @@
 package pl.smsapi.test;
 
+import org.json.JSONObject;
+import org.junit.Before;
 import org.junit.Ignore;
 import pl.smsapi.Client;
 import pl.smsapi.OAuthClient;
 import pl.smsapi.api.response.MessageResponse;
-import pl.smsapi.exception.ClientException;
 import pl.smsapi.proxy.Proxy;
 import pl.smsapi.proxy.ProxyNative;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Ignore
 public class TestSmsapi {
     protected String fileToIds = "_ids_test.txt";
 
-    protected Client getAuthorizationClient() throws ClientException {
-        return new OAuthClient("<token>");
+    protected Proxy proxy;
+    protected Client client;
+
+    @Before
+    public void setUp() {
+        String config;
+        Path configPath = Paths.get("src", "test", "config", "config.json");
+        File configFile = configPath.toFile();
+
+        try {
+            FileInputStream fis = new FileInputStream(configFile);
+            byte[] data = new byte[(int) configFile.length()];
+            fis.read(data);
+            fis.close();
+            config = new String(data, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot read test config file", e);
+        }
+
+        JSONObject configJson = new JSONObject(config);
+
+        proxy = new ProxyNative(configJson.getJSONObject("api").getString("uri"));
+        client = new OAuthClient(configJson.getJSONObject("api").getString("token"));
     }
 
     protected String[] readIds() {
@@ -91,9 +116,5 @@ public class TestSmsapi {
             System.out.println("Item is null");
         }
 
-    }
-
-    protected Proxy getProxy() {
-        return new ProxyNative("http://api.smsapi.pl/");
     }
 }
