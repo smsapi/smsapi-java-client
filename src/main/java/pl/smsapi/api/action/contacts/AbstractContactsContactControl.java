@@ -98,9 +98,4 @@ abstract public class AbstractContactsContactControl<T> extends AbstractAction<C
                 jsonObject.optString("source")
         );
     }
-
-    @Override
-    protected String endPoint() {
-        return "";
-    }
 }

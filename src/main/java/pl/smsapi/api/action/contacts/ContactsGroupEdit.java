@@ -10,7 +10,7 @@ public class ContactsGroupEdit extends AbstractContactsGroupControl<ContactsGrou
 
     @Override
     protected String endPoint() {
-        return "groups/" + groupId;
+        return "contacts/groups/" + groupId;
     }
 
     @Override

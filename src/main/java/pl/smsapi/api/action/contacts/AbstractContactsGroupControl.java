@@ -35,9 +35,4 @@ abstract public class AbstractContactsGroupControl<T> extends AbstractAction<Con
                 jsonObject.optJSONArray("permissions")
         );
     }
-
-    @Override
-    protected String endPoint() {
-        return "groups";
-    }
 }

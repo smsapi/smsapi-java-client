@@ -7,7 +7,7 @@ import pl.smsapi.api.response.contacts.ContactsGroupListResponse;
 public class ContactsGroupList extends AbstractAction<ContactsGroupListResponse> {
     @Override
     protected String endPoint() {
-        return "groups";
+        return "contacts/groups";
     }
 
     @Override

@@ -10,7 +10,7 @@ public class ContactsContactEdit extends AbstractContactsContactControl<Contacts
 
     @Override
     protected String endPoint() {
-        return contactId;
+        return "contacts/" + contactId;
     }
 
     @Override

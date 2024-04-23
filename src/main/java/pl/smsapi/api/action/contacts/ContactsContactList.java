@@ -63,7 +63,7 @@ public class ContactsContactList extends AbstractAction<ContactsContactListRespo
 
     @Override
     protected String endPoint() {
-        return "";
+        return "contacts";
     }
 
     @Override

@@ -14,7 +14,7 @@ public class ContactsContactGet extends AbstractAction<ContactsContactResponse> 
 
     @Override
     protected String endPoint() {
-        return contactId;
+        return "contacts/" + contactId;
     }
 
     @Override

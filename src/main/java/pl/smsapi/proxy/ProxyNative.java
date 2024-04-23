@@ -15,8 +15,20 @@ public class ProxyNative implements Proxy {
     private String baseUrl;
 
     public ProxyNative(String url) {
+        this.baseUrl = trimContactsPostfix(url);
+    }
 
-        this.baseUrl = url;
+    /**
+     * @deprecated define proxy urls without "contacts" postfix
+     */
+    @Deprecated
+    private String trimContactsPostfix(String url) {
+
+        if (url.endsWith("/contacts/")) {
+            return url.substring(0, url.length() - "contacts/".length());
+        }
+
+        return url;
     }
 
     /**

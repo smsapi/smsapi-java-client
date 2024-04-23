@@ -9,8 +9,6 @@ import pl.smsapi.api.action.contacts.*;
 import pl.smsapi.api.response.RawResponse;
 import pl.smsapi.api.response.contacts.*;
 import pl.smsapi.exception.SmsapiException;
-import pl.smsapi.proxy.Proxy;
-import pl.smsapi.proxy.ProxyNative;
 import pl.smsapi.test.TestSmsapi;
 
 import java.util.List;
@@ -38,10 +36,6 @@ public class ContactsTest extends TestSmsapi {
 
         testContact = createTestContact();
         testGroup = createTestGroup();
-    }
-
-    protected Proxy getProxy() {
-        return new ProxyNative("http://api.smsapi.pl/contacts/");
     }
 
     @After
