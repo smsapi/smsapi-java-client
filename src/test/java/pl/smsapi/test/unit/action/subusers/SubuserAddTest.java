@@ -24,7 +24,6 @@ public class SubuserAddTest {
         assertEquals("POST", requestStub.requestMethod);
         assertEquals("subusers", requestStub.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
-        expectedRequestPayload.put("format", "json");
         expectedRequestPayload.put("credentials[username]", "smsapi-java-client");
         expectedRequestPayload.put("credentials[password]", "StrongPassword123!");
         assertEquals(expectedRequestPayload, requestStub.requestPayload);
@@ -48,7 +47,6 @@ public class SubuserAddTest {
         assertEquals("POST", requestStub.requestMethod);
         assertEquals("subusers", requestStub.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
-        expectedRequestPayload.put("format", "json");
         expectedRequestPayload.put("credentials[username]", "smsapi-java-client");
         expectedRequestPayload.put("credentials[password]", "StrongPassword123!");
         expectedRequestPayload.put("credentials[api_password]", "AnotherStrongPassword123!");

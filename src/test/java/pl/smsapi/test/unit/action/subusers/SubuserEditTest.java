@@ -24,7 +24,6 @@ public class SubuserEditTest {
         assertEquals("PUT", requestStub.requestMethod);
         assertEquals("subusers/0f0f0f0f0f0f0f0f0f0f0f0f", requestStub.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
-        expectedRequestPayload.put("format", "json");
         assertEquals(requestStub.requestPayload, expectedRequestPayload);
     }
 
@@ -46,7 +45,6 @@ public class SubuserEditTest {
         assertEquals("PUT", requestStub.requestMethod);
         assertEquals("subusers/0f0f0f0f0f0f0f0f0f0f0f0f", requestStub.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
-        expectedRequestPayload.put("format", "json");
         expectedRequestPayload.put("credentials[password]", "NewStrongPassword123!");
         expectedRequestPayload.put("credentials[api_password]", "NewAnotherStrongPassword123!");
         expectedRequestPayload.put("active", "1");

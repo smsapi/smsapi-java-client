@@ -9,7 +9,6 @@ public class SubuserEdit extends AbstractAction<SubuserResponse> {
 
     public SubuserEdit(String id) {
         this.id = id;
-        setJson(true);
     }
 
     @Override
