@@ -6,7 +6,6 @@ import pl.smsapi.api.response.subusers.SubuserResponse;
 
 public class SubuserAdd extends AbstractAction<SubuserResponse> {
     public SubuserAdd(String username, String password) {
-        setJson(true);
         params.put("credentials[username]", username);
         params.put("credentials[password]", password);
     }
