@@ -13,7 +13,7 @@ public class ContactsContactDelete extends AbstractAction<RawResponse> {
 
     @Override
     protected String endPoint() {
-        return "contacts/" + contactId;
+        return contactId;
     }
 
     @Override

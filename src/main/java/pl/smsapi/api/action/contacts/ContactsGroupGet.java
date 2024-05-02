@@ -14,7 +14,7 @@ public class ContactsGroupGet extends AbstractAction<ContactsGroupResponse> {
 
     @Override
     protected String endPoint() {
-        return "contacts/groups/" + groupId;
+        return "groups/" + groupId;
     }
 
     @Override

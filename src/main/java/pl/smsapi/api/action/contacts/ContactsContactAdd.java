@@ -4,7 +4,7 @@ public class ContactsContactAdd extends AbstractContactsContactControl<ContactsC
 
     @Override
     protected String endPoint() {
-        return "contacts";
+        return "";
     }
 
     @Override

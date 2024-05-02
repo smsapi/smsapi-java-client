@@ -4,7 +4,7 @@ public class ContactsGroupAdd extends AbstractContactsGroupControl<ContactsGroup
 
     @Override
     protected String endPoint() {
-        return "contacts/groups";
+        return "groups";
     }
 
     @Override

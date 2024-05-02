@@ -13,7 +13,7 @@ public class ContactsGroupDelete extends AbstractAction<RawResponse> {
 
     @Override
     protected String endPoint() {
-        return "contacts/groups/" + groupId;
+        return "groups/" + groupId;
     }
 
     @Override
