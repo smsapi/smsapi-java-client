@@ -2,12 +2,16 @@ package pl.smsapi.api.response;
 
 public class CountableResponse implements Response {
 
-    protected int count;
+    public final int count;
 
     public CountableResponse(int count) {
         this.count = count;
     }
 
+    /**
+     * @deprecated use {@link #count} instead
+     */
+    @Deprecated
     public int getCount() {
         return count;
     }

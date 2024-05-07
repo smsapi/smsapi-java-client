@@ -26,7 +26,7 @@ public class SubusersTest {
         Subusers response = action.execute();
 
         assertNotNull(response);
-        assertEquals(1, response.getCount());
-        assertEquals(1, response.getList().size());
+        assertEquals(1, response.count);
+        assertEquals(1, response.list.size());
     }
 }

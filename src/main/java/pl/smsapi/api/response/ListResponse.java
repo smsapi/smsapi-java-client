@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 abstract public class ListResponse<T> extends CountableResponse {
 
-    private final ArrayList<T> list = new ArrayList<>();
+    public final ArrayList<T> list = new ArrayList<>();
 
     public ListResponse(int count, JSONArray jsonArray) {
         super(count);
@@ -23,6 +23,10 @@ abstract public class ListResponse<T> extends CountableResponse {
 
     abstract protected T buildItem(JSONObject jsonObject);
 
+    /**
+     * @deprecated use {@link #list} instead
+     */
+    @Deprecated
     public ArrayList<T> getList() {
         return list;
     }
