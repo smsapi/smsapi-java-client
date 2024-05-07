@@ -39,7 +39,6 @@ public class SubuserAddTest {
         action.setDescription("Resource description");
         action.setPointsFromAccount(11.11);
         action.setPointsPerMonth(22.22);
-        action.setEmail("smsapi-java-client@example.com");
 
         action.execute();
 
@@ -53,7 +52,6 @@ public class SubuserAddTest {
         expectedRequestPayload.put("description", "Resource description");
         expectedRequestPayload.put("points[from_account]", "11.11");
         expectedRequestPayload.put("points[per_month]", "22.22");
-        expectedRequestPayload.put("email", "smsapi-java-client@example.com");
         assertEquals(expectedRequestPayload, requestStub.requestPayload);
     }
 }
