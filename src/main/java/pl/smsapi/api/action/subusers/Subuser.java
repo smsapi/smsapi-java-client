@@ -11,7 +11,7 @@ public class Subuser implements Response {
     private final double pointsFromAccount;
     private final double pointsPerMonth;
 
-    public Subuser(String id, String username, boolean active, String description, double pointsFromAccount, double pointsPerMonth) {
+    private Subuser(String id, String username, boolean active, String description, double pointsFromAccount, double pointsPerMonth) {
         this.id = id;
         this.username = username;
         this.active = active;

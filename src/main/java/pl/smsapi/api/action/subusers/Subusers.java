@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import pl.smsapi.api.response.ListResponse;
 
 public class Subusers extends ListResponse<Subuser> {
-    public Subusers(int count, JSONArray jsonArray) {
+    private Subusers(int count, JSONArray jsonArray) {
         super(count, jsonArray);
     }
 
