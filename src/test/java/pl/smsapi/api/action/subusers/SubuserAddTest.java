@@ -1,7 +1,6 @@
-package pl.smsapi.test.unit.action.subusers;
+package pl.smsapi.api.action.subusers;
 
 import org.junit.Test;
-import pl.smsapi.api.action.subusers.SubuserAdd;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.doubles.ClientStub;
 import pl.smsapi.test.doubles.ProxyRequestSpy;
@@ -14,7 +13,7 @@ public class SubuserAddTest {
 
     @Test
     public void executeAddSubuserRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserResponseJsonMother.create());
+        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserJsonMother.create());
         SubuserAdd action = new SubuserAdd("smsapi-java-client", "StrongPassword123!");
         action.client(new ClientStub());
         action.proxy(requestStub);
@@ -31,7 +30,7 @@ public class SubuserAddTest {
 
     @Test
     public void executeAddSubuserRequestWithOptionalFields() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserResponseJsonMother.create());
+        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserJsonMother.create());
         SubuserAdd action = new SubuserAdd("smsapi-java-client", "StrongPassword123!");
         action.client(new ClientStub());
         action.proxy(requestStub);

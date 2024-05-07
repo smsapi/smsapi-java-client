@@ -1,7 +1,6 @@
-package pl.smsapi.test.unit.action.subusers;
+package pl.smsapi.api.action.subusers;
 
 import org.junit.Test;
-import pl.smsapi.api.action.subusers.SubuserEdit;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.doubles.ClientStub;
 import pl.smsapi.test.doubles.ProxyRequestSpy;
@@ -14,7 +13,7 @@ public class SubuserEditTest {
 
     @Test
     public void executeEditSubuserRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserResponseJsonMother.create());
+        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserJsonMother.create());
         SubuserEdit actionEdit = new SubuserEdit("0f0f0f0f0f0f0f0f0f0f0f0f");
         actionEdit.client(new ClientStub());
         actionEdit.proxy(requestStub);
@@ -29,7 +28,7 @@ public class SubuserEditTest {
 
     @Test
     public void executeEditSubuserRequestWithOptionalFields() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserResponseJsonMother.create());
+        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserJsonMother.create());
         SubuserEdit actionEdit = new SubuserEdit("0f0f0f0f0f0f0f0f0f0f0f0f");
         actionEdit.client(new ClientStub());
         actionEdit.proxy(requestStub);

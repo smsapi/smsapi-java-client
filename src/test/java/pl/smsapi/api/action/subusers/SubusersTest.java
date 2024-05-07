@@ -4,7 +4,6 @@ import org.junit.Test;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.doubles.ClientStub;
 import pl.smsapi.test.doubles.ProxyResponseStub;
-import pl.smsapi.test.unit.action.subusers.SubuserResponseJsonMother;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
@@ -19,7 +18,7 @@ public class SubusersTest {
             "{" +
             "  \"size\": 1," +
             "  \"collection\": [" +
-            SubuserResponseJsonMother.create() +
+            SubuserJsonMother.create() +
             "  ]" +
             "}"
         ));

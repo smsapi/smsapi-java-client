@@ -1,7 +1,6 @@
-package pl.smsapi.test.unit.action.subusers;
+package pl.smsapi.api.action.subusers;
 
 import org.junit.Test;
-import pl.smsapi.api.action.subusers.SubusersList;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.doubles.ClientStub;
 import pl.smsapi.test.doubles.ProxyRequestSpy;
@@ -14,7 +13,7 @@ public class SubusersListTest {
 
     @Test
     public void executeListSubusersRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubusersResponseJsonMother.create());
+        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubusersJsonMother.create());
         SubusersList action = new SubusersList();
         action.client(new ClientStub());
         action.proxy(requestStub);

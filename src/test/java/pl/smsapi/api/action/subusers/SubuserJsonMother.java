@@ -1,6 +1,6 @@
-package pl.smsapi.test.unit.action.subusers;
+package pl.smsapi.api.action.subusers;
 
-public class SubuserResponseJsonMother {
+public class SubuserJsonMother {
 
     public static String create() {
         return
