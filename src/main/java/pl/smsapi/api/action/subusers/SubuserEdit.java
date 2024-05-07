@@ -2,9 +2,8 @@ package pl.smsapi.api.action.subusers;
 
 import org.json.JSONObject;
 import pl.smsapi.api.action.AbstractAction;
-import pl.smsapi.api.response.subusers.SubuserResponse;
 
-public class SubuserEdit extends AbstractAction<SubuserResponse> {
+public class SubuserEdit extends AbstractAction<Subuser> {
     private final String id;
 
     public SubuserEdit(String id) {
@@ -22,8 +21,8 @@ public class SubuserEdit extends AbstractAction<SubuserResponse> {
     }
 
     @Override
-    protected SubuserResponse createResponse(String data) {
-        return new SubuserResponse.SubuserFromJsonFactory().createFrom(new JSONObject(data));
+    protected Subuser createResponse(String data) {
+        return new Subuser.SubuserFromJsonFactory().createFrom(new JSONObject(data));
     }
 
     public void setPassword(String password) {

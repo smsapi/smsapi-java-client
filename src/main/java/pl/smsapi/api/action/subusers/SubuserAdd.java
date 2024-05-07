@@ -2,9 +2,8 @@ package pl.smsapi.api.action.subusers;
 
 import org.json.JSONObject;
 import pl.smsapi.api.action.AbstractAction;
-import pl.smsapi.api.response.subusers.SubuserResponse;
 
-public class SubuserAdd extends AbstractAction<SubuserResponse> {
+public class SubuserAdd extends AbstractAction<Subuser> {
     public SubuserAdd(String username, String password) {
         params.put("credentials[username]", username);
         params.put("credentials[password]", password);
@@ -16,8 +15,8 @@ public class SubuserAdd extends AbstractAction<SubuserResponse> {
     }
 
     @Override
-    protected SubuserResponse createResponse(String data) {
-        return new SubuserResponse.SubuserFromJsonFactory().createFrom(new JSONObject(data));
+    protected Subuser createResponse(String data) {
+        return new Subuser.SubuserFromJsonFactory().createFrom(new JSONObject(data));
     }
 
     public void setApiPassword(String apiPassword) {

@@ -5,8 +5,8 @@ import org.junit.Test;
 import pl.smsapi.api.SubusersFactory;
 import pl.smsapi.api.action.subusers.*;
 import pl.smsapi.api.response.NoContentResponse;
-import pl.smsapi.api.response.subusers.SubuserResponse;
-import pl.smsapi.api.response.subusers.SubusersResponse;
+import pl.smsapi.api.action.subusers.Subuser;
+import pl.smsapi.api.action.subusers.Subusers;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
 
@@ -34,7 +34,7 @@ public class SubusersTest extends TestSmsapi {
         actionAdd.setPointsFromAccount(11.11);
         actionAdd.setPointsPerMonth(22.22);
         actionAdd.setEmail("smsapi-java-client@example.com");
-        SubuserResponse responseAdd = actionAdd.execute();
+        Subuser responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
         assertEquals(username, responseAdd.getUsername());
@@ -51,7 +51,7 @@ public class SubusersTest extends TestSmsapi {
         SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!");
         actionAdd.setApiPassword("AnotherStrongPassword123!");
         actionAdd.setAsActive();
-        SubuserResponse responseAdd = actionAdd.execute();
+        Subuser responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
         assertTrue(responseAdd.isActive());
@@ -64,7 +64,7 @@ public class SubusersTest extends TestSmsapi {
         SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!");
         actionAdd.setApiPassword("AnotherStrongPassword123!");
         actionAdd.setAsInactive();
-        SubuserResponse responseAdd = actionAdd.execute();
+        Subuser responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
         assertFalse(responseAdd.isActive());
@@ -74,10 +74,10 @@ public class SubusersTest extends TestSmsapi {
     public void getSubuser() throws SmsapiException {
         String username = "smsapi-java-client-" + new Random().nextLong();
         SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!");
-        SubuserResponse responseAdd = actionAdd.execute();
+        Subuser responseAdd = actionAdd.execute();
 
         SubuserGet actionGet = apiFactory.actionGet(responseAdd.getId());
-        SubuserResponse responseGet = actionGet.execute();
+        Subuser responseGet = actionGet.execute();
 
         assertNotNull(responseGet);
         assertEquals(responseAdd.getId(), responseGet.getId());
@@ -88,7 +88,7 @@ public class SubusersTest extends TestSmsapi {
     public void editSubuser() throws SmsapiException {
         String username = "smsapi-java-client-" + new Random().nextLong();
         SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!");
-        SubuserResponse responseAdd = actionAdd.execute();
+        Subuser responseAdd = actionAdd.execute();
 
         SubuserEdit actionEdit = apiFactory.actionEdit(responseAdd.getId());
         actionEdit.setPassword("NewStrongPassword123!");
@@ -97,7 +97,7 @@ public class SubusersTest extends TestSmsapi {
         actionEdit.setDescription("New resource description");
         actionEdit.setPointsFromAccount(999.99);
         actionEdit.setPointsPerMonth(111.11);
-        SubuserResponse responseEdit = actionEdit.execute();
+        Subuser responseEdit = actionEdit.execute();
 
         assertNotNull(responseEdit);
         assertEquals(responseAdd.getId(), responseEdit.getId());
@@ -112,7 +112,7 @@ public class SubusersTest extends TestSmsapi {
     public void deleteSubuser() throws SmsapiException {
         String username = "smsapi-java-client-" + new Random().nextLong();
         SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!");
-        SubuserResponse responseAdd = actionAdd.execute();
+        Subuser responseAdd = actionAdd.execute();
 
         SubuserDelete actionDelete = apiFactory.actionDelete(responseAdd.getId());
         NoContentResponse responseDelete = actionDelete.execute();
@@ -127,7 +127,7 @@ public class SubusersTest extends TestSmsapi {
         actionAdd.execute();
 
         SubusersList actionList = apiFactory.actionList();
-        SubusersResponse responseList = actionList.execute();
+        Subusers responseList = actionList.execute();
 
         assertNotNull(responseList);
         assertTrue(responseList.getCount() >= 1);
