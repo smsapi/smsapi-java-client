@@ -4,6 +4,10 @@ import org.json.JSONObject;
 import pl.smsapi.api.action.AbstractAction;
 import pl.smsapi.api.response.contacts.ContactsGroupResponse;
 
+/**
+ * @deprecated do not extend, use concrete action
+ */
+@Deprecated
 abstract public class AbstractContactsGroupControl<T> extends AbstractAction<ContactsGroupResponse> {
 
     public T setName(String name) {

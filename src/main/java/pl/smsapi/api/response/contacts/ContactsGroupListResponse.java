@@ -4,6 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import pl.smsapi.api.response.ListResponse;
 
+/**
+ * @deprecated use {@link pl.smsapi.api.action.contacts.groups.Groups()} instead
+ */
+@Deprecated
 public class ContactsGroupListResponse extends ListResponse<ContactsGroupResponse> {
 
     public ContactsGroupListResponse(int count, JSONArray jsonArray) {

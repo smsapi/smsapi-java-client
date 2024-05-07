@@ -3,6 +3,10 @@ package pl.smsapi.api.action.contacts;
 import pl.smsapi.api.action.AbstractAction;
 import pl.smsapi.api.response.RawResponse;
 
+/**
+ * @deprecated use {@link ContactDelete} instead
+ */
+@Deprecated
 public class ContactsContactDelete extends AbstractAction<RawResponse> {
     private String contactId;
 
