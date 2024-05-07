@@ -30,7 +30,6 @@ public class SubusersFactoryTest extends TestSmsapi {
         actionAdd.setDescription("Resource description");
         actionAdd.setPointsFromAccount(11.11);
         actionAdd.setPointsPerMonth(22.22);
-        actionAdd.setEmail("smsapi-java-client@example.com");
         Subuser responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);

@@ -42,8 +42,4 @@ public class SubuserAdd extends AbstractAction<Subuser> {
     public void setPointsPerMonth(double pointsPerMonth) {
         params.put("points[per_month]", String.valueOf(pointsPerMonth));
     }
-
-    public void setEmail(String emailAddress) {
-        params.put("email", emailAddress);
-    }
 }
