@@ -4,12 +4,12 @@ import org.json.JSONObject;
 import pl.smsapi.api.response.Response;
 
 public class Subuser implements Response {
-    private final String id;
-    private final String username;
-    private final boolean active;
-    private final String description;
-    private final double pointsFromAccount;
-    private final double pointsPerMonth;
+    public final String id;
+    public final String username;
+    public final boolean active;
+    public final String description;
+    public final double pointsFromAccount;
+    public final double pointsPerMonth;
 
     private Subuser(String id, String username, boolean active, String description, double pointsFromAccount, double pointsPerMonth) {
         this.id = id;
@@ -18,30 +18,6 @@ public class Subuser implements Response {
         this.description = description;
         this.pointsFromAccount = pointsFromAccount;
         this.pointsPerMonth = pointsPerMonth;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public double getPointsFromAccount() {
-        return pointsFromAccount;
-    }
-
-    public double getPointsPerMonth() {
-        return pointsPerMonth;
     }
 
     public static class SubuserFromJsonFactory {

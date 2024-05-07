@@ -33,11 +33,11 @@ public class SubusersFactoryTest extends TestSmsapi {
         Subuser responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
-        assertEquals(username, responseAdd.getUsername());
-        assertFalse(responseAdd.isActive());
-        assertEquals("Resource description", responseAdd.getDescription());
-        assertEquals(11.11, responseAdd.getPointsFromAccount(), 0.01);
-        assertEquals(22.22, responseAdd.getPointsPerMonth(), 0.01);
+        assertEquals(username, responseAdd.username);
+        assertFalse(responseAdd.active);
+        assertEquals("Resource description", responseAdd.description);
+        assertEquals(11.11, responseAdd.pointsFromAccount, 0.01);
+        assertEquals(22.22, responseAdd.pointsPerMonth, 0.01);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class SubusersFactoryTest extends TestSmsapi {
         Subuser responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
-        assertTrue(responseAdd.isActive());
+        assertTrue(responseAdd.active);
     }
 
     @Test
@@ -63,7 +63,7 @@ public class SubusersFactoryTest extends TestSmsapi {
         Subuser responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
-        assertFalse(responseAdd.isActive());
+        assertFalse(responseAdd.active);
     }
 
     @Test
@@ -72,12 +72,12 @@ public class SubusersFactoryTest extends TestSmsapi {
         SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!");
         Subuser responseAdd = actionAdd.execute();
 
-        SubuserGet actionGet = apiFactory.actionGet(responseAdd.getId());
+        SubuserGet actionGet = apiFactory.actionGet(responseAdd.id);
         Subuser responseGet = actionGet.execute();
 
         assertNotNull(responseGet);
-        assertEquals(responseAdd.getId(), responseGet.getId());
-        assertEquals(username, responseGet.getUsername());
+        assertEquals(responseAdd.id, responseGet.id);
+        assertEquals(username, responseGet.username);
     }
 
     @Test
@@ -86,7 +86,7 @@ public class SubusersFactoryTest extends TestSmsapi {
         SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!");
         Subuser responseAdd = actionAdd.execute();
 
-        SubuserEdit actionEdit = apiFactory.actionEdit(responseAdd.getId());
+        SubuserEdit actionEdit = apiFactory.actionEdit(responseAdd.id);
         actionEdit.withPassword("NewStrongPassword123!");
         actionEdit.withApiPassword("NewAnotherStrongPassword123!!");
         actionEdit.asActive();
@@ -96,12 +96,12 @@ public class SubusersFactoryTest extends TestSmsapi {
         Subuser responseEdit = actionEdit.execute();
 
         assertNotNull(responseEdit);
-        assertEquals(responseAdd.getId(), responseEdit.getId());
-        assertEquals(username, responseEdit.getUsername());
-        assertTrue(responseEdit.isActive());
-        assertEquals("New resource description", responseEdit.getDescription());
-        assertEquals(999.99, responseEdit.getPointsFromAccount(), 0.01);
-        assertEquals(111.11, responseEdit.getPointsPerMonth(), 0.01);
+        assertEquals(responseAdd.id, responseEdit.id);
+        assertEquals(username, responseEdit.username);
+        assertTrue(responseEdit.active);
+        assertEquals("New resource description", responseEdit.description);
+        assertEquals(999.99, responseEdit.pointsFromAccount, 0.01);
+        assertEquals(111.11, responseEdit.pointsPerMonth, 0.01);
     }
 
     @Test
@@ -110,7 +110,7 @@ public class SubusersFactoryTest extends TestSmsapi {
         SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!");
         Subuser responseAdd = actionAdd.execute();
 
-        SubuserDelete actionDelete = apiFactory.actionDelete(responseAdd.getId());
+        SubuserDelete actionDelete = apiFactory.actionDelete(responseAdd.id);
         Response responseDelete = actionDelete.execute();
 
         assertNull(responseDelete);
@@ -126,7 +126,7 @@ public class SubusersFactoryTest extends TestSmsapi {
         Subusers responseList = actionList.execute();
 
         assertNotNull(responseList);
-        assertTrue(responseList.getCount() >= 1);
-        assertTrue(responseList.getList().stream().anyMatch(subuserResponse -> subuserResponse.getUsername().equals(username)));
+        assertTrue(responseList.count >= 1);
+        assertTrue(responseList.list.stream().anyMatch(subuserResponse -> subuserResponse.username.equals(username)));
     }
 }

@@ -29,11 +29,11 @@ public class SubuserTest {
         Subuser response = action.execute();
 
         assertNotNull(response);
-        assertEquals("0f0f0f0f0f0f0f0f0f0f0f0f", response.getId());
-        assertEquals("example_username", response.getUsername());
-        assertTrue(response.isActive());
-        assertEquals("Resource description", response.getDescription());
-        assertEquals(123.12, response.getPointsFromAccount(), 0.01);
-        assertEquals(321.21, response.getPointsPerMonth(), 0.01);
+        assertEquals("0f0f0f0f0f0f0f0f0f0f0f0f", response.id);
+        assertEquals("example_username", response.username);
+        assertTrue(response.active);
+        assertEquals("Resource description", response.description);
+        assertEquals(123.12, response.pointsFromAccount, 0.01);
+        assertEquals(321.21, response.pointsPerMonth, 0.01);
     }
 }
