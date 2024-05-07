@@ -1,7 +1,7 @@
-package pl.smsapi.api;
+package pl.smsapi.api.action.subusers;
 
 import pl.smsapi.Client;
-import pl.smsapi.api.action.subusers.*;
+import pl.smsapi.api.ActionFactory;
 import pl.smsapi.proxy.Proxy;
 
 public class SubusersFactory extends ActionFactory {
