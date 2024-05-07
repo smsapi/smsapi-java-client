@@ -3,7 +3,7 @@ package pl.smsapi.api.action.subusers;
 import org.junit.Before;
 import org.junit.Test;
 import pl.smsapi.api.SubusersFactory;
-import pl.smsapi.api.response.NoContentResponse;
+import pl.smsapi.api.response.Response;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
 
@@ -112,9 +112,9 @@ public class SubusersFactoryTest extends TestSmsapi {
         Subuser responseAdd = actionAdd.execute();
 
         SubuserDelete actionDelete = apiFactory.actionDelete(responseAdd.getId());
-        NoContentResponse responseDelete = actionDelete.execute();
+        Response responseDelete = actionDelete.execute();
 
-        assertNotNull(responseDelete);
+        assertNull(responseDelete);
     }
 
     @Test

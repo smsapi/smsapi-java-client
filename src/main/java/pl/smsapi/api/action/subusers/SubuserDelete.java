@@ -1,9 +1,9 @@
 package pl.smsapi.api.action.subusers;
 
 import pl.smsapi.api.action.AbstractAction;
-import pl.smsapi.api.response.NoContentResponse;
+import pl.smsapi.api.response.Response;
 
-public class SubuserDelete extends AbstractAction<NoContentResponse> {
+public class SubuserDelete extends AbstractAction<Response> {
     private final String id;
 
     public SubuserDelete(String id) {
@@ -21,7 +21,7 @@ public class SubuserDelete extends AbstractAction<NoContentResponse> {
     }
 
     @Override
-    protected NoContentResponse createResponse(String data) {
-        return new NoContentResponse();
+    protected Response createResponse(String data) {
+        return null;
     }
 }
