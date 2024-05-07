@@ -19,27 +19,27 @@ public class SubuserAdd extends AbstractAction<Subuser> {
         return new Subuser.SubuserFromJsonFactory().createFrom(new JSONObject(data));
     }
 
-    public void setApiPassword(String apiPassword) {
+    public void withApiPassword(String apiPassword) {
         params.put("credentials[api_password]", apiPassword);
     }
 
-    public void setAsActive() {
+    public void asActive() {
         params.put("active", "1");
     }
 
-    public void setAsInactive() {
+    public void asInactive() {
         params.put("active", "0");
     }
 
-    public void setDescription(String description) {
+    public void withDescription(String description) {
         params.put("description", description);
     }
 
-    public void setPointsFromAccount(double pointsFromAccount) {
+    public void withPointsFromAccount(double pointsFromAccount) {
         params.put("points[from_account]", String.valueOf(pointsFromAccount));
     }
 
-    public void setPointsPerMonth(double pointsPerMonth) {
+    public void withPointsPerMonth(double pointsPerMonth) {
         params.put("points[per_month]", String.valueOf(pointsPerMonth));
     }
 }

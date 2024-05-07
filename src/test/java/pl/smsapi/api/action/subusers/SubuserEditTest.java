@@ -27,17 +27,17 @@ public class SubuserEditTest {
     }
 
     @Test
-    public void executeEditSubuserRequestWithOptionalFields() throws SmsapiException {
+    public void executeEditSubuserWithOptionalFieldsRequest() throws SmsapiException {
         ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserJsonMother.create());
         SubuserEdit actionEdit = new SubuserEdit("0f0f0f0f0f0f0f0f0f0f0f0f");
         actionEdit.client(new ClientStub());
         actionEdit.proxy(requestStub);
-        actionEdit.setPassword("NewStrongPassword123!");
-        actionEdit.setApiPassword("NewAnotherStrongPassword123!");
-        actionEdit.setAsActive();
-        actionEdit.setDescription("New resource description");
-        actionEdit.setPointsFromAccount(999.99);
-        actionEdit.setPointsPerMonth(111.11);
+        actionEdit.withPassword("NewStrongPassword123!");
+        actionEdit.withApiPassword("NewAnotherStrongPassword123!");
+        actionEdit.asActive();
+        actionEdit.withDescription("New resource description");
+        actionEdit.withPointsFromAccount(999.99);
+        actionEdit.withPointsPerMonth(111.11);
 
         actionEdit.execute();
 
@@ -50,6 +50,40 @@ public class SubuserEditTest {
         expectedRequestPayload.put("description", "New resource description");
         expectedRequestPayload.put("points[from_account]", "999.99");
         expectedRequestPayload.put("points[per_month]", "111.11");
+        assertEquals(requestStub.requestPayload, expectedRequestPayload);
+    }
+
+    @Test
+    public void executeEditSubuserAsActiveRequest() throws SmsapiException {
+        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserJsonMother.create());
+        SubuserEdit actionEdit = new SubuserEdit("0f0f0f0f0f0f0f0f0f0f0f0f");
+        actionEdit.client(new ClientStub());
+        actionEdit.proxy(requestStub);
+        actionEdit.asActive();
+
+        actionEdit.execute();
+
+        assertEquals("PUT", requestStub.requestMethod);
+        assertEquals("subusers/0f0f0f0f0f0f0f0f0f0f0f0f", requestStub.requestEndpoint);
+        HashMap<String, String> expectedRequestPayload = new HashMap<>();
+        expectedRequestPayload.put("active", "1");
+        assertEquals(requestStub.requestPayload, expectedRequestPayload);
+    }
+
+    @Test
+    public void executeEditSubuserAsInactiveRequest() throws SmsapiException {
+        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserJsonMother.create());
+        SubuserEdit actionEdit = new SubuserEdit("0f0f0f0f0f0f0f0f0f0f0f0f");
+        actionEdit.client(new ClientStub());
+        actionEdit.proxy(requestStub);
+        actionEdit.asInactive();
+
+        actionEdit.execute();
+
+        assertEquals("PUT", requestStub.requestMethod);
+        assertEquals("subusers/0f0f0f0f0f0f0f0f0f0f0f0f", requestStub.requestEndpoint);
+        HashMap<String, String> expectedRequestPayload = new HashMap<>();
+        expectedRequestPayload.put("active", "0");
         assertEquals(requestStub.requestPayload, expectedRequestPayload);
     }
 }

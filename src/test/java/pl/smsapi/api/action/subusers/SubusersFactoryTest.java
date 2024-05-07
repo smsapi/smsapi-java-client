@@ -26,10 +26,10 @@ public class SubusersFactoryTest extends TestSmsapi {
         String username = "smsapi-java-client-" + new Random().nextLong();
 
         SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!");
-        actionAdd.setApiPassword("AnotherStrongPassword123!");
-        actionAdd.setDescription("Resource description");
-        actionAdd.setPointsFromAccount(11.11);
-        actionAdd.setPointsPerMonth(22.22);
+        actionAdd.withApiPassword("AnotherStrongPassword123!");
+        actionAdd.withDescription("Resource description");
+        actionAdd.withPointsFromAccount(11.11);
+        actionAdd.withPointsPerMonth(22.22);
         Subuser responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
@@ -45,8 +45,8 @@ public class SubusersFactoryTest extends TestSmsapi {
         String username = "smsapi-java-client-" + new Random().nextLong();
 
         SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!");
-        actionAdd.setApiPassword("AnotherStrongPassword123!");
-        actionAdd.setAsActive();
+        actionAdd.withApiPassword("AnotherStrongPassword123!");
+        actionAdd.asActive();
         Subuser responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
@@ -58,8 +58,8 @@ public class SubusersFactoryTest extends TestSmsapi {
         String username = "smsapi-java-client-" + new Random().nextLong();
 
         SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!");
-        actionAdd.setApiPassword("AnotherStrongPassword123!");
-        actionAdd.setAsInactive();
+        actionAdd.withApiPassword("AnotherStrongPassword123!");
+        actionAdd.asInactive();
         Subuser responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
@@ -87,12 +87,12 @@ public class SubusersFactoryTest extends TestSmsapi {
         Subuser responseAdd = actionAdd.execute();
 
         SubuserEdit actionEdit = apiFactory.actionEdit(responseAdd.getId());
-        actionEdit.setPassword("NewStrongPassword123!");
-        actionEdit.setApiPassword("NewAnotherStrongPassword123!!");
-        actionEdit.setAsActive();
-        actionEdit.setDescription("New resource description");
-        actionEdit.setPointsFromAccount(999.99);
-        actionEdit.setPointsPerMonth(111.11);
+        actionEdit.withPassword("NewStrongPassword123!");
+        actionEdit.withApiPassword("NewAnotherStrongPassword123!!");
+        actionEdit.asActive();
+        actionEdit.withDescription("New resource description");
+        actionEdit.withPointsFromAccount(999.99);
+        actionEdit.withPointsPerMonth(111.11);
         Subuser responseEdit = actionEdit.execute();
 
         assertNotNull(responseEdit);
