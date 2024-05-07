@@ -14,7 +14,7 @@ public class Subusers extends ListResponse<Subuser> {
         return new Subuser.SubuserFromJsonFactory().createFrom(jsonObject);
     }
 
-    public static class SubusersFromJsonFactory {
+    static class SubusersFromJsonFactory {
         public Subusers createFrom(JSONObject jsonObject) {
             return new Subusers(
                 jsonObject.getInt("size"),

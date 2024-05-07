@@ -20,7 +20,7 @@ public class Subuser implements Response {
         this.pointsPerMonth = pointsPerMonth;
     }
 
-    public static class SubuserFromJsonFactory {
+    static class SubuserFromJsonFactory {
         public Subuser createFrom(JSONObject jsonObject) {
             return new Subuser(
                 jsonObject.getString("id"),
