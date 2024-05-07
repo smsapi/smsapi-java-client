@@ -1,12 +1,9 @@
-package pl.smsapi.test.run;
+package pl.smsapi.api.action.subusers;
 
 import org.junit.Before;
 import org.junit.Test;
 import pl.smsapi.api.SubusersFactory;
-import pl.smsapi.api.action.subusers.*;
 import pl.smsapi.api.response.NoContentResponse;
-import pl.smsapi.api.action.subusers.Subuser;
-import pl.smsapi.api.action.subusers.Subusers;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
 
@@ -14,7 +11,7 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
-public class SubusersTest extends TestSmsapi {
+public class SubusersFactoryTest extends TestSmsapi {
 
     SubusersFactory apiFactory;
 
