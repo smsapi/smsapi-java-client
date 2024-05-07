@@ -2,7 +2,6 @@ package pl.smsapi.api.action.subusers;
 
 import org.junit.Before;
 import org.junit.Test;
-import pl.smsapi.api.SubusersFactory;
 import pl.smsapi.api.response.Response;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
