@@ -1,8 +1,6 @@
-package pl.smsapi.test.unit.response.subusers;
+package pl.smsapi.api.action.subusers;
 
 import org.junit.Test;
-import pl.smsapi.api.action.subusers.SubusersList;
-import pl.smsapi.api.response.subusers.SubusersResponse;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.doubles.ClientStub;
 import pl.smsapi.test.doubles.ProxyResponseStub;
@@ -11,7 +9,7 @@ import pl.smsapi.test.unit.action.subusers.SubuserResponseJsonMother;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
-public class SubusersResponseTest {
+public class SubusersTest {
 
     @Test
     public void deserialize_response() throws SmsapiException {
@@ -26,7 +24,7 @@ public class SubusersResponseTest {
             "}"
         ));
 
-        SubusersResponse response = action.execute();
+        Subusers response = action.execute();
 
         assertNotNull(response);
         assertEquals(1, response.getCount());

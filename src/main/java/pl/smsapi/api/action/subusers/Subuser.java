@@ -1,9 +1,9 @@
-package pl.smsapi.api.response.subusers;
+package pl.smsapi.api.action.subusers;
 
 import org.json.JSONObject;
 import pl.smsapi.api.response.Response;
 
-public class SubuserResponse implements Response {
+public class Subuser implements Response {
     private final String id;
     private final String username;
     private final boolean active;
@@ -11,7 +11,7 @@ public class SubuserResponse implements Response {
     private final double pointsFromAccount;
     private final double pointsPerMonth;
 
-    public SubuserResponse(String id, String username, boolean active, String description, double pointsFromAccount, double pointsPerMonth) {
+    public Subuser(String id, String username, boolean active, String description, double pointsFromAccount, double pointsPerMonth) {
         this.id = id;
         this.username = username;
         this.active = active;
@@ -45,8 +45,8 @@ public class SubuserResponse implements Response {
     }
 
     public static class SubuserFromJsonFactory {
-        public SubuserResponse createFrom(JSONObject jsonObject) {
-            return new SubuserResponse(
+        public Subuser createFrom(JSONObject jsonObject) {
+            return new Subuser(
                 jsonObject.getString("id"),
                 jsonObject.getString("username"),
                 jsonObject.getBoolean("active"),
