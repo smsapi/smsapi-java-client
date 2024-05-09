@@ -4,6 +4,10 @@ import org.json.JSONArray;
 import pl.smsapi.api.action.AbstractAction;
 import pl.smsapi.api.response.UsersResponse;
 
+/**
+ * @deprecated use {@link pl.smsapi.api.action.subusers.SubusersList()} instead
+ */
+@Deprecated
 public class UserList extends AbstractAction<UsersResponse> {
 
     public UserList() {

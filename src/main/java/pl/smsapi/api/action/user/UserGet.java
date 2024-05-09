@@ -4,6 +4,10 @@ import org.json.JSONObject;
 import pl.smsapi.api.action.AbstractAction;
 import pl.smsapi.api.response.UserResponse;
 
+/**
+ * @deprecated use {@link pl.smsapi.api.action.subusers.SubuserGet()} instead
+ */
+@Deprecated
 public class UserGet extends AbstractAction<UserResponse> {
 
     public UserGet() {
