@@ -1,10 +1,11 @@
 package pl.smsapi.api.action;
 
 import pl.smsapi.StringUtils;
+import pl.smsapi.api.response.Response;
 
 import java.util.Calendar;
 
-public abstract class AbstractSendAction<T, TResponse> extends AbstractAction<TResponse> {
+public abstract class AbstractSendAction<T, TResponse extends Response> extends AbstractAction<TResponse> {
 
     /**
      * Set mobile phone number of the recipients.

@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import pl.smsapi.Client;
 import pl.smsapi.api.authenticationStrategy.AuthenticationStrategy;
+import pl.smsapi.api.response.Response;
 import pl.smsapi.exception.*;
 import pl.smsapi.proxy.Proxy;
 
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class AbstractAction<T> {
+public abstract class AbstractAction<T extends Response> {
 
     public final static String RESPONSE_PACKAGE_NAME = "pl.smsapi.api.response";
 

@@ -1,6 +1,7 @@
 package pl.smsapi.api;
 
 import pl.smsapi.Client;
+import pl.smsapi.api.action.subusers.SubusersFactory;
 import pl.smsapi.api.action.user.UserAdd;
 import pl.smsapi.api.action.user.UserEdit;
 import pl.smsapi.api.action.user.UserGetPoints;
@@ -21,6 +22,10 @@ public class UserFactory extends ActionFactory {
         super(client, proxy);
     }
 
+    /**
+     * @deprecated use {@link SubusersFactory#actionList()} instead
+     */
+    @Deprecated
     public UserList actionList() {
         UserList action = new UserList();
         action.client(client);
@@ -28,6 +33,10 @@ public class UserFactory extends ActionFactory {
         return action;
     }
 
+    /**
+     * @deprecated use {@link SubusersFactory#actionAdd(String, String)} ()} instead
+     */
+    @Deprecated
     public UserAdd actionAdd() {
         UserAdd action = new UserAdd();
         action.client(client);
@@ -35,6 +44,10 @@ public class UserFactory extends ActionFactory {
         return action;
     }
 
+    /**
+     * @deprecated use {@link SubusersFactory#actionEdit(String)} ()} instead
+     */
+    @Deprecated
     public UserEdit actionEdit(String username) {
         UserEdit action = new UserEdit();
         action.client(client);
