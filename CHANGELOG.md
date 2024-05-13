@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - `pl.smsapi.api.UserFactory.actionAdd` marked as deprecated, use `pl.smsapi.api.action.subusers.SubusersFactory.actionAdd` instead
 - `pl.smsapi.api.UserFactory.actionEdit` marked as deprecated, use `pl.smsapi.api.action.subusers.SubusersFactory.actionEdit` instead
 - `pl.smsapi.api.UserFactory.actionList` marked as deprecated, use `pl.smsapi.api.action.subusers.SubusersFactory.actionList` instead
+- `pl.smsapi.api.action.user.UserAdd` marked as deprecated, use `pl.smsapi.api.action.subusers.SubuserAdd` instead
+- `pl.smsapi.api.action.user.UserEdit` marked as deprecated, use `pl.smsapi.api.action.subusers.SubuserEdit` instead
+- `pl.smsapi.api.action.user.UserGet` marked as deprecated, use `pl.smsapi.api.action.subusers.SubuserGet` instead
+- `pl.smsapi.api.action.user.UserList` marked as deprecated, use `pl.smsapi.api.action.subusers.SubusersList` instead
 - `pl.smsapi.BasicAuthClient` marked as deprecated
 - non-proxy action factories marked as deprecated
 
