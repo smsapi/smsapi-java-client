@@ -1,10 +1,7 @@
-package pl.smsapi.test.unit.response.contacts;
+package pl.smsapi.api.response.contacts;
 
 import org.junit.Test;
 import pl.smsapi.api.action.contacts.ContactsGroupList;
-import pl.smsapi.api.response.contacts.ContactsGroupListResponse;
-import pl.smsapi.api.response.contacts.ContactsGroupResponse;
-import pl.smsapi.api.response.contacts.ContactsPermissionResponse;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.doubles.ClientStub;
 import pl.smsapi.test.doubles.ProxyResponseStub;
