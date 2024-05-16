@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 public class ContactDeleteTest {
 
     @Test
-    public void executeDeleteSubuserRequest() throws SmsapiException {
+    public void executeDeleteContactRequest() throws SmsapiException {
         ProxyRequestSpy requestStub = new ProxyRequestSpy("");
         ContactDelete action = new ContactDelete("0f0f0f0f0f0f0f0f0f0f0f0f");
         action.client(new ClientStub());
