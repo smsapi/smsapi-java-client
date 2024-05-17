@@ -13,16 +13,21 @@ public class GroupGetTest {
 
     @Test
     public void executeGetGroupRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(GroupJsonMother.create());
         GroupGet action = new GroupGet("0f0f0f0f0f0f0f0f0f0f0f0f");
+
+        ProxyRequestSpy requestSpy = executeAction(action);
+
+        assertEquals("GET", requestSpy.requestMethod);
+        assertEquals("contacts/groups/0f0f0f0f0f0f0f0f0f0f0f0f", requestSpy.requestEndpoint);
+        HashMap<String, String> expectedRequestPayload = new HashMap<>();
+        assertEquals(expectedRequestPayload, requestSpy.requestPayload);
+    }
+
+    private ProxyRequestSpy executeAction(GroupGet action) throws SmsapiException {
+        ProxyRequestSpy requestStub = new ProxyRequestSpy(GroupJsonMother.create());
         action.client(new ClientStub());
         action.proxy(requestStub);
-
         action.execute();
-
-        assertEquals("GET", requestStub.requestMethod);
-        assertEquals("contacts/groups/0f0f0f0f0f0f0f0f0f0f0f0f", requestStub.requestEndpoint);
-        HashMap<String, String> expectedRequestPayload = new HashMap<>();
-        assertEquals(expectedRequestPayload, requestStub.requestPayload);
+        return requestStub;
     }
 }

@@ -18,11 +18,19 @@ public class GroupsListTest {
         action.client(new ClientStub());
         action.proxy(requestStub);
 
-        action.execute();
+        ProxyRequestSpy requestSpy = executeAction(action);
 
-        assertEquals("GET", requestStub.requestMethod);
-        assertEquals("contacts/groups", requestStub.requestEndpoint);
+        assertEquals("GET", requestSpy.requestMethod);
+        assertEquals("contacts/groups", requestSpy.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
-        assertEquals(expectedRequestPayload, requestStub.requestPayload);
+        assertEquals(expectedRequestPayload, requestSpy.requestPayload);
+    }
+
+    private ProxyRequestSpy executeAction(GroupsList action) throws SmsapiException {
+        ProxyRequestSpy requestStub = new ProxyRequestSpy(GroupsJsonMother.create());
+        action.client(new ClientStub());
+        action.proxy(requestStub);
+        action.execute();
+        return requestStub;
     }
 }

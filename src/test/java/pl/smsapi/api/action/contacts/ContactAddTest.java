@@ -13,58 +13,49 @@ public class ContactAddTest {
 
     @Test
     public void executeAddPhoneContactRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(ContactJsonMother.create());
-        ContactAdd action = new ContactAdd();
-        action.client(new ClientStub());
-        action.proxy(requestStub);
-        action.setPhoneNumber("48327201200");
+        ContactAdd action = new ContactAdd()
+            .setPhoneNumber("48327201200");
 
-        action.execute();
+        ProxyRequestSpy requestSpy = executeAction(action);
 
-        assertEquals("POST", requestStub.requestMethod);
-        assertEquals("contacts", requestStub.requestEndpoint);
+        assertEquals("POST", requestSpy.requestMethod);
+        assertEquals("contacts", requestSpy.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
         expectedRequestPayload.put("phone_number", "48327201200");
-        assertEquals(expectedRequestPayload, requestStub.requestPayload);
+        assertEquals(expectedRequestPayload, requestSpy.requestPayload);
     }
 
     @Test
     public void executeAddEmailAddressContactRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(ContactJsonMother.create());
-        ContactAdd action = new ContactAdd();
-        action.client(new ClientStub());
-        action.proxy(requestStub);
-        action.setEmail("john.doe@example.com");
+        ContactAdd action = new ContactAdd()
+            .setEmail("john.doe@example.com");
 
-        action.execute();
+        ProxyRequestSpy requestSpy = executeAction(action);
 
-        assertEquals("POST", requestStub.requestMethod);
-        assertEquals("contacts", requestStub.requestEndpoint);
+        assertEquals("POST", requestSpy.requestMethod);
+        assertEquals("contacts", requestSpy.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
         expectedRequestPayload.put("email", "john.doe@example.com");
-        assertEquals(expectedRequestPayload, requestStub.requestPayload);
+        assertEquals(expectedRequestPayload, requestSpy.requestPayload);
     }
 
     @Test
     public void executeAddContactWithOptionalFieldsRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(ContactJsonMother.create());
-        ContactAdd action = new ContactAdd();
-        action.client(new ClientStub());
-        action.proxy(requestStub);
-        action.setPhoneNumber("48327201200");
-        action.setEmail("john.doe@example.com");
-        action.setFirstName("John");
-        action.setLastName("Doe");
-        action.setGender("male");
-        action.setBirthdayDate("2017-07-21");
-        action.setDescription("Resource description");
-        action.setCity("Example City");
-        action.setSource("Example Source");
+        ContactAdd action = new ContactAdd()
+            .setPhoneNumber("48327201200")
+            .setEmail("john.doe@example.com")
+            .setFirstName("John")
+            .setLastName("Doe")
+            .setGender("male")
+            .setBirthdayDate("2017-07-21")
+            .setDescription("Resource description")
+            .setCity("Example City")
+            .setSource("Example Source");
 
-        action.execute();
+        ProxyRequestSpy requestSpy = executeAction(action);
 
-        assertEquals("POST", requestStub.requestMethod);
-        assertEquals("contacts", requestStub.requestEndpoint);
+        assertEquals("POST", requestSpy.requestMethod);
+        assertEquals("contacts", requestSpy.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
         expectedRequestPayload.put("phone_number", "48327201200");
         expectedRequestPayload.put("email", "john.doe@example.com");
@@ -75,6 +66,14 @@ public class ContactAddTest {
         expectedRequestPayload.put("description", "Resource description");
         expectedRequestPayload.put("city", "Example City");
         expectedRequestPayload.put("source", "Example Source");
-        assertEquals(expectedRequestPayload, requestStub.requestPayload);
+        assertEquals(expectedRequestPayload, requestSpy.requestPayload);
+    }
+
+    private ProxyRequestSpy executeAction(ContactAdd action) throws SmsapiException {
+        ProxyRequestSpy requestStub = new ProxyRequestSpy(ContactJsonMother.create());
+        action.client(new ClientStub());
+        action.proxy(requestStub);
+        action.execute();
+        return requestStub;
     }
 }

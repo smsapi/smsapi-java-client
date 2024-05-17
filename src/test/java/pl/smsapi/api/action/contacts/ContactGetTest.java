@@ -13,16 +13,21 @@ public class ContactGetTest {
 
     @Test
     public void executeGetContactRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(ContactJsonMother.create());
         ContactGet action = new ContactGet("0f0f0f0f0f0f0f0f0f0f0f0f");
+
+        ProxyRequestSpy requestSpy = executeAction(action);
+
+        assertEquals("GET", requestSpy.requestMethod);
+        assertEquals("contacts/0f0f0f0f0f0f0f0f0f0f0f0f", requestSpy.requestEndpoint);
+        HashMap<String, String> expectedRequestPayload = new HashMap<>();
+        assertEquals(expectedRequestPayload, requestSpy.requestPayload);
+    }
+
+    private ProxyRequestSpy executeAction(ContactGet action) throws SmsapiException {
+        ProxyRequestSpy requestStub = new ProxyRequestSpy(ContactJsonMother.create());
         action.client(new ClientStub());
         action.proxy(requestStub);
-
         action.execute();
-
-        assertEquals("GET", requestStub.requestMethod);
-        assertEquals("contacts/0f0f0f0f0f0f0f0f0f0f0f0f", requestStub.requestEndpoint);
-        HashMap<String, String> expectedRequestPayload = new HashMap<>();
-        assertEquals(expectedRequestPayload, requestStub.requestPayload);
+        return requestStub;
     }
 }

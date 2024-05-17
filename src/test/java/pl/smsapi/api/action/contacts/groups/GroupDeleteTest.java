@@ -13,16 +13,21 @@ public class GroupDeleteTest {
 
     @Test
     public void executeDeleteGroupRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy("");
         GroupDelete action = new GroupDelete("0f0f0f0f0f0f0f0f0f0f0f0f");
+
+        ProxyRequestSpy requestSpy = executeAction(action);
+
+        assertEquals("DELETE", requestSpy.requestMethod);
+        assertEquals("contacts/groups/0f0f0f0f0f0f0f0f0f0f0f0f", requestSpy.requestEndpoint);
+        HashMap<String, String> expectedRequestPayload = new HashMap<>();
+        assertEquals(expectedRequestPayload, requestSpy.requestPayload);
+    }
+
+    private ProxyRequestSpy executeAction(GroupDelete action) throws SmsapiException {
+        ProxyRequestSpy requestStub = new ProxyRequestSpy("");
         action.client(new ClientStub());
         action.proxy(requestStub);
-
         action.execute();
-
-        assertEquals("DELETE", requestStub.requestMethod);
-        assertEquals("contacts/groups/0f0f0f0f0f0f0f0f0f0f0f0f", requestStub.requestEndpoint);
-        HashMap<String, String> expectedRequestPayload = new HashMap<>();
-        assertEquals(expectedRequestPayload, requestStub.requestPayload);
+        return requestStub;
     }
 }

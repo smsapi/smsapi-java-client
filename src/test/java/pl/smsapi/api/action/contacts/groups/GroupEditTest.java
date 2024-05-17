@@ -13,37 +13,39 @@ public class GroupEditTest {
 
     @Test
     public void executeEditGroupRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(GroupJsonMother.create());
         GroupEdit action = new GroupEdit("0f0f0f0f0f0f0f0f0f0f0f0f");
-        action.client(new ClientStub());
-        action.proxy(requestStub);
 
-        action.execute();
+        ProxyRequestSpy requestSpy = executeAction(action);
 
-        assertEquals("PUT", requestStub.requestMethod);
-        assertEquals("contacts/groups/0f0f0f0f0f0f0f0f0f0f0f0f", requestStub.requestEndpoint);
+        assertEquals("PUT", requestSpy.requestMethod);
+        assertEquals("contacts/groups/0f0f0f0f0f0f0f0f0f0f0f0f", requestSpy.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
-        assertEquals(expectedRequestPayload, requestStub.requestPayload);
+        assertEquals(expectedRequestPayload, requestSpy.requestPayload);
     }
 
     @Test
     public void executeEditGroupWithOptionalFieldsRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(GroupJsonMother.create());
-        GroupEdit action = new GroupEdit("0f0f0f0f0f0f0f0f0f0f0f0f");
-        action.client(new ClientStub());
-        action.proxy(requestStub);
-        action.setName("Example Group");
-        action.setDescription("Resource description");
-        action.setIdx("example-user-provided-id-123");
+        GroupEdit action = new GroupEdit("0f0f0f0f0f0f0f0f0f0f0f0f")
+            .setName("Example Group")
+            .setDescription("Resource description")
+            .setIdx("example-user-provided-id-123");
 
-        action.execute();
+        ProxyRequestSpy requestSpy = executeAction(action);
 
-        assertEquals("PUT", requestStub.requestMethod);
-        assertEquals("contacts/groups/0f0f0f0f0f0f0f0f0f0f0f0f", requestStub.requestEndpoint);
+        assertEquals("PUT", requestSpy.requestMethod);
+        assertEquals("contacts/groups/0f0f0f0f0f0f0f0f0f0f0f0f", requestSpy.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
         expectedRequestPayload.put("name", "Example Group");
         expectedRequestPayload.put("description", "Resource description");
         expectedRequestPayload.put("idx", "example-user-provided-id-123");
-        assertEquals(expectedRequestPayload, requestStub.requestPayload);
+        assertEquals(expectedRequestPayload, requestSpy.requestPayload);
+    }
+
+    private ProxyRequestSpy executeAction(GroupEdit action) throws SmsapiException {
+        ProxyRequestSpy requestStub = new ProxyRequestSpy(GroupJsonMother.create());
+        action.client(new ClientStub());
+        action.proxy(requestStub);
+        action.execute();
+        return requestStub;
     }
 }
