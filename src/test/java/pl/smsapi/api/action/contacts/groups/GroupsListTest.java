@@ -13,10 +13,7 @@ public class GroupsListTest {
 
     @Test
     public void executeGetGroupRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(GroupsJsonMother.create());
         GroupsList action = new GroupsList();
-        action.client(new ClientStub());
-        action.proxy(requestStub);
 
         ProxyRequestSpy requestSpy = executeAction(action);
 
