@@ -25,6 +25,30 @@ public class ContactsFactoryTest extends TestSmsapi
         String emailAddress = "smsapi-java-client-" + new Random().nextInt(100000) + "@example.com";
 
         ContactAdd actionAdd = apiFactory.actionAdd()
+            .setEmail(emailAddress);
+        Contact responseAdd = actionAdd.execute();
+
+        assertNotNull(responseAdd);
+        assertEquals(emailAddress, responseAdd.getEmail());
+        assertNull(responseAdd.getPhoneNumber());
+        assertEquals("undefined", responseAdd.getGender());
+        assertNotNull(responseAdd.getDateCreated());
+        assertNotNull(responseAdd.getDateUpdated());
+        assertNotNull(responseAdd.getGroups());
+        assertNull(responseAdd.getCountry());
+        assertNull(responseAdd.getFirstName());
+        assertNull(responseAdd.getLastName());
+        assertNull(responseAdd.getBirthdayDate());
+        assertNull(responseAdd.getDescription());
+        assertNull(responseAdd.getCity());
+        assertNull(responseAdd.getSource());
+    }
+
+    @Test
+    public void addContactWithOptionalFields() throws SmsapiException {
+        String emailAddress = "smsapi-java-client-" + new Random().nextInt(100000) + "@example.com";
+
+        ContactAdd actionAdd = apiFactory.actionAdd()
             .setEmail(emailAddress)
             .setFirstName("John")
             .setLastName("Doe")
@@ -37,17 +61,18 @@ public class ContactsFactoryTest extends TestSmsapi
 
         assertNotNull(responseAdd);
         assertEquals(emailAddress, responseAdd.getEmail());
+        assertNull(responseAdd.getPhoneNumber());
+        assertEquals("male", responseAdd.getGender());
+        assertNotNull(responseAdd.getDateCreated());
+        assertNotNull(responseAdd.getDateUpdated());
+        assertNotNull(responseAdd.getGroups());
+        assertNull(responseAdd.getCountry());
         assertEquals("John", responseAdd.getFirstName());
         assertEquals("Doe", responseAdd.getLastName());
-        assertEquals("male", responseAdd.getGender());
         assertEquals("2000-01-01", responseAdd.getBirthdayDate());
         assertEquals("add-contact-test", responseAdd.getDescription());
         assertEquals("Gliwice", responseAdd.getCity());
         assertEquals("add-contact-test-data", responseAdd.getSource());
-        assertNotNull(responseAdd.getDateCreated());
-        assertNotNull(responseAdd.getDateUpdated());
-        assertEquals("", responseAdd.getCountry());
-        assertNotNull(responseAdd.getGroups());
     }
 
     @Test
@@ -69,6 +94,11 @@ public class ContactsFactoryTest extends TestSmsapi
 
         assertNotNull(responseGet);
         assertEquals(emailAddress, responseGet.getEmail());
+        assertNull(responseAdd.getPhoneNumber());
+        assertNotNull(responseAdd.getDateCreated());
+        assertNotNull(responseAdd.getDateUpdated());
+        assertNotNull(responseAdd.getGroups());
+        assertNull(responseAdd.getCountry());
         assertEquals("John", responseGet.getFirstName());
         assertEquals("Doe", responseGet.getLastName());
         assertEquals("male", responseGet.getGender());
@@ -76,10 +106,6 @@ public class ContactsFactoryTest extends TestSmsapi
         assertEquals("get-contact-test", responseGet.getDescription());
         assertEquals("Gliwice", responseGet.getCity());
         assertEquals("get-contact-test-data", responseGet.getSource());
-        assertNotNull(responseAdd.getDateCreated());
-        assertNotNull(responseAdd.getDateUpdated());
-        assertEquals("", responseAdd.getCountry());
-        assertNotNull(responseAdd.getGroups());
     }
 
     @Test
@@ -111,17 +137,18 @@ public class ContactsFactoryTest extends TestSmsapi
 
         assertNotNull(responseEdit);
         assertEquals(emailAddress, responseEdit.getEmail());
+        assertNull(responseAdd.getPhoneNumber());
+        assertEquals("female", responseEdit.getGender());
+        assertNotNull(responseAdd.getDateCreated());
+        assertNotNull(responseAdd.getDateUpdated());
+        assertNotNull(responseAdd.getGroups());
+        assertNull(responseAdd.getCountry());
         assertEquals("Mary", responseEdit.getFirstName());
         assertEquals("Rose", responseEdit.getLastName());
-        assertEquals("female", responseEdit.getGender());
         assertEquals("1999-12-31", responseEdit.getBirthdayDate());
         assertEquals("edit-contact-test-2", responseEdit.getDescription());
         assertEquals("Bytom", responseEdit.getCity());
         assertEquals("edit-contact-test-data-2", responseEdit.getSource());
-        assertNotNull(responseAdd.getDateCreated());
-        assertNotNull(responseAdd.getDateUpdated());
-        assertEquals("", responseAdd.getCountry());
-        assertNotNull(responseAdd.getGroups());
     }
 
     @Test

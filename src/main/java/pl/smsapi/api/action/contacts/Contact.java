@@ -98,20 +98,20 @@ public class Contact implements Response {
     public static class ContactFromJsonFactory {
         public Contact createFrom(JSONObject jsonObject) {
             return new Contact(
-                jsonObject.optString("id"),
-                jsonObject.optString("first_name"),
-                jsonObject.optString("last_name"),
-                jsonObject.optString("birthday_date"),
-                jsonObject.optString("phone_number"),
-                jsonObject.optString("email"),
-                jsonObject.optString("gender"),
-                jsonObject.optString("city"),
-                jsonObject.optString("country"),
-                jsonObject.optString("date_created"),
-                jsonObject.optString("date_updated"),
-                jsonObject.optString("description"),
-                jsonObject.optJSONArray("groups"),
-                jsonObject.optString("source")
+                jsonObject.getString("id"),
+                jsonObject.optString("first_name", null),
+                jsonObject.optString("last_name", null),
+                jsonObject.optString("birthday_date", null),
+                jsonObject.optString("phone_number", null),
+                jsonObject.optString("email", null),
+                jsonObject.getString("gender"),
+                jsonObject.optString("city", null),
+                jsonObject.optString("country", null),
+                jsonObject.getString("date_created"),
+                jsonObject.getString("date_updated"),
+                jsonObject.optString("description", null),
+                jsonObject.getJSONArray("groups"),
+                jsonObject.optString("source", null)
             );
         }
     }

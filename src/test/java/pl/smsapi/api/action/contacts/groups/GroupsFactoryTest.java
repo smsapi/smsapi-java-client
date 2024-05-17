@@ -25,9 +25,27 @@ public class GroupsFactoryTest extends TestSmsapi {
     public void addContactGroup() throws SmsapiException {
         String groupName = "smsapi-java-client-" + new Random().nextInt(100000);
 
+        GroupAdd actionAdd = apiFactory.actionAdd(groupName);
+        Group responseAdd = actionAdd.execute();
+
+        assertNotNull(responseAdd);
+        assertEquals(groupName, responseAdd.getName());
+        assertEquals("", responseAdd.getDescription());
+        assertNull(responseAdd.getIdx());
+        assertNotNull(responseAdd.getCreatedBy());
+        assertNotNull(responseAdd.getDateCreated());
+        assertNotNull(responseAdd.getDateUpdated());
+        assertNotNull(responseAdd.getPermissions());
+        assertNotNull(responseAdd.getPermissions());
+    }
+
+    @Test
+    public void addContactGroupWithOptionalFields() throws SmsapiException {
+        String groupName = "smsapi-java-client-" + new Random().nextInt(100000);
+
         GroupAdd actionAdd = apiFactory.actionAdd(groupName)
-            .setDescription("add-group-test")
-            .setIdx("idx");
+                .setDescription("add-group-test")
+                .setIdx("idx");
         Group responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);

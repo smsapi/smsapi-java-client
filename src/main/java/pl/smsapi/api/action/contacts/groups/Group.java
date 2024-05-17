@@ -61,13 +61,13 @@ public class Group implements Response {
     public static class GroupFromJsonFactory {
         public Group createFrom(JSONObject jsonObject) {
             return new Group(
-                jsonObject.optString("id"),
-                jsonObject.optString("name"),
-                jsonObject.optString("description"),
-                jsonObject.optString("date_created"),
-                jsonObject.optString("date_updated"),
-                jsonObject.optString("created_by"),
-                jsonObject.optString("idx"),
+                jsonObject.getString("id"),
+                jsonObject.getString("name"),
+                jsonObject.getString("description"),
+                jsonObject.getString("date_created"),
+                jsonObject.getString("date_updated"),
+                jsonObject.getString("created_by"),
+                jsonObject.optString("idx", null),
                 jsonObject.optJSONArray("permissions")
             );
         }

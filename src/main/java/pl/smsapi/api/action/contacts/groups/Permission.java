@@ -42,11 +42,11 @@ public class Permission implements Response {
     public static class PermissionFromJsonFactory {
         public Permission createFrom(JSONObject jsonObject) {
             return new Permission(
-                jsonObject.optString("group_id"),
-                jsonObject.optString("username"),
-                jsonObject.optBoolean("write"),
-                jsonObject.optBoolean("read"),
-                jsonObject.optBoolean("send")
+                jsonObject.getString("group_id"),
+                jsonObject.getString("username"),
+                jsonObject.getBoolean("write"),
+                jsonObject.getBoolean("read"),
+                jsonObject.getBoolean("send")
             );
         }
     }
