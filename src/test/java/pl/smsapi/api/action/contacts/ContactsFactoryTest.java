@@ -174,7 +174,7 @@ public class ContactsFactoryTest extends TestSmsapi
         Contacts responseList = actionList.execute();
 
         assertNotNull(responseList);
-        assertTrue(responseList.getCount() >= 1);
-        assertTrue(responseList.getList().stream().anyMatch(contactResponse -> contactResponse.getEmail().equals(emailAddress)));
+        assertTrue(responseList.count >= 1);
+        assertTrue(responseList.list.stream().anyMatch(contactResponse -> contactResponse.getEmail().equals(emailAddress)));
     }
 }

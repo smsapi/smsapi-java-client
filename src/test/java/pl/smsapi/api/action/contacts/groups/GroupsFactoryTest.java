@@ -128,7 +128,7 @@ public class GroupsFactoryTest extends TestSmsapi {
         Groups responseList = actionList.execute();
 
         assertNotNull(responseList);
-        assertTrue(responseList.getCount() >= 1);
-        assertTrue(responseList.getList().stream().anyMatch(groupResponse -> groupResponse.getName().equals(groupName)));
+        assertTrue(responseList.count >= 1);
+        assertTrue(responseList.list.stream().anyMatch(groupResponse -> groupResponse.getName().equals(groupName)));
     }
 }
