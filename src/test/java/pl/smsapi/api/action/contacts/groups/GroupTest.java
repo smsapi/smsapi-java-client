@@ -56,6 +56,7 @@ public class GroupTest {
                 permissionResponse -> permissionResponse.username.equals("example_username")
         ).findFirst();
         assertTrue(permission1.isPresent());
+        assertEquals("0f0f0f0f0f0f0f0f0f0f0f0f", permission1.get().groupId);
         assertFalse(permission1.get().write);
         assertFalse(permission1.get().read);
         assertFalse(permission1.get().send);
