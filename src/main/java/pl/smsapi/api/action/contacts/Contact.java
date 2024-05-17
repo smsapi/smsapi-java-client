@@ -7,22 +7,22 @@ import pl.smsapi.api.response.Response;
 
 public class Contact implements Response {
 
-    private final String id;
-    private final String firstName;
-    private final String lastName;
-    private final String birthdayDate;
-    private final String phoneNumber;
-    private final String email;
-    private final String gender;
-    private final String city;
-    private final String country;
-    private final String dateCreated;
-    private final String dateUpdated;
-    private final String description;
-    private final Groups groups;
-    private final String source;
+    public final String id;
+    public final String firstName;
+    public final String lastName;
+    public final String birthdayDate;
+    public final String phoneNumber;
+    public final String email;
+    public final String gender;
+    public final String city;
+    public final String country;
+    public final String dateCreated;
+    public final String dateUpdated;
+    public final String description;
+    public final Groups groups;
+    public final String source;
 
-    public Contact(String id, String firstName, String lastName, String birthdayDate, String phoneNumber, String email, String gender, String city, String country, String dateCreated, String dateUpdated, String description, JSONArray groups, String source) {
+    private Contact(String id, String firstName, String lastName, String birthdayDate, String phoneNumber, String email, String gender, String city, String country, String dateCreated, String dateUpdated, String description, JSONArray groups, String source) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,62 +37,6 @@ public class Contact implements Response {
         this.description = description;
         this.groups = new Groups.GroupsFromJsonFactory().createFrom(groups);
         this.source = source;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getBirthdayDate() {
-        return birthdayDate;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public String getDateCreated() {
-        return dateCreated;
-    }
-
-    public String getDateUpdated() {
-        return dateUpdated;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Groups getGroups() {
-        return groups;
-    }
-
-    public String getSource() {
-        return source;
     }
 
     public static class ContactFromJsonFactory {

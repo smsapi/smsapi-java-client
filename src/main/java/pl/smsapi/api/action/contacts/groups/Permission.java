@@ -5,38 +5,18 @@ import pl.smsapi.api.response.Response;
 
 public class Permission implements Response {
 
-    private final String groupId;
-    private final String username;
-    private final boolean write;
-    private final boolean read;
-    private final boolean send;
+    public final String groupId;
+    public final String username;
+    public final boolean write;
+    public final boolean read;
+    public final boolean send;
 
-    public Permission(String groupId, String username, boolean write, boolean read, boolean send) {
+    private Permission(String groupId, String username, boolean write, boolean read, boolean send) {
         this.groupId = groupId;
         this.username = username;
         this.write = write;
         this.read = read;
         this.send = send;
-    }
-
-    public String getGroupId() {
-        return groupId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public boolean isWrite() {
-        return write;
-    }
-
-    public boolean isRead() {
-        return read;
-    }
-
-    public boolean isSend() {
-        return send;
     }
 
     public static class PermissionFromJsonFactory {

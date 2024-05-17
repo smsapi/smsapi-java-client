@@ -29,14 +29,13 @@ public class GroupsFactoryTest extends TestSmsapi {
         Group responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
-        assertEquals(groupName, responseAdd.getName());
-        assertEquals("", responseAdd.getDescription());
-        assertNull(responseAdd.getIdx());
-        assertNotNull(responseAdd.getCreatedBy());
-        assertNotNull(responseAdd.getDateCreated());
-        assertNotNull(responseAdd.getDateUpdated());
-        assertNotNull(responseAdd.getPermissions());
-        assertNotNull(responseAdd.getPermissions());
+        assertEquals(groupName, responseAdd.name);
+        assertEquals("", responseAdd.description);
+        assertNull(responseAdd.idx);
+        assertNotNull(responseAdd.createdBy);
+        assertNotNull(responseAdd.dateCreated);
+        assertNotNull(responseAdd.dateUpdated);
+        assertNotNull(responseAdd.permissions);
     }
 
     @Test
@@ -49,14 +48,13 @@ public class GroupsFactoryTest extends TestSmsapi {
         Group responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
-        assertEquals(groupName, responseAdd.getName());
-        assertEquals("add-group-test", responseAdd.getDescription());
-        assertEquals("idx", responseAdd.getIdx());
-        assertNotNull(responseAdd.getCreatedBy());
-        assertNotNull(responseAdd.getDateCreated());
-        assertNotNull(responseAdd.getDateUpdated());
-        assertNotNull(responseAdd.getPermissions());
-        assertNotNull(responseAdd.getPermissions());
+        assertEquals(groupName, responseAdd.name);
+        assertEquals("add-group-test", responseAdd.description);
+        assertEquals("idx", responseAdd.idx);
+        assertNotNull(responseAdd.createdBy);
+        assertNotNull(responseAdd.dateCreated);
+        assertNotNull(responseAdd.dateUpdated);
+        assertNotNull(responseAdd.permissions);
     }
 
     @Test
@@ -67,18 +65,17 @@ public class GroupsFactoryTest extends TestSmsapi {
             .setIdx("idx");
         Group responseAdd = actionAdd.execute();
 
-        GroupGet actionGet = apiFactory.actionGet(responseAdd.getId());
+        GroupGet actionGet = apiFactory.actionGet(responseAdd.id);
         Group responseGet = actionGet.execute();
 
         assertNotNull(responseGet);
-        assertEquals(groupName, responseGet.getName());
-        assertEquals("get-group-test", responseGet.getDescription());
-        assertEquals("idx", responseGet.getIdx());
-        assertNotNull(responseGet.getCreatedBy());
-        assertNotNull(responseGet.getDateCreated());
-        assertNotNull(responseGet.getDateUpdated());
-        assertNotNull(responseGet.getPermissions());
-        assertNotNull(responseGet.getPermissions());
+        assertEquals(groupName, responseGet.name);
+        assertEquals("get-group-test", responseGet.description);
+        assertEquals("idx", responseGet.idx);
+        assertNotNull(responseGet.createdBy);
+        assertNotNull(responseGet.dateCreated);
+        assertNotNull(responseGet.dateUpdated);
+        assertNotNull(responseGet.permissions);
     }
 
     @Test
@@ -90,21 +87,20 @@ public class GroupsFactoryTest extends TestSmsapi {
         Group responseAdd = actionAdd.execute();
 
         groupName = "smsapi-java-client-" + new Random().nextInt(100000);
-        GroupEdit actionEdit = apiFactory.actionEdit(responseAdd.getId())
+        GroupEdit actionEdit = apiFactory.actionEdit(responseAdd.id)
             .setName(groupName)
             .setDescription("edit-group-test-2")
             .setIdx("idx-2");
         Group responseEdit = actionEdit.execute();
 
         assertNotNull(responseEdit);
-        assertEquals(groupName, responseEdit.getName());
-        assertEquals("edit-group-test-2", responseEdit.getDescription());
-        assertEquals("idx-2", responseEdit.getIdx());
-        assertNotNull(responseEdit.getCreatedBy());
-        assertNotNull(responseEdit.getDateCreated());
-        assertNotNull(responseEdit.getDateUpdated());
-        assertNotNull(responseEdit.getPermissions());
-        assertNotNull(responseEdit.getPermissions());
+        assertEquals(groupName, responseEdit.name);
+        assertEquals("edit-group-test-2", responseEdit.description);
+        assertEquals("idx-2", responseEdit.idx);
+        assertNotNull(responseEdit.createdBy);
+        assertNotNull(responseEdit.dateCreated);
+        assertNotNull(responseEdit.dateUpdated);
+        assertNotNull(responseEdit.permissions);
     }
 
     @Test
@@ -112,7 +108,7 @@ public class GroupsFactoryTest extends TestSmsapi {
         GroupAdd actionAdd = apiFactory.actionAdd("smsapi-java-client-" + new Random().nextInt(100000));
         Group responseAdd = actionAdd.execute();
 
-        GroupDelete actionDelete = apiFactory.actionDelete(responseAdd.getId());
+        GroupDelete actionDelete = apiFactory.actionDelete(responseAdd.id);
         RawResponse responseDelete = actionDelete.execute();
 
         assertNotNull(responseDelete);
@@ -129,6 +125,6 @@ public class GroupsFactoryTest extends TestSmsapi {
 
         assertNotNull(responseList);
         assertTrue(responseList.count >= 1);
-        assertTrue(responseList.list.stream().anyMatch(groupResponse -> groupResponse.getName().equals(groupName)));
+        assertTrue(responseList.list.stream().anyMatch(groupResponse -> groupResponse.name.equals(groupName)));
     }
 }

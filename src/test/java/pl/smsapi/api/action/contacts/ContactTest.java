@@ -51,29 +51,29 @@ public class ContactTest {
         Contact response = action.execute();
 
         assertNotNull(response);
-        assertEquals("John", response.getFirstName());
-        assertEquals("Doe", response.getLastName());
-        assertEquals("48327201200", response.getPhoneNumber());
-        assertEquals("john.doe@example.com", response.getEmail());
-        assertEquals("undefined", response.getGender());
-        assertEquals("2017-07-21", response.getBirthdayDate());
-        assertEquals("Resource description", response.getDescription());
-        assertEquals("Example City", response.getCity());
-        assertEquals("Example Country", response.getCountry());
-        assertEquals("Example Source", response.getSource());
-        assertEquals("2017-07-21T17:32:28Z", response.getDateCreated());
-        assertEquals("2017-07-21T17:32:28Z", response.getDateUpdated());
-        assertEquals(1, response.getGroups().count);
+        assertEquals("John", response.firstName);
+        assertEquals("Doe", response.lastName);
+        assertEquals("48327201200", response.phoneNumber);
+        assertEquals("john.doe@example.com", response.email);
+        assertEquals("undefined", response.gender);
+        assertEquals("2017-07-21", response.birthdayDate);
+        assertEquals("Resource description", response.description);
+        assertEquals("Example City", response.city);
+        assertEquals("Example Country", response.country);
+        assertEquals("Example Source", response.source);
+        assertEquals("2017-07-21T17:32:28Z", response.dateCreated);
+        assertEquals("2017-07-21T17:32:28Z", response.dateUpdated);
+        assertEquals(1, response.groups.count);
 
-        Optional<Group> group = response.getGroups().list.stream().filter(
-                contactResponse -> contactResponse.getId().equals("0f0f0f0f0f0f0f0f0f0f0f0f")
+        Optional<Group> group = response.groups.list.stream().filter(
+                contactResponse -> contactResponse.id.equals("0f0f0f0f0f0f0f0f0f0f0f0f")
         ).findFirst();
         assertTrue(group.isPresent());
-        assertEquals("Example Group", group.get().getName());
-        assertEquals("Resource description", group.get().getDescription());
-        assertEquals("2017-07-21T17:32:28Z", group.get().getDateCreated());
-        assertEquals("2017-07-21T17:32:28Z", group.get().getDateUpdated());
-        assertEquals("example_username", group.get().getCreatedBy());
-        assertEquals("example-user-provided-id-123", group.get().getIdx());
+        assertEquals("Example Group", group.get().name);
+        assertEquals("Resource description", group.get().description);
+        assertEquals("2017-07-21T17:32:28Z", group.get().dateCreated);
+        assertEquals("2017-07-21T17:32:28Z", group.get().dateUpdated);
+        assertEquals("example_username", group.get().createdBy);
+        assertEquals("example-user-provided-id-123", group.get().idx);
     }
 }

@@ -6,7 +6,7 @@ import pl.smsapi.api.response.ListResponse;
 
 public class Permissions extends ListResponse<Permission> {
 
-    public Permissions(int count, JSONArray jsonArray) {
+    private Permissions(int count, JSONArray jsonArray) {
         super(count, jsonArray);
     }
 
@@ -15,7 +15,7 @@ public class Permissions extends ListResponse<Permission> {
         return new Permission.PermissionFromJsonFactory().createFrom(jsonObject);
     }
 
-    public static class PermissionsFromJsonFactory {
+    static class PermissionsFromJsonFactory {
 
         public Permissions createFrom(JSONArray jsonArray) {
 

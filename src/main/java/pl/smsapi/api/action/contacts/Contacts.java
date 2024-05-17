@@ -6,7 +6,7 @@ import pl.smsapi.api.response.ListResponse;
 
 public class Contacts extends ListResponse<Contact> {
 
-    public Contacts(int count, JSONArray jsonArray) {
+    private Contacts(int count, JSONArray jsonArray) {
         super(count, jsonArray);
     }
 
@@ -15,7 +15,7 @@ public class Contacts extends ListResponse<Contact> {
         return new Contact.ContactFromJsonFactory().createFrom(jsonObject);
     }
 
-    public static class ContactsFromJsonFactory {
+    static class ContactsFromJsonFactory {
         public Contacts createFrom(JSONObject jsonObject) {
             return new Contacts(
                 jsonObject.getInt("size"),

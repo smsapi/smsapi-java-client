@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import pl.smsapi.api.response.ListResponse;
 
 public class Groups extends ListResponse<Group> {
-    public Groups(int count, JSONArray jsonArray) {
+    private Groups(int count, JSONArray jsonArray) {
         super(count, jsonArray);
     }
 

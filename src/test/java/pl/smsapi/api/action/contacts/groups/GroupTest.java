@@ -42,22 +42,22 @@ public class GroupTest {
         Group response = action.execute();
 
         assertNotNull(response);
-        assertEquals("Example Group", response.getName());
-        assertEquals("Resource description", response.getDescription());
-        assertEquals("2017-07-21T17:32:28Z", response.getDateCreated());
-        assertEquals("2017-07-21T17:32:28Z", response.getDateUpdated());
-        assertEquals("example_username", response.getCreatedBy());
-        assertEquals("example-user-provided-id-123", response.getIdx());
+        assertEquals("Example Group", response.name);
+        assertEquals("Resource description", response.description);
+        assertEquals("2017-07-21T17:32:28Z", response.dateCreated);
+        assertEquals("2017-07-21T17:32:28Z", response.dateUpdated);
+        assertEquals("example_username", response.createdBy);
+        assertEquals("example-user-provided-id-123", response.idx);
 
-        assertFalse(response.getPermissions().list.isEmpty());
-        assertEquals(1, response.getPermissions().count);
+        assertFalse(response.permissions.list.isEmpty());
+        assertEquals(1, response.permissions.count);
 
-        Optional<Permission> permission1 = response.getPermissions().list.stream().filter(
-                permissionResponse -> permissionResponse.getUsername().equals("example_username")
+        Optional<Permission> permission1 = response.permissions.list.stream().filter(
+                permissionResponse -> permissionResponse.username.equals("example_username")
         ).findFirst();
         assertTrue(permission1.isPresent());
-        assertFalse(permission1.get().isWrite());
-        assertFalse(permission1.get().isRead());
-        assertFalse(permission1.get().isSend());
+        assertFalse(permission1.get().write);
+        assertFalse(permission1.get().read);
+        assertFalse(permission1.get().send);
     }
 }
