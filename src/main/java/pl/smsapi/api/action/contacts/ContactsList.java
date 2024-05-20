@@ -4,10 +4,26 @@ import org.json.JSONObject;
 import pl.smsapi.StringUtils;
 import pl.smsapi.api.action.AbstractAction;
 
+import java.net.URLEncoder;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
+
 public class ContactsList extends AbstractAction<Contacts> {
+
+    protected TreeMap<String, String> query = new TreeMap<>();
+
     @Override
     protected String endPoint() {
-        return "contacts";
+        if (query.isEmpty()) {
+            return "contacts";
+        }
+
+        return "contacts?" +
+            query
+                .entrySet()
+                .stream()
+                .map(entry -> entry.getKey() + "=" + URLEncoder.encode(entry.getValue()))
+                .collect(Collectors.joining("&"));
     }
 
     @Override
@@ -16,57 +32,57 @@ public class ContactsList extends AbstractAction<Contacts> {
     }
 
     public ContactsList filterByPhoneNumber(String phoneNumber) {
-        params.put("phone_number", phoneNumber);
+        query.put("phone_number", phoneNumber);
         return this;
     }
 
     public ContactsList filterByEmail(String email) {
-        params.put("email", email);
+        query.put("email", email);
         return this;
     }
 
     public ContactsList filterByFirstName(String firstName) {
-        params.put("first_name", firstName);
+        query.put("first_name", firstName);
         return this;
     }
 
     public ContactsList filterByLastName(String lastName) {
-        params.put("last_name", lastName);
+        query.put("last_name", lastName);
         return this;
     }
 
     public ContactsList filterByGroupId(String groupId) {
-        params.put("group_id", groupId);
+        query.put("group_id", groupId);
         return this;
     }
 
     public ContactsList filterByGroupIds(String[] groupIds) {
-        params.put("group_id", StringUtils.join(groupIds, ','));
+        query.put("group_id", StringUtils.join(groupIds, ','));
         return this;
     }
 
     public ContactsList filterByGender(String gender) {
-        params.put("gender", gender);
+        query.put("gender", gender);
         return this;
     }
 
     public ContactsList filterByBirthdayDate(String birthdayDate) {
-        params.put("birthday_date", birthdayDate);
+        query.put("birthday_date", birthdayDate);
         return this;
     }
 
     public ContactsList orderBy(String orderBy) {
-        params.put("order_by", orderBy);
+        query.put("order_by", orderBy);
         return this;
     }
 
     public ContactsList limit(int limit) {
-        params.put("limit", Integer.toString(limit));
+        query.put("limit", Integer.toString(limit));
         return this;
     }
 
     public ContactsList offset(int offset) {
-        params.put("offset", Integer.toString(offset));
+        query.put("offset", Integer.toString(offset));
         return this;
     }
 
