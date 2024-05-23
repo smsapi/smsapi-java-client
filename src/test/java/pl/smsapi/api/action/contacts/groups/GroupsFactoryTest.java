@@ -43,8 +43,8 @@ public class GroupsFactoryTest extends TestSmsapi {
         String groupName = "smsapi-java-client-" + new Random().nextInt(100000);
 
         GroupAdd actionAdd = apiFactory.actionAdd(groupName)
-                .setDescription("add-group-test")
-                .setIdx("idx");
+                .withDescription("add-group-test")
+                .withIdx("idx");
         Group responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
@@ -61,8 +61,8 @@ public class GroupsFactoryTest extends TestSmsapi {
     public void getContactGroup() throws SmsapiException {
         String groupName = "smsapi-java-client-" + new Random().nextInt(100000);
         GroupAdd actionAdd = apiFactory.actionAdd(groupName)
-            .setDescription("get-group-test")
-            .setIdx("idx");
+            .withDescription("get-group-test")
+            .withIdx("idx");
         Group responseAdd = actionAdd.execute();
 
         GroupGet actionGet = apiFactory.actionGet(responseAdd.id);
@@ -82,15 +82,15 @@ public class GroupsFactoryTest extends TestSmsapi {
     public void editContactGroup() throws SmsapiException {
         String groupName = "smsapi-java-client-" + new Random().nextInt(100000);
         GroupAdd actionAdd = apiFactory.actionAdd(groupName)
-            .setDescription("edit-group-test-1")
-            .setIdx("idx-1");
+            .withDescription("edit-group-test-1")
+            .withIdx("idx-1");
         Group responseAdd = actionAdd.execute();
 
         groupName = "smsapi-java-client-" + new Random().nextInt(100000);
         GroupEdit actionEdit = apiFactory.actionEdit(responseAdd.id)
-            .setName(groupName)
-            .setDescription("edit-group-test-2")
-            .setIdx("idx-2");
+            .withName(groupName)
+            .withDescription("edit-group-test-2")
+            .withIdx("idx-2");
         Group responseEdit = actionEdit.execute();
 
         assertNotNull(responseEdit);

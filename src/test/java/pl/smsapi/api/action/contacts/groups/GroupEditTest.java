@@ -26,9 +26,9 @@ public class GroupEditTest {
     @Test
     public void executeEditGroupWithOptionalFieldsRequest() throws SmsapiException {
         GroupEdit action = new GroupEdit("0f0f0f0f0f0f0f0f0f0f0f0f")
-            .setName("Example Group")
-            .setDescription("Resource description")
-            .setIdx("example-user-provided-id-123");
+            .withName("Example Group")
+            .withDescription("Resource description")
+            .withIdx("example-user-provided-id-123");
 
         ProxyRequestSpy requestSpy = executeAction(action);
 

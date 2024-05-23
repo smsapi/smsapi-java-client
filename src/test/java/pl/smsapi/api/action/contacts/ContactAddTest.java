@@ -14,7 +14,7 @@ public class ContactAddTest {
     @Test
     public void executeAddPhoneContactRequest() throws SmsapiException {
         ContactAdd action = new ContactAdd()
-            .setPhoneNumber("48327201200");
+            .withPhoneNumber("48327201200");
 
         ProxyRequestSpy requestSpy = executeAction(action);
 
@@ -28,7 +28,7 @@ public class ContactAddTest {
     @Test
     public void executeAddEmailAddressContactRequest() throws SmsapiException {
         ContactAdd action = new ContactAdd()
-            .setEmail("john.doe@example.com");
+            .withEmail("john.doe@example.com");
 
         ProxyRequestSpy requestSpy = executeAction(action);
 
@@ -42,15 +42,15 @@ public class ContactAddTest {
     @Test
     public void executeAddContactWithOptionalFieldsRequest() throws SmsapiException {
         ContactAdd action = new ContactAdd()
-            .setPhoneNumber("48327201200")
-            .setEmail("john.doe@example.com")
-            .setFirstName("John")
-            .setLastName("Doe")
-            .setGender("male")
-            .setBirthdayDate("2017-07-21")
-            .setDescription("Resource description")
-            .setCity("Example City")
-            .setSource("Example Source");
+            .withPhoneNumber("48327201200")
+            .withEmail("john.doe@example.com")
+            .withFirstName("John")
+            .withLastName("Doe")
+            .withGender("male")
+            .withBirthdayDate("2017-07-21")
+            .withDescription("Resource description")
+            .withCity("Example City")
+            .withSource("Example Source");
 
         ProxyRequestSpy requestSpy = executeAction(action);
 

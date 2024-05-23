@@ -14,12 +14,12 @@ public class GroupAdd extends AbstractAction<Group> {
         return "contacts/groups";
     }
 
-    public GroupAdd setDescription(String description) {
+    public GroupAdd withDescription(String description) {
         params.put("description", description);
         return this;
     }
 
-    public GroupAdd setIdx(String idx) {
+    public GroupAdd withIdx(String idx) {
         params.put("idx", idx);
         return this;
     }

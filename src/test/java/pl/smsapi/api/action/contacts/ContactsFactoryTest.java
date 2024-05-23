@@ -25,7 +25,7 @@ public class ContactsFactoryTest extends TestSmsapi
         String emailAddress = "smsapi-java-client-" + new Random().nextInt(100000) + "@example.com";
 
         ContactAdd actionAdd = apiFactory.actionAdd()
-            .setEmail(emailAddress);
+            .withEmail(emailAddress);
         Contact responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
@@ -49,14 +49,14 @@ public class ContactsFactoryTest extends TestSmsapi
         String emailAddress = "smsapi-java-client-" + new Random().nextInt(100000) + "@example.com";
 
         ContactAdd actionAdd = apiFactory.actionAdd()
-            .setEmail(emailAddress)
-            .setFirstName("John")
-            .setLastName("Doe")
-            .setGender("male")
-            .setBirthdayDate("2000-01-01")
-            .setDescription("add-contact-test")
-            .setCity("Gliwice")
-            .setSource("add-contact-test-data");
+            .withEmail(emailAddress)
+            .withFirstName("John")
+            .withLastName("Doe")
+            .withGender("male")
+            .withBirthdayDate("2000-01-01")
+            .withDescription("add-contact-test")
+            .withCity("Gliwice")
+            .withSource("add-contact-test-data");
         Contact responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
@@ -79,14 +79,14 @@ public class ContactsFactoryTest extends TestSmsapi
     public void getContact() throws SmsapiException {
         String emailAddress = "smsapi-java-client-" + new Random().nextInt(100000) + "@example.com";
         ContactAdd actionAdd = apiFactory.actionAdd()
-            .setEmail(emailAddress)
-            .setFirstName("John")
-            .setLastName("Doe")
-            .setGender("male")
-            .setBirthdayDate("2000-01-01")
-            .setDescription("get-contact-test")
-            .setCity("Gliwice")
-            .setSource("get-contact-test-data");
+            .withEmail(emailAddress)
+            .withFirstName("John")
+            .withLastName("Doe")
+            .withGender("male")
+            .withBirthdayDate("2000-01-01")
+            .withDescription("get-contact-test")
+            .withCity("Gliwice")
+            .withSource("get-contact-test-data");
         Contact responseAdd = actionAdd.execute();
 
         ContactGet actionGet = apiFactory.actionGet(responseAdd.id);
@@ -112,26 +112,26 @@ public class ContactsFactoryTest extends TestSmsapi
     public void editContact() throws SmsapiException {
         String emailAddress = "smsapi-java-client-" + new Random().nextInt(100000) + "@example.com";
         ContactAdd actionAdd = apiFactory.actionAdd()
-            .setEmail(emailAddress)
-            .setFirstName("John")
-            .setLastName("Doe")
-            .setGender("male")
-            .setBirthdayDate("2000-01-01")
-            .setDescription("edit-contact-test-1")
-            .setCity("Gliwice")
-            .setSource("edit-contact-test-data-1");
+            .withEmail(emailAddress)
+            .withFirstName("John")
+            .withLastName("Doe")
+            .withGender("male")
+            .withBirthdayDate("2000-01-01")
+            .withDescription("edit-contact-test-1")
+            .withCity("Gliwice")
+            .withSource("edit-contact-test-data-1");
         Contact responseAdd = actionAdd.execute();
 
         emailAddress = "smsapi-java-client-" + new Random().nextInt(100000) + "@example.com";
         ContactEdit actionEdit = apiFactory.actionEdit(responseAdd.id)
-            .setEmail(emailAddress)
-            .setFirstName("Mary")
-            .setLastName("Rose")
-            .setGender("female")
-            .setBirthdayDate("1999-12-31")
-            .setDescription("edit-contact-test-2")
-            .setCity("Bytom")
-            .setSource("edit-contact-test-data-2");
+            .withEmail(emailAddress)
+            .withFirstName("Mary")
+            .withLastName("Rose")
+            .withGender("female")
+            .withBirthdayDate("1999-12-31")
+            .withDescription("edit-contact-test-2")
+            .withCity("Bytom")
+            .withSource("edit-contact-test-data-2");
 
         Contact responseEdit = actionEdit.execute();
 
@@ -154,7 +154,7 @@ public class ContactsFactoryTest extends TestSmsapi
     @Test
     public void deleteContact() throws SmsapiException {
         ContactAdd actionAdd = apiFactory.actionAdd()
-            .setEmail("smsapi-java-client-" + new Random().nextInt(100000) + "@example.com");
+            .withEmail("smsapi-java-client-" + new Random().nextInt(100000) + "@example.com");
         Contact responseAdd = actionAdd.execute();
 
         ContactDelete actionDelete = apiFactory.actionDelete(responseAdd.id);
@@ -167,7 +167,7 @@ public class ContactsFactoryTest extends TestSmsapi
     public void listContacts() throws SmsapiException {
         String emailAddress = "smsapi-java-client-" + new Random().nextInt(100000) + "@example.com";
         ContactAdd actionAdd = apiFactory.actionAdd()
-                .setEmail(emailAddress);
+                .withEmail(emailAddress);
         actionAdd.execute();
 
         ContactsList actionList = apiFactory.actionList();

@@ -21,17 +21,17 @@ public class GroupEdit extends AbstractAction<Group> {
         return "PUT";
     }
 
-    public GroupEdit setName(String name) {
+    public GroupEdit withName(String name) {
         params.put("name", name);
         return this;
     }
 
-    public GroupEdit setDescription(String description) {
+    public GroupEdit withDescription(String description) {
         params.put("description", description);
         return this;
     }
 
-    public GroupEdit setIdx(String idx) {
+    public GroupEdit withIdx(String idx) {
         params.put("idx", idx);
         return this;
     }

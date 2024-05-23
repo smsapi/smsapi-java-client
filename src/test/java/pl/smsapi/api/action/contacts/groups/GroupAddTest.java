@@ -27,8 +27,8 @@ public class GroupAddTest {
     @Test
     public void executeAddGroupWithOptionalFieldsRequest() throws SmsapiException {
         GroupAdd action = new GroupAdd("Example Group")
-            .setDescription("Resource description")
-            .setIdx("example-user-provided-id-123");
+            .withDescription("Resource description")
+            .withIdx("example-user-provided-id-123");
 
         ProxyRequestSpy requestSpy = executeAction(action);
 
