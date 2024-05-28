@@ -2,8 +2,13 @@ package pl.smsapi.api.action.contacts;
 
 import org.json.JSONObject;
 import pl.smsapi.api.action.AbstractAction;
+import pl.smsapi.api.action.contacts.groups.GroupGet;
 import pl.smsapi.api.response.contacts.ContactsGroupResponse;
 
+/**
+ * @deprecated use {@link GroupGet} instead
+ */
+@Deprecated
 public class ContactsGroupGet extends AbstractAction<ContactsGroupResponse> {
     private String groupId;
 

@@ -1,24 +1,19 @@
 package pl.smsapi.api.action.contacts;
 
 import pl.smsapi.api.action.AbstractAction;
-import pl.smsapi.api.action.contacts.groups.GroupDelete;
 import pl.smsapi.api.response.RawResponse;
 
-/**
- * @deprecated use {@link GroupDelete} instead
- */
-@Deprecated
-public class ContactsGroupDelete extends AbstractAction<RawResponse> {
-    private String groupId;
+public class ContactDelete extends AbstractAction<RawResponse> {
 
-    public ContactsGroupDelete groupId(String groupId) {
-        this.groupId = groupId;
-        return this;
+    private final String id;
+
+    public ContactDelete(String id) {
+        this.id = id;
     }
 
     @Override
     protected String endPoint() {
-        return "groups/" + groupId;
+        return "contacts/" + id;
     }
 
     @Override

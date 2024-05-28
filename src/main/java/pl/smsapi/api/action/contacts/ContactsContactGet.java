@@ -4,6 +4,10 @@ import org.json.JSONObject;
 import pl.smsapi.api.action.AbstractAction;
 import pl.smsapi.api.response.contacts.ContactsContactResponse;
 
+/**
+ * @deprecated use {@link ContactGet} instead
+ */
+@Deprecated
 public class ContactsContactGet extends AbstractAction<ContactsContactResponse> {
     private String contactId;
 
