@@ -7,10 +7,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Added
 - new Contacts API
 - Subusers API
-- new Contacts API
 
 ### Changed
-- `pl.smsapi.api.ContactsFactory` marked as deprecated, use `pl.smsapi.api.action.contacts.ContactsFactory` or `pl.smsapi.api.action.contacts.groups.GroupsFactory` instead
+
 - `pl.smsapi.api.UserFactory.actionAdd` marked as deprecated, use `pl.smsapi.api.action.subusers.SubusersFactory.actionAdd` instead
 - `pl.smsapi.api.UserFactory.actionEdit` marked as deprecated, use `pl.smsapi.api.action.subusers.SubusersFactory.actionEdit` instead
 - `pl.smsapi.api.UserFactory.actionList` marked as deprecated, use `pl.smsapi.api.action.subusers.SubusersFactory.actionList` instead
