@@ -41,7 +41,7 @@ public class BasicAuthClient implements Client {
             return sb.toString();
 
         } catch (NoSuchAlgorithmException ex) {
-            throw new ClientException(ex);
+            throw new ClientException("MD5 algorithm not found. Cannot create API password.", -1);
         }
     }
 

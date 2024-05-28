@@ -7,9 +7,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Added
 - new Contacts API
 - Subusers API
+- `pl.smsapi.exception.SmsapiErrorException` to handle API error responses
 
 ### Changed
-
 - `pl.smsapi.api.UserFactory.actionAdd` marked as deprecated, use `pl.smsapi.api.action.subusers.SubusersFactory.actionAdd` instead
 - `pl.smsapi.api.UserFactory.actionEdit` marked as deprecated, use `pl.smsapi.api.action.subusers.SubusersFactory.actionEdit` instead
 - `pl.smsapi.api.UserFactory.actionList` marked as deprecated, use `pl.smsapi.api.action.subusers.SubusersFactory.actionList` instead
@@ -20,6 +20,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - `pl.smsapi.BasicAuthClient` marked as deprecated
 - non-proxy action factories marked as deprecated
 - `pl.smsapi.api.ContactsFactory` marked as deprecated, use `pl.smsapi.api.action.contacts.ContactsFactory` or `pl.smsapi.api.action.contacts.groups.GroupsFactory` instead
+- `pl.smsapi.exception.ActionException` marked as deprecated, use `pl.smsapi.exception.SmsapiLegacyErrorException` instead
+- `pl.smsapi.exception.ClientException` marked as deprecated, use `pl.smsapi.exception.SmsapiLegacyErrorException` instead
+- `pl.smsapi.exception.HostException` marked as deprecated, use `pl.smsapi.exception.SmsapiLegacyErrorException` instead
+- all client and server side errors are now being translated to `pl.smsapi.exception.SmsapiErrorException` or `pl.smsapi.exception.SmsapiLegacyErrorException`
 
 ### Removed
 - legacy `phonebook.do` contacts API support

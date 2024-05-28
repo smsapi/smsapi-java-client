@@ -11,11 +11,14 @@ import pl.smsapi.api.response.CountableResponse;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.api.response.SendStatusResponse;
 import pl.smsapi.api.response.StatusResponse;
+import pl.smsapi.exception.ActionException;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
 
 import java.io.File;
 import java.util.Date;
+
+import static org.junit.Assert.*;
 
 @Ignore
 public class SmsTest extends TestSmsapi {
@@ -99,5 +102,39 @@ public class SmsTest extends TestSmsapi {
         if (file.exists()) {
             file.delete();
         }
+    }
+
+    @Test
+    public void smsSendWithoutRecipientsListError() throws SmsapiException {
+        SMSSend action = apiFactory.actionSend();
+        boolean errorCatch = false;
+
+        try {
+            action.execute();
+        } catch (ActionException badRequest) {
+            assertEquals("Recipients list cannot be empty", badRequest.getMessage());
+            assertEquals(13, badRequest.getCode());
+            errorCatch = true;
+        }
+
+        assertTrue(errorCatch);
+    }
+
+    @Test
+    public void smsSendWithoutMessageError() throws SmsapiException {
+        SMSSend action = apiFactory.actionSend()
+            .setText("")
+            .setTo(numberTest);
+        boolean errorCatch = false;
+
+        try {
+            action.execute();
+        } catch (ActionException badRequest) {
+            assertEquals("Content is empty", badRequest.getMessage());
+            assertEquals(11, badRequest.getCode());
+            errorCatch = true;
+        }
+
+        assertTrue(errorCatch);
     }
 }

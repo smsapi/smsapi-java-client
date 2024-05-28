@@ -3,6 +3,7 @@ package pl.smsapi.api.action.subusers;
 import org.junit.Before;
 import org.junit.Test;
 import pl.smsapi.api.response.Response;
+import pl.smsapi.exception.SmsapiErrorException;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
 
@@ -127,5 +128,38 @@ public class SubusersFactoryTest extends TestSmsapi {
         assertNotNull(responseList);
         assertTrue(responseList.count >= 1);
         assertTrue(responseList.list.stream().anyMatch(subuserResponse -> subuserResponse.username.equals(username)));
+    }
+
+    @Test
+    public void addSubuserWithError() throws SmsapiException {
+        String username = "smsapi-java-client-" + new Random().nextLong();
+        SubuserAdd actionAdd = apiFactory.actionAdd(username, "WeakPassword");
+        boolean errorCatch = false;
+
+        try {
+            actionAdd.execute();
+        } catch (SmsapiErrorException badRequest) {
+            assertEquals("Your password is too weak (use combination of lowercase, uppercase and numeric characters)", badRequest.getMessage());
+            assertEquals("invalid_domain_logic", badRequest.getError());
+            errorCatch = true;
+        }
+
+        assertTrue(errorCatch);
+    }
+
+    @Test
+    public void getSubuserWithError() throws SmsapiException {
+        boolean errorCatch = false;
+
+        SubuserGet actionGet = apiFactory.actionGet("0f0f0f0f0f0f0f0f0f0f0f0f");
+        try {
+            actionGet.execute();
+        } catch (SmsapiErrorException notFound) {
+            assertEquals("Not found", notFound.getMessage());
+            assertEquals("not_found", notFound.getError());
+            errorCatch = true;
+        }
+
+        assertTrue(errorCatch);
     }
 }
