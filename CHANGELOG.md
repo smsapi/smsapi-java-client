@@ -28,6 +28,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - `pl.smsapi.api.VmsFactory.actionGet` without parameters marked as deprecated
 - `pl.smsapi.api.VmsFactory.actionDelete` without parameters marked as deprecated
 - `pl.smsapi.api.action.vms.VMSDelete` without parameters marked as deprecated
+- `pl.smsapi.api.action.vms.VMSGet` without parameters marked as deprecated
 
 ### Removed
 - legacy `phonebook.do` contacts API support
