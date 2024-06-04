@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 
 @Ignore
 public class VmsFactoryTest extends TestSmsapi {
-    private String numberTest = "48694562829";
+    private final String numberTest = "48694562829";
 
     VmsFactory apiFactory;
 
