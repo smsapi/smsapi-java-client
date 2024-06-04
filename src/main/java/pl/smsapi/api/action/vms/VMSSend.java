@@ -4,10 +4,8 @@ import org.json.JSONObject;
 import pl.smsapi.api.action.AbstractSendAction;
 import pl.smsapi.api.response.StatusResponse;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.file.Files;
 
 public class VMSSend extends AbstractSendAction<VMSSend, StatusResponse> {
 
@@ -24,12 +22,49 @@ public class VMSSend extends AbstractSendAction<VMSSend, StatusResponse> {
         }
     }
 
+    /**
+     * @deprecated use {@link VMSSend(String, String)} or {@link VMSSend(String[], String)} or {@link VMSSend(String, File)}
+     * or {@link VMSSend(String[], File)} instead
+     */
     public VMSSend() {
         setJson(true);
     }
 
+    public VMSSend(String to, String tts) {
+        setJson(true);
+        setTo(to);
+        params.put("tts", tts);
+    }
+
+    public VMSSend(String[] to, String tts) {
+        setJson(true);
+        setTo(to);
+        params.put("tts", tts);
+    }
+
+    public VMSSend(String to, File file) throws IOException {
+        setJson(true);
+        setTo(to);
+        files.put("file", Files.newInputStream(file.toPath()));
+    }
+
+    public VMSSend(String[] to, File file) throws IOException {
+        setJson(true);
+        setTo(to);
+        files.put("file", Files.newInputStream(file.toPath()));
+    }
+
+    public VMSSend(String[] to, InputStream file) {
+        setJson(true);
+        setTo(to);
+        files.put("file", file);
+    }
+
     /**
      * Set local audio file.
+     *
+     * @deprecated use {@link VMSSend(String, File)} or {@link VMSSend(String[], File)} instead
+     *
      */
     public VMSSend setFile(File file) throws FileNotFoundException {
         files.put("file", new FileInputStream(file));
@@ -38,6 +73,8 @@ public class VMSSend extends AbstractSendAction<VMSSend, StatusResponse> {
 
     /**
      * Set local audio filename.
+     *
+     * @deprecated use {@link VMSSend(String, File)} or {@link VMSSend(String[], File)} instead
      */
     public VMSSend setFile(String pathFile) throws FileNotFoundException {
         files.put("file", new FileInputStream(pathFile));
@@ -46,6 +83,8 @@ public class VMSSend extends AbstractSendAction<VMSSend, StatusResponse> {
 
     /**
      * Set local audio stream.
+     *
+     * @deprecated use {@link VMSSend(String[], InputStream)} instead
      */
     public VMSSend setFile(InputStream inputStream) {
         files.put("file", inputStream);
@@ -54,6 +93,8 @@ public class VMSSend extends AbstractSendAction<VMSSend, StatusResponse> {
 
     /**
      * Set text to voice synthesizer.
+     *
+     * @deprecated use {@link VMSSend(String, String)} or {@link VMSSend(String[], String)} instead
      */
     public VMSSend setTts(String tts) {
         params.put("tts", tts);

@@ -12,7 +12,7 @@ import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Optional;
 
@@ -42,7 +42,7 @@ public class VmsFactoryTest extends TestSmsapi {
     }
 
     @Test
-    public void sendVmsWithFile() throws FileNotFoundException, SmsapiException {
+    public void sendVmsWithFile() throws IOException, SmsapiException {
         VMSSend action = apiFactory.actionSend(numberTest, new File("src/test/java/pl/smsapi/test/voice_small.wav"));
 
         StatusResponse responseAdd = action.execute();

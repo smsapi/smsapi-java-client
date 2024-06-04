@@ -7,7 +7,7 @@ import pl.smsapi.api.action.vms.VMSSend;
 import pl.smsapi.proxy.Proxy;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class VmsFactory extends ActionFactory {
 
@@ -35,33 +35,33 @@ public class VmsFactory extends ActionFactory {
     }
 
     public VMSSend actionSend(String to, String tts) {
-        VMSSend action = actionSend();
-        action.setTo(to);
-        action.setTts(tts);
+        VMSSend action = new VMSSend(to, tts);
+        action.client(client);
+        action.proxy(proxy);
 
         return action;
     }
 
     public VMSSend actionSend(String[] to, String tts) {
-        VMSSend action = actionSend();
-        action.setTo(to);
-        action.setTts(tts);
+        VMSSend action = new VMSSend(to, tts);
+        action.client(client);
+        action.proxy(proxy);
 
         return action;
     }
 
-    public VMSSend actionSend(String to, File file) throws FileNotFoundException {
-        VMSSend action = actionSend();
-        action.setTo(to);
-        action.setFile(file);
+    public VMSSend actionSend(String to, File file) throws IOException {
+        VMSSend action = new VMSSend(to, file);
+        action.client(client);
+        action.proxy(proxy);
 
         return action;
     }
 
-    public VMSSend actionSend(String[] to, File file) throws FileNotFoundException {
-        VMSSend action = actionSend();
-        action.setTo(to);
-        action.setFile(file);
+    public VMSSend actionSend(String[] to, File file) throws IOException {
+        VMSSend action = new VMSSend(to, file);
+        action.client(client);
+        action.proxy(proxy);
 
         return action;
     }

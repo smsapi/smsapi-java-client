@@ -9,12 +9,12 @@ import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
-public class VMSGetTest {
+public class VMSSendTest {
 
     @Test
-    public void executeGetVmsRequest() throws SmsapiException {
+    public void executeSendVmsFromTTSRequest() throws SmsapiException {
         ProxyRequestSpy requestStub = new ProxyRequestSpy(StatusJsonMother.create());
-        VMSGet action = new VMSGet("0f0f0f0f0f0f0f0f0f0f0f0f");
+        VMSSend action = new VMSSend("48123123123", "text to speech");
         action.client(new ClientStub());
         action.proxy(requestStub);
 
@@ -23,15 +23,16 @@ public class VMSGetTest {
         assertEquals("POST", requestStub.requestMethod);
         assertEquals("vms.do", requestStub.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
-        expectedRequestPayload.put("status", "0f0f0f0f0f0f0f0f0f0f0f0f");
+        expectedRequestPayload.put("tts", "text to speech");
+        expectedRequestPayload.put("to", "48123123123");
         expectedRequestPayload.put("format", "json");
         assertEquals(expectedRequestPayload, requestStub.requestPayload);
     }
 
     @Test
-    public void executeGetMultipleVmsRequest() throws SmsapiException {
+    public void executeSendMultipleVmsFromTTSRequest() throws SmsapiException {
         ProxyRequestSpy requestStub = new ProxyRequestSpy(StatusJsonMother.create());
-        VMSGet action = new VMSGet(new String[]{"0f0f0f0f0f0f0f0f0f0f0f0f", "0f0f0f0f0f0f0f0f0f0f0f01"});
+        VMSSend action = new VMSSend(new String[]{"48123123123", "48123123124"}, "text to speech");
         action.client(new ClientStub());
         action.proxy(requestStub);
 
@@ -40,7 +41,8 @@ public class VMSGetTest {
         assertEquals("POST", requestStub.requestMethod);
         assertEquals("vms.do", requestStub.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
-        expectedRequestPayload.put("status", "0f0f0f0f0f0f0f0f0f0f0f0f|0f0f0f0f0f0f0f0f0f0f0f01");
+        expectedRequestPayload.put("tts", "text to speech");
+        expectedRequestPayload.put("to", "48123123123,48123123124");
         expectedRequestPayload.put("format", "json");
         assertEquals(expectedRequestPayload, requestStub.requestPayload);
     }
