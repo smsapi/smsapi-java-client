@@ -9,8 +9,7 @@ import java.nio.file.Files;
 
 public class VMSSend extends AbstractSendAction<VMSSend, StatusResponse> {
 
-    public static enum Lector {
-        AGNIESZKA,
+    public enum Lector {
         EWA,
         JACEK,
         JAN,
