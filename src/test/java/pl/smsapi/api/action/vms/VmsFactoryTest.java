@@ -7,6 +7,7 @@ import pl.smsapi.api.VmsFactory;
 import pl.smsapi.api.response.CountableResponse;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.api.response.StatusResponse;
+import pl.smsapi.exception.ActionException;
 import pl.smsapi.exception.SmsapiException;
 import pl.smsapi.test.TestSmsapi;
 
@@ -31,9 +32,7 @@ public class VmsFactoryTest extends TestSmsapi {
 
     @Test
     public void sendVmsWithTts() throws SmsapiException {
-        VMSSend action = apiFactory.actionSend()
-                .setTts("to jest test")
-                .setTo(numberTest);
+        VMSSend action = apiFactory.actionSend(numberTest, "to jest test");
 
         StatusResponse responseAdd = action.execute();
 
@@ -44,9 +43,7 @@ public class VmsFactoryTest extends TestSmsapi {
 
     @Test
     public void sendVmsWithFile() throws FileNotFoundException, SmsapiException {
-        VMSSend action = apiFactory.actionSend()
-                .setFile(new File("src/test/java/pl/smsapi/test/voice_small.wav"))
-                .setTo(numberTest);
+        VMSSend action = apiFactory.actionSend(numberTest, new File("src/test/java/pl/smsapi/test/voice_small.wav"));
 
         StatusResponse responseAdd = action.execute();
 
@@ -57,15 +54,13 @@ public class VmsFactoryTest extends TestSmsapi {
 
     @Test
     public void getVms() throws SmsapiException {
-        StatusResponse responseAdd = apiFactory.actionSend()
-                .setTts("to jest test")
-                .setTo(numberTest)
-                .execute();
+        StatusResponse responseAdd = apiFactory.actionSend(numberTest, "to jest test")
+            .execute();
 
         Optional<MessageResponse> addMessageResponse = responseAdd.list.stream().findFirst();
         assertTrue(addMessageResponse.isPresent());
 
-        VMSGet actionGet = apiFactory.actionGet().id(addMessageResponse.get().getId());
+        VMSGet actionGet = apiFactory.actionGet(addMessageResponse.get().getId());
         StatusResponse responseGet = actionGet.execute();
 
         assertNotNull(responseGet);
@@ -75,11 +70,9 @@ public class VmsFactoryTest extends TestSmsapi {
 
     @Test
     public void deleteVms() throws SmsapiException {
-        StatusResponse responseAdd = apiFactory.actionSend()
-                .setTts("to jest test")
-                .setTo(numberTest)
-                .setDateSent((new Date().getTime() / 1000) + 120)
-                .execute();
+        StatusResponse responseAdd = apiFactory.actionSend(numberTest, "to jest test")
+            .setDateSent((new Date().getTime() / 1000) + 120)
+            .execute();
 
         Optional<MessageResponse> addMessageResponse = responseAdd.list.stream().findFirst();
         assertTrue(addMessageResponse.isPresent());
@@ -89,5 +82,74 @@ public class VmsFactoryTest extends TestSmsapi {
 
         assertNotNull(responseDelete);
         assertEquals(1, responseDelete.count);
+    }
+
+    @Test
+    public void sendVmsWithError() throws SmsapiException {
+        boolean errorCatch = false;
+        VMSSend actionSend = apiFactory.actionSend();
+
+        try {
+            actionSend.execute();
+        } catch (ActionException badRequest) {
+            assertEquals("Recipients list cannot be empty", badRequest.getMessage());
+            assertEquals(13, badRequest.getCode());
+        }
+
+        try {
+            actionSend.setTo(numberTest).execute();
+        } catch (ActionException badRequest) {
+            assertEquals("Set Content requires one of parameters (tts, file)! None of them given!", badRequest.getMessage());
+            assertEquals(11, badRequest.getCode());
+            errorCatch = true;
+        }
+
+        assertTrue(errorCatch);
+    }
+
+    @Test
+    public void getVmsWithError() throws SmsapiException {
+        boolean errorCatch = false;
+        VMSGet actionGet = apiFactory.actionGet();
+
+        try {
+            actionGet.execute();
+        } catch (ActionException badRequest) {
+            assertEquals("Recipients list cannot be empty", badRequest.getMessage());
+            assertEquals(13, badRequest.getCode());
+        }
+
+        try {
+            actionGet.id("not existing").execute();
+        } catch (ActionException badRequest) {
+            assertEquals("Not exists ID message", badRequest.getMessage());
+            assertEquals(301, badRequest.getCode());
+            errorCatch = true;
+        }
+
+        assertTrue(errorCatch);
+    }
+
+    @Test
+    public void deleteVmsWithError() throws SmsapiException {
+        boolean errorCatch = false;
+        VMSDelete actionDelete = apiFactory.actionDelete();
+
+        try {
+            actionDelete.execute();
+        } catch (ActionException badRequest) {
+            assertEquals("Recipients list cannot be empty", badRequest.getMessage());
+            assertEquals(13, badRequest.getCode());
+        }
+
+        try {
+            actionDelete.id("not existing").execute();
+        } catch (ActionException badRequest) {
+            assertEquals("Not exists ID message", badRequest.getMessage());
+            assertEquals(301, badRequest.getCode());
+            errorCatch = true;
+        }
+
+        assertTrue(errorCatch);
     }
 }

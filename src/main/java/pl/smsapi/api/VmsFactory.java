@@ -6,6 +6,9 @@ import pl.smsapi.api.action.vms.VMSGet;
 import pl.smsapi.api.action.vms.VMSSend;
 import pl.smsapi.proxy.Proxy;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 public class VmsFactory extends ActionFactory {
 
     /**
@@ -20,6 +23,10 @@ public class VmsFactory extends ActionFactory {
         super(client, proxy);
     }
 
+    /**
+     * @deprecated use {@link #actionSend(String, String)} or {@link #actionSend(String[], String)}
+     * or {@link #actionSend(String, File)} or {@link #actionSend(String[], File)} instead
+     */
     public VMSSend actionSend() {
         VMSSend action = new VMSSend();
         action.client(client);
@@ -28,8 +35,11 @@ public class VmsFactory extends ActionFactory {
     }
 
     public VMSSend actionSend(String to, String tts) {
-        String[] tos = new String[]{to};
-        return actionSend(tos, tts);
+        VMSSend action = actionSend();
+        action.setTo(to);
+        action.setTts(tts);
+
+        return action;
     }
 
     public VMSSend actionSend(String[] to, String tts) {
@@ -40,6 +50,25 @@ public class VmsFactory extends ActionFactory {
         return action;
     }
 
+    public VMSSend actionSend(String to, File file) throws FileNotFoundException {
+        VMSSend action = actionSend();
+        action.setTo(to);
+        action.setFile(file);
+
+        return action;
+    }
+
+    public VMSSend actionSend(String[] to, File file) throws FileNotFoundException {
+        VMSSend action = actionSend();
+        action.setTo(to);
+        action.setFile(file);
+
+        return action;
+    }
+
+    /**
+     * @deprecated use {@link #actionGet(String)} instead
+     */
     public VMSGet actionGet() {
         VMSGet action = new VMSGet();
         action.client(client);
@@ -53,6 +82,9 @@ public class VmsFactory extends ActionFactory {
         return action;
     }
 
+    /**
+     * @deprecated use {@link #actionDelete(String)} instead
+     */
     public VMSDelete actionDelete() {
         VMSDelete action = new VMSDelete();
         action.client(client);

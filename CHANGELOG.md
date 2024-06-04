@@ -24,6 +24,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - `pl.smsapi.exception.ClientException` marked as deprecated, use `pl.smsapi.exception.SmsapiLegacyErrorException` instead
 - `pl.smsapi.exception.HostException` marked as deprecated, use `pl.smsapi.exception.SmsapiLegacyErrorException` instead
 - all client and server side errors are now being translated to `pl.smsapi.exception.SmsapiErrorException` or `pl.smsapi.exception.SmsapiLegacyErrorException`
+- `pl.smsapi.api.VmsFactory.actionSend` without parameters marked as deprecated
+- `pl.smsapi.api.VmsFactory.actionGet` without parameters marked as deprecated
+- `pl.smsapi.api.VmsFactory.actionDelete` without parameters marked as deprecated
 
 ### Removed
 - legacy `phonebook.do` contacts API support
