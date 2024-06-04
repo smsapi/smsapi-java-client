@@ -74,33 +74,45 @@ public abstract class AbstractAction<T extends Response> {
         }
     }
 
-    protected void handleError(String text) throws SmsapiException {
+    protected void handleError(String text) throws SmsapiErrorException, SmsapiLegacyErrorException {
 
         Matcher matcher = Pattern.compile("^ERROR:(.*)").matcher(text);
 
         if (matcher.find()) {
-            throw new HostException("Invalid response", 999);
+            handleExtraLegacyError();
         } else {
 
             try {
                 JSONObject error = new JSONObject(text);
-
-                int errorCode = error.optInt("error");
-                if (errorCode != 0) {
-                    String errorMessage = error.optString("message");
-
-                    if (SmsapiException.isHostError(errorCode)) {
-                        throw new HostException(errorMessage, errorCode);
-                    }
-
-                    if (SmsapiException.isClientError(errorCode)) {
-                        throw new ClientException(errorMessage, errorCode);
-                    } else {
-                        throw new ActionException(errorMessage, errorCode);
+                int legacyErrorCode = error.optInt("error");
+                if (legacyErrorCode != 0) {
+                    handleLegacyError(error, legacyErrorCode);
+                } else {
+                    String errorCode = error.optString("error", null);
+                    if (errorCode != null) {
+                        throw new SmsapiErrorException(error.optString("message"), errorCode);
                     }
                 }
-            } catch (JSONException e) {
+            } catch (JSONException nonJsonSuccessResponse) {
             }
         }
+    }
+
+    private static void handleLegacyError(JSONObject error, int errorCode) throws SmsapiLegacyErrorException {
+        String errorMessage = error.optString("message");
+
+        if (SmsapiLegacyErrorException.isHostError(errorCode)) {
+            throw new HostException(errorMessage, errorCode);
+        }
+
+        if (SmsapiLegacyErrorException.isClientError(errorCode)) {
+            throw new ClientException(errorMessage, errorCode);
+        } else {
+            throw new ActionException(errorMessage, errorCode);
+        }
+    }
+
+    private static void handleExtraLegacyError() throws HostException {
+        throw new HostException("Invalid response", 999);
     }
 }
