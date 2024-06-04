@@ -1,12 +1,9 @@
-package pl.smsapi.test.run;
+package pl.smsapi.api.action.vms;
 
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import pl.smsapi.api.VmsFactory;
-import pl.smsapi.api.action.vms.VMSDelete;
-import pl.smsapi.api.action.vms.VMSGet;
-import pl.smsapi.api.action.vms.VMSSend;
 import pl.smsapi.api.response.CountableResponse;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.api.response.StatusResponse;
@@ -18,7 +15,7 @@ import java.io.FileNotFoundException;
 import java.util.Date;
 
 @Ignore
-public class VmsTest extends TestSmsapi {
+public class VmsFactoryTest extends TestSmsapi {
     private String numberTest = "694562829";
     private String[] ids;
 
