@@ -93,8 +93,9 @@ public class VmsFactory extends ActionFactory {
     }
 
     public VMSDelete actionDelete(String id) {
-        VMSDelete action = actionDelete();
-        action.id(id);
+        VMSDelete action = new VMSDelete(id);
+        action.client(client);
+        action.proxy(proxy);
         return action;
     }
 }
