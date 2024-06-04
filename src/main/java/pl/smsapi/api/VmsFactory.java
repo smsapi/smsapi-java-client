@@ -77,8 +77,9 @@ public class VmsFactory extends ActionFactory {
     }
 
     public VMSGet actionGet(String id) {
-        VMSGet action = actionGet();
-        action.id(id);
+        VMSGet action = new VMSGet(id);
+        action.client(client);
+        action.proxy(proxy);
         return action;
     }
 
