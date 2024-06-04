@@ -13,11 +13,13 @@ import pl.smsapi.test.TestSmsapi;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Date;
+import java.util.Optional;
+
+import static org.junit.Assert.*;
 
 @Ignore
 public class VmsFactoryTest extends TestSmsapi {
-    private String numberTest = "694562829";
-    private String[] ids;
+    private String numberTest = "48694562829";
 
     VmsFactory apiFactory;
 
@@ -29,97 +31,63 @@ public class VmsFactoryTest extends TestSmsapi {
 
     @Test
     public void vmsSendTtsTest() throws SmsapiException {
-        final long time = (new Date().getTime() / 1000) + 86400;
-
-        final String tts = "to jest test";
-
         VMSSend action = apiFactory.actionSend()
-                .setTts(tts)
-                .setTo(numberTest)
-                .setInterval(300)
-                .setDateSent(time);
+                .setTts("to jest test")
+                .setTo(numberTest);
 
-        StatusResponse result = action.execute();
+        StatusResponse responseAdd = action.execute();
 
-        System.out.println("VmsSend:");
-
-        ids = new String[result.getCount()];
-        int i = 0;
-
-        for (MessageResponse item : result.getList()) {
-            if (!item.isError()) {
-                renderMessageItem(item);
-                ids[i] = item.getId();
-                i++;
-            }
-        }
-
-        if (ids.length > 0) {
-            writeIds(ids);
-        }
+        assertNotNull(responseAdd);
+        assertEquals(1, responseAdd.count);
+        assertTrue(responseAdd.list.stream().anyMatch(messageResponse -> messageResponse.getNumber().equals(numberTest)));
     }
 
     @Test
     public void vmsSendFileTest() throws FileNotFoundException, SmsapiException {
-        final long time = (new Date().getTime() / 1000) + 86400;
-
-        final File fileAudio = new File("src/test/java/pl/smsapi/test/voice_small.wav");
-
         VMSSend action = apiFactory.actionSend()
-                .setFile(fileAudio)
-                .setTo(numberTest)
-                .setDateSent(time);
+                .setFile(new File("src/test/java/pl/smsapi/test/voice_small.wav"))
+                .setTo(numberTest);
 
-        StatusResponse result = action.execute();
+        StatusResponse responseAdd = action.execute();
 
-        System.out.println("VmsSend:");
-
-        if (result.getCount() > 0) {
-            ids = new String[result.getCount()];
-        }
-
-        int i = 0;
-
-        for (MessageResponse item : result.getList()) {
-            if (!item.isError()) {
-                renderMessageItem(item);
-                ids[i] = item.getId();
-                i++;
-            }
-        }
-
-        if (ids.length > 0) {
-            writeIds(ids);
-        }
+        assertNotNull(responseAdd);
+        assertEquals(1, responseAdd.count);
+        assertTrue(responseAdd.list.stream().anyMatch(messageResponse -> messageResponse.getNumber().equals(numberTest)));
     }
 
     @Test
     public void vmsGetTest() throws SmsapiException {
-        System.out.println("VmsGet:");
-        ids = readIds();
+        StatusResponse responseAdd = apiFactory.actionSend()
+                .setTts("to jest test")
+                .setTo(numberTest)
+                .execute();
 
-        if (ids != null) {
-            VMSGet action = apiFactory.actionGet().ids(ids);
+        Optional<MessageResponse> addMessageResponse = responseAdd.list.stream().findFirst();
+        assertTrue(addMessageResponse.isPresent());
 
-            StatusResponse result = action.execute();
+        VMSGet actionGet = apiFactory.actionGet().id(addMessageResponse.get().getId());
+        StatusResponse responseGet = actionGet.execute();
 
-            for (MessageResponse item : result.getList()) {
-                renderMessageItem(item);
-            }
-        }
+        assertNotNull(responseGet);
+        assertEquals(1, responseGet.count);
+        assertTrue(responseGet.list.stream().anyMatch(getMessageResponse -> getMessageResponse.getNumber().equals(numberTest)));
     }
 
     @Test
     public void vmsDeleteTest() throws SmsapiException {
-        System.out.println("VmsDelete:");
-        ids = readIds();
+        StatusResponse responseAdd = apiFactory.actionSend()
+                .setTts("to jest test")
+                .setTo(numberTest)
+                .setDateSent((new Date().getTime() / 1000) + 120)
+                .execute();
 
-        if (ids != null) {
-            VMSDelete action = apiFactory.actionDelete().ids(ids);
+        Optional<MessageResponse> addMessageResponse = responseAdd.list.stream().findFirst();
+        assertTrue(addMessageResponse.isPresent());
 
-            CountableResponse item = action.execute();
+        VMSDelete actionDelete = apiFactory.actionDelete(addMessageResponse.get().getId());
+        CountableResponse responseDelete = actionDelete.execute();
 
-            System.out.println("Delete: " + item.getCount());
-        }
+        assertNotNull(responseDelete);
+        assertEquals(1, responseDelete.count);
     }
 }
