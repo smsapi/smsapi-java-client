@@ -30,7 +30,7 @@ public class VmsFactoryTest extends TestSmsapi {
     }
 
     @Test
-    public void vmsSendTts() throws SmsapiException {
+    public void sendVmsWithTts() throws SmsapiException {
         VMSSend action = apiFactory.actionSend()
                 .setTts("to jest test")
                 .setTo(numberTest);
@@ -43,7 +43,7 @@ public class VmsFactoryTest extends TestSmsapi {
     }
 
     @Test
-    public void vmsSendFile() throws FileNotFoundException, SmsapiException {
+    public void sendVmsWithFile() throws FileNotFoundException, SmsapiException {
         VMSSend action = apiFactory.actionSend()
                 .setFile(new File("src/test/java/pl/smsapi/test/voice_small.wav"))
                 .setTo(numberTest);
@@ -56,7 +56,7 @@ public class VmsFactoryTest extends TestSmsapi {
     }
 
     @Test
-    public void vmsGet() throws SmsapiException {
+    public void getVms() throws SmsapiException {
         StatusResponse responseAdd = apiFactory.actionSend()
                 .setTts("to jest test")
                 .setTo(numberTest)
@@ -74,7 +74,7 @@ public class VmsFactoryTest extends TestSmsapi {
     }
 
     @Test
-    public void vmsDelete() throws SmsapiException {
+    public void deleteVms() throws SmsapiException {
         StatusResponse responseAdd = apiFactory.actionSend()
                 .setTts("to jest test")
                 .setTo(numberTest)
