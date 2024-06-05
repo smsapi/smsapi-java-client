@@ -32,6 +32,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - `pl.smsapi.api.action.vms.VMSSend` without parameters marked as deprecated
 - `pl.smsapi.api.SmsFactory.actionSend` without parameters marked as deprecated
 - `pl.smsapi.api.action.sms.SMSSend` without parameters marked as deprecated
+- `pl.smsapi.api.SmsFactory.actionGet` without parameters marked as deprecated
+- `pl.smsapi.api.action.sms.SMSGet` without parameters marked as deprecated
 
 ### Removed
 - legacy `phonebook.do` contacts API support

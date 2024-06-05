@@ -47,7 +47,7 @@ public class SmsFactoryTest extends TestSmsapi {
         Optional<MessageResponse> sendMessageResponse = responseSend.list.stream().findFirst();
         assertTrue(sendMessageResponse.isPresent());
 
-        SMSGet actionGet = apiFactory.actionGet().id(sendMessageResponse.get().getId());
+        SMSGet actionGet = apiFactory.actionGet(sendMessageResponse.get().getId());
         StatusResponse responseGet = actionGet.execute();
 
         assertNotNull(responseGet);

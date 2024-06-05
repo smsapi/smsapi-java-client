@@ -17,7 +17,7 @@ public class StatusResponseTest {
 
     @Test
     public void deserialize_response() throws SmsapiException {
-        SMSGet action = new SMSGet();
+        SMSGet action = new SMSGet("7074294081650020450");
         action.client(new ClientStub());
         action.proxy(new ProxyResponseStub(
             "{" +

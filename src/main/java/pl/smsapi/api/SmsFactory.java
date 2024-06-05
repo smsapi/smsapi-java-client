@@ -45,6 +45,10 @@ public class SmsFactory extends ActionFactory {
         return action;
     }
 
+    /**
+     * @deprecated use {@link #actionGet(String)} instead
+     */
+    @Deprecated
     public SMSGet actionGet() {
         SMSGet action = new SMSGet();
         action.client(client);
@@ -53,8 +57,9 @@ public class SmsFactory extends ActionFactory {
     }
 
     public SMSGet actionGet(String id) {
-        SMSGet action = actionGet();
-        action.id(id);
+        SMSGet action = new SMSGet(id);
+        action.client(client);
+        action.proxy(proxy);
         return action;
     }
 
