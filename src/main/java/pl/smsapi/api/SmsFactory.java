@@ -63,6 +63,10 @@ public class SmsFactory extends ActionFactory {
         return action;
     }
 
+    /**
+     * @deprecated use {@link #actionDelete(String)} instead
+     */
+    @Deprecated
     public SMSDelete actionDelete() {
         SMSDelete action = new SMSDelete();
         action.client(client);
@@ -71,8 +75,9 @@ public class SmsFactory extends ActionFactory {
     }
 
     public SMSDelete actionDelete(String id) {
-        SMSDelete action = actionDelete();
-        action.id(id);
+        SMSDelete action = new SMSDelete(id);
+        action.client(client);
+        action.proxy(proxy);
         return action;
     }
 }

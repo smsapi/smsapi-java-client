@@ -64,7 +64,7 @@ public class SmsFactoryTest extends TestSmsapi {
         Optional<MessageResponse> sendMessageResponse = responseSend.list.stream().findFirst();
         assertTrue(sendMessageResponse.isPresent());
 
-        SMSDelete actionDelete = apiFactory.actionDelete().id(sendMessageResponse.get().getId());
+        SMSDelete actionDelete = apiFactory.actionDelete(sendMessageResponse.get().getId());
         CountableResponse responseDelete = actionDelete.execute();
 
         assertNotNull(responseDelete);
