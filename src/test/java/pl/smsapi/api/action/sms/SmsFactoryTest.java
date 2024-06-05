@@ -31,9 +31,7 @@ public class SmsFactoryTest extends TestSmsapi {
 
     @Test
     public void sendSms() throws SmsapiException {
-        SMSSend actionSend = apiFactory.actionSend()
-                .setText("test message")
-                .setTo(numberTest);
+        SMSSend actionSend = apiFactory.actionSend(numberTest, "test message");
 
         SendStatusResponse responseAdd = actionSend.execute();
 
@@ -44,10 +42,7 @@ public class SmsFactoryTest extends TestSmsapi {
 
     @Test
     public void getSms() throws SmsapiException {
-        SendStatusResponse responseSend = apiFactory.actionSend()
-                .setText("test message")
-                .setTo(numberTest)
-                .execute();
+        SendStatusResponse responseSend = apiFactory.actionSend(numberTest, "test message").execute();
 
         Optional<MessageResponse> sendMessageResponse = responseSend.list.stream().findFirst();
         assertTrue(sendMessageResponse.isPresent());
@@ -62,11 +57,9 @@ public class SmsFactoryTest extends TestSmsapi {
 
     @Test
     public void deleteSms() throws SmsapiException {
-        SendStatusResponse responseSend = apiFactory.actionSend()
-                .setText("test message")
-                .setTo(numberTest)
-                .setDateSent((new Date().getTime() / 1000) + 120)
-                .execute();
+        SendStatusResponse responseSend = apiFactory.actionSend(numberTest, "test message")
+            .setDateSent((new Date().getTime() / 1000) + 120)
+            .execute();
 
         Optional<MessageResponse> sendMessageResponse = responseSend.list.stream().findFirst();
         assertTrue(sendMessageResponse.isPresent());

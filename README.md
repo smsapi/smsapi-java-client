@@ -63,9 +63,7 @@ public class Example {
 
             SmsFactory smsApi = new SmsFactory(client, proxy);
 
-            SMSSend action = smsApi.actionSend()
-                    .setTo("000000000")
-                    .setText("test");
+            SMSSend action = smsApi.actionSend("000000000", "test message");
 
             StatusResponse result = action.execute();
 
@@ -114,9 +112,7 @@ public class Example {
 
             String[] to = {"000000000", "000000001"};
 
-            SMSSend action = smsApi.actionSend()
-                    .setTo(to)
-                    .setText("test");
+            SMSSend action = smsApi.actionSend(to, "test message");
 
             StatusResponse result = action.execute();
 

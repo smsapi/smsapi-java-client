@@ -20,6 +20,10 @@ public class SmsFactory extends ActionFactory {
         super(client, proxy);
     }
 
+    /**
+     * @deprecated use {@link #actionSend(String, String)} or {@link #actionSend(String[], String)} instead
+     */
+    @Deprecated
     public SMSSend actionSend() {
         SMSSend action = new SMSSend();
         action.client(client);
@@ -28,15 +32,16 @@ public class SmsFactory extends ActionFactory {
     }
 
     public SMSSend actionSend(String to, String text) {
-        String[] tos = new String[]{to};
-        return actionSend(tos, text);
+        SMSSend action = new SMSSend(to, text);
+        action.client(client);
+        action.proxy(proxy);
+        return action;
     }
 
     public SMSSend actionSend(String[] to, String text) {
-        SMSSend action = actionSend();
-        action.setTo(to);
-        action.setText(text);
-
+        SMSSend action = new SMSSend(to, text);
+        action.client(client);
+        action.proxy(proxy);
         return action;
     }
 
