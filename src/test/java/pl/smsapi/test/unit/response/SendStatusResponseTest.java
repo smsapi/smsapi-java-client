@@ -43,10 +43,10 @@ public class SendStatusResponseTest {
 
         SendStatusResponse response = action.execute();
 
-        assertFalse(response.getList().isEmpty());
-        assertEquals(1, response.getCount());
+        assertFalse(response.list.isEmpty());
+        assertEquals(1, response.count);
 
-        Optional<MessageResponse> message1 = response.getList().stream().filter(
+        Optional<MessageResponse> message1 = response.list.stream().filter(
                 contactResponse -> contactResponse.getId().equals("7074294081650020450")
         ).findFirst();
         assertTrue(message1.isPresent());
@@ -55,5 +55,7 @@ public class SendStatusResponseTest {
         assertEquals("QUEUE", message1.get().getStatus());
         assertEquals("", message1.get().getError());
         assertEquals("example-user-provided-id-123", message1.get().getIdx());
+        assertNotNull(message1.get().getToBeSentAtTimestamp());
+        assertEquals(1712570310, message1.get().getToBeSentAtTimestamp().intValue());
     }
 }
