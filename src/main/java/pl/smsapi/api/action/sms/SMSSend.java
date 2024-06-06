@@ -180,7 +180,7 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
      * Set time restriction mode.
      */
     public SMSSend setTimeRestriction(String timeRestriction) {
-        params.put("timerestriction", timeRestriction);
+        params.put("time_restriction", timeRestriction);
         return this;
     }
 
