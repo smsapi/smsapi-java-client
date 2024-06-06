@@ -175,6 +175,14 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
 
         return this;
     }
+    
+    /**
+     * Set time restriction mode.
+     */
+    public SMSSend setTimeRestriction(String timeRestriction) {
+        params.put("time_restriction", timeRestriction);
+        return this;
+    }
 
     public SMSSend setDiscountGroup(String $discountGroupName)
     {

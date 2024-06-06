@@ -44,7 +44,8 @@ public class SMSSendTest {
             .setNormalize(true)
             .setParam(1, "param")
             .setParam(2, new String[]{"param1", "param2"})
-            .setDiscountGroup("group1");
+            .setDiscountGroup("group1")
+            .setTimeRestriction("follow");
         action.client(new ClientStub());
         action.proxy(requestStub);
 
@@ -68,6 +69,7 @@ public class SMSSendTest {
         expectedRequestPayload.put("normalize", "1");
         expectedRequestPayload.put("flash", "1");
         expectedRequestPayload.put("from", "test");
+        expectedRequestPayload.put("time_restriction", "follow");
         assertEquals(expectedRequestPayload, requestStub.requestPayload);
     }
 }
