@@ -1,18 +1,27 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>pl.smsapi</groupId>
     <artifactId>smsapi-lib</artifactId>
     <packaging>jar</packaging>
-    <version>2.4</version>
+    <version>3.0.0-RC3-SNAPSHOT</version>
     <name>smsapi-lib</name>
     <url>http://www.smsapi.pl/</url>
     <description>SMSAPI client library</description>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/smsapi/smsapi-java-client</url>
+        </repository>
+    </distributionManagement>
+
     <scm>
-        <url>https://github.com/smsapi/smsapi-java-client</url>
-        <connection>https://github.com/smsapi/smsapi-java-client</connection>
-    </scm>
+        <url>https://github.com/smsapi/smsapi-java-client.git</url>
+        <connection>scm:git:ssh://git@github.com/smsapi/smsapi-java-client.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/smsapi/smsapi-java-client.git</developerConnection>
+      <tag>HEAD</tag>
+  </scm>
 
     <licenses>
         <license>
@@ -24,14 +33,14 @@
 
     <developers>
         <developer>
-            <name>Lukas</name>
-            <email>l.pajak@smsapi.pl</email>
+            <name>SMSAPI Support Team</name>
+            <email>tech@smsapi.pl</email>
         </developer>
     </developers>
 
     <properties>
+        <maven.compiler.release>8</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.dist.directory>${project.basedir}/dist/${project.version}/</project.dist.directory>
     </properties>
 
     <dependencies>
@@ -63,80 +72,14 @@
 
     <build>
         <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.0.1</version>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix/>
-                        </manifest>
-                    </archive>
-                    <outputDirectory>${project.dist.directory}</outputDirectory>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <outputDirectory>${project.dist.directory}</outputDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
-                <configuration>
-                    <jarOutputDirectory>${project.dist.directory}</jarOutputDirectory>
-                    <additionalJOption>-Xdoclint:none</additionalJOption>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.5.1</version>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <excludeGroupIds>junit,org.hamcrest</excludeGroupIds>
-                            <outputDirectory>${project.dist.directory}</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
         </plugins>

@@ -1,22 +1,13 @@
-
 package pl.smsapi.exception;
 
+/**
+ * Legacy API's server side errors related exception.
+ *
+ * @deprecated use {@link pl.smsapi.exception.SmsapiLegacyErrorException()} instead
+ */
+public class HostException extends SmsapiLegacyErrorException {
 
-public class HostException extends SmsapiException{
-	
-	private int code;
-	
-	public HostException(String message){
-		super(message);
-	}
-	
-	public HostException(String message, int code){
-		this(message);
-		this.code = code;
-	}
-	
-	public int getCode(){
-		return code;
-	}
-	
+    public HostException(String errorMessage, int errorCode) {
+        super(errorMessage, errorCode);
+    }
 }

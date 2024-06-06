@@ -7,6 +7,10 @@ import pl.smsapi.api.response.contacts.ContactsContactResponse;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * @deprecated do not extend, use concrete action
+ */
+@Deprecated
 abstract public class AbstractContactsContactControl<T> extends AbstractAction<ContactsContactResponse> {
 
     public T setPhoneNumber(String phoneNumber) {

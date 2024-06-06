@@ -8,6 +8,10 @@ import pl.smsapi.proxy.Proxy;
 
 public class SmsFactory extends ActionFactory {
 
+    /**
+     * @deprecated use {@link SmsFactory(Client, Proxy)} instead
+     */
+    @Deprecated
     public SmsFactory(Client client) {
         super(client);
     }
@@ -16,6 +20,10 @@ public class SmsFactory extends ActionFactory {
         super(client, proxy);
     }
 
+    /**
+     * @deprecated use {@link #actionSend(String, String)} or {@link #actionSend(String[], String)} instead
+     */
+    @Deprecated
     public SMSSend actionSend() {
         SMSSend action = new SMSSend();
         action.client(client);
@@ -24,18 +32,23 @@ public class SmsFactory extends ActionFactory {
     }
 
     public SMSSend actionSend(String to, String text) {
-        String[] tos = new String[]{to};
-        return actionSend(tos, text);
-    }
-
-    public SMSSend actionSend(String[] to, String text) {
-        SMSSend action = actionSend();
-        action.setTo(to);
-        action.setText(text);
-
+        SMSSend action = new SMSSend(to, text);
+        action.client(client);
+        action.proxy(proxy);
         return action;
     }
 
+    public SMSSend actionSend(String[] to, String text) {
+        SMSSend action = new SMSSend(to, text);
+        action.client(client);
+        action.proxy(proxy);
+        return action;
+    }
+
+    /**
+     * @deprecated use {@link #actionGet(String)} instead
+     */
+    @Deprecated
     public SMSGet actionGet() {
         SMSGet action = new SMSGet();
         action.client(client);
@@ -44,11 +57,16 @@ public class SmsFactory extends ActionFactory {
     }
 
     public SMSGet actionGet(String id) {
-        SMSGet action = actionGet();
-        action.id(id);
+        SMSGet action = new SMSGet(id);
+        action.client(client);
+        action.proxy(proxy);
         return action;
     }
 
+    /**
+     * @deprecated use {@link #actionDelete(String)} instead
+     */
+    @Deprecated
     public SMSDelete actionDelete() {
         SMSDelete action = new SMSDelete();
         action.client(client);
@@ -57,8 +75,9 @@ public class SmsFactory extends ActionFactory {
     }
 
     public SMSDelete actionDelete(String id) {
-        SMSDelete action = actionDelete();
-        action.id(id);
+        SMSDelete action = new SMSDelete(id);
+        action.client(client);
+        action.proxy(proxy);
         return action;
     }
 }

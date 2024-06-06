@@ -1,23 +1,14 @@
 package pl.smsapi.exception;
 
+/**
+ * Legacy API's client side errors related exception. Covers account/user related issues like not authorized access, no
+ * funds for shipping, etc.
+ *
+ * @deprecated use {@link pl.smsapi.exception.SmsapiLegacyErrorException()} instead
+ */
+public class ClientException extends SmsapiLegacyErrorException {
 
-public class ClientException extends SmsapiException {
-    private int code;
-
-    public ClientException(Throwable cause) {
-        super(cause.getMessage(), cause);
-    }
-
-    public ClientException(String message) {
-        super(message);
-    }
-
-    public ClientException(String message, int code) {
-        this(message);
-        this.code = code;
-    }
-
-    public int getCode() {
-        return code;
+    public ClientException(String errorMessage, int errorCode) {
+        super(errorMessage, errorCode);
     }
 }

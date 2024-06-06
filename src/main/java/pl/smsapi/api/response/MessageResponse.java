@@ -8,6 +8,7 @@ public class MessageResponse implements Response {
     private String status;
     private String error;
     private String idx;
+    private Integer toBeSentAtTimestamp;
 
     public MessageResponse(String id, String points, String number, String status, String error, String idx) {
         this.id = id;
@@ -16,6 +17,10 @@ public class MessageResponse implements Response {
         this.status = status;
         this.error = error;
         this.idx = idx;
+    }
+
+    public void setToBeSentAtTimestamp(int toBeSentAtTimestamp) {
+        this.toBeSentAtTimestamp = toBeSentAtTimestamp;
     }
 
     public String getId() {
@@ -40,6 +45,10 @@ public class MessageResponse implements Response {
 
     public String getIdx() {
         return idx;
+    }
+
+    public Integer getToBeSentAtTimestamp() {
+        return toBeSentAtTimestamp;
     }
 
     public boolean isError() {

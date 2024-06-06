@@ -1,7 +1,7 @@
 package pl.smsapi.proxy;
 
 import pl.smsapi.api.authenticationStrategy.AuthenticationStrategy;
-import pl.smsapi.api.authenticationStrategy.BasicAuthenticationStrategy;
+import pl.smsapi.exception.ProxyException;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -18,21 +18,6 @@ public class ProxyNative implements Proxy {
     public ProxyNative(String url) {
 
         this.baseUrl = url;
-    }
-
-    /**
-     * @deprecated Use execute(String endpoint, Map<String, String> data, Map<String, InputStream> files, String httpMethod, AuthenticationStrategy authenticationStrategy) instead.
-     */
-    public String execute(String endpoint, Map<String, String> data, Map<String, InputStream> files) throws Exception {
-        String username = data.get("username");
-        data.remove("username");
-
-        String password = data.get("password");
-        data.remove("password");
-
-        AuthenticationStrategy authenticationStrategy = new BasicAuthenticationStrategy(username, password);
-
-        return execute(endpoint, data, files, "POST", authenticationStrategy);
     }
 
     /**
@@ -88,15 +73,33 @@ public class ProxyNative implements Proxy {
             connection.getOutputStream().close();
         }
 
-        StringBuilder response = new StringBuilder();
-        BufferedReader inputReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-        String line;
-        while ((line = inputReader.readLine()) != null) {
-            response.append(line);
+        String response;
+
+        try {
+            response = readResponsePayload(connection.getInputStream());
+        } catch (FileNotFoundException notFound) {
+            response = readResponsePayload(connection.getErrorStream());
+        } catch (IOException clientErrorOrServerError) {
+            response = readResponsePayload(connection.getErrorStream());
         }
 
-        inputReader.close();
+        return response;
+    }
+
+    private String readResponsePayload(InputStream inputStream) throws ProxyException {
+        BufferedReader inputReader = new BufferedReader(new InputStreamReader(inputStream));
+        StringBuilder response = new StringBuilder();
+        String line;
+
+        try {
+            while ((line = inputReader.readLine()) != null) {
+                response.append(line);
+            }
+            inputReader.close();
+        } catch (IOException readerException) {
+            throw new ProxyException("Cannot read response input stream", readerException);
+        }
 
         return response.toString();
     }

@@ -3,24 +3,21 @@ package pl.smsapi.api.response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+public class StatusResponse extends ListResponse<MessageResponse> {
 
-public class StatusResponse extends CountableResponse {
-
-    private ArrayList<MessageResponse> list = new ArrayList<MessageResponse>();
-
-    public StatusResponse(int count, JSONArray list) {
-
-        super(count);
-
-        final int n = list.length();
-        for (int i = 0; i < n; i++) {
-            JSONObject row = list.getJSONObject(i);
-            this.list.add(new MessageResponse(row.optString("id"), row.optString("points"), row.optString("number"), row.optString("status"), row.optString("error"), row.optString("idx")));
-        }
+    public StatusResponse(int count, JSONArray jsonArray) {
+        super(count, jsonArray);
     }
 
-    public ArrayList<MessageResponse> getList() {
-        return list;
+    @Override
+    protected MessageResponse buildItem(JSONObject jsonObject) {
+        return new MessageResponse(
+            jsonObject.optString("id"),
+            jsonObject.optString("points"),
+            jsonObject.optString("number"),
+            jsonObject.optString("status"),
+            jsonObject.optString("error"),
+            jsonObject.optString("idx")
+        );
     }
 }

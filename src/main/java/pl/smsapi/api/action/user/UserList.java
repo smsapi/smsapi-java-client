@@ -1,8 +1,13 @@
 package pl.smsapi.api.action.user;
 
+import org.json.JSONArray;
 import pl.smsapi.api.action.AbstractAction;
 import pl.smsapi.api.response.UsersResponse;
 
+/**
+ * @deprecated use {@link pl.smsapi.api.action.subusers.SubusersList()} instead
+ */
+@Deprecated
 public class UserList extends AbstractAction<UsersResponse> {
 
     public UserList() {
@@ -11,7 +16,8 @@ public class UserList extends AbstractAction<UsersResponse> {
     }
 
     protected UsersResponse createResponse(String data) {
-        return new UsersResponse(data);
+        JSONArray jsonArray = new JSONArray(data);
+        return new UsersResponse(jsonArray.length(), jsonArray);
     }
 
     @Override

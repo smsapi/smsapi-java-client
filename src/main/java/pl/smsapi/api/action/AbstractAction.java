@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import pl.smsapi.Client;
 import pl.smsapi.api.authenticationStrategy.AuthenticationStrategy;
+import pl.smsapi.api.response.Response;
 import pl.smsapi.exception.*;
 import pl.smsapi.proxy.Proxy;
 
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class AbstractAction<T> {
+public abstract class AbstractAction<T extends Response> {
 
     public final static String RESPONSE_PACKAGE_NAME = "pl.smsapi.api.response";
 
@@ -73,33 +74,45 @@ public abstract class AbstractAction<T> {
         }
     }
 
-    protected void handleError(String text) throws SmsapiException {
+    protected void handleError(String text) throws SmsapiErrorException, SmsapiLegacyErrorException {
 
         Matcher matcher = Pattern.compile("^ERROR:(.*)").matcher(text);
 
         if (matcher.find()) {
-            throw new HostException("Invalid response", 999);
+            handleExtraLegacyError();
         } else {
 
             try {
                 JSONObject error = new JSONObject(text);
-
-                int errorCode = error.optInt("error");
-                if (errorCode != 0) {
-                    String errorMessage = error.optString("message");
-
-                    if (SmsapiException.isHostError(errorCode)) {
-                        throw new HostException(errorMessage, errorCode);
-                    }
-
-                    if (SmsapiException.isClientError(errorCode)) {
-                        throw new ClientException(errorMessage, errorCode);
-                    } else {
-                        throw new ActionException(errorMessage, errorCode);
+                int legacyErrorCode = error.optInt("error");
+                if (legacyErrorCode != 0) {
+                    handleLegacyError(error, legacyErrorCode);
+                } else {
+                    String errorCode = error.optString("error", null);
+                    if (errorCode != null) {
+                        throw new SmsapiErrorException(error.optString("message"), errorCode);
                     }
                 }
-            } catch (JSONException e) {
+            } catch (JSONException nonJsonSuccessResponse) {
             }
         }
+    }
+
+    private static void handleLegacyError(JSONObject error, int errorCode) throws SmsapiLegacyErrorException {
+        String errorMessage = error.optString("message");
+
+        if (SmsapiLegacyErrorException.isHostError(errorCode)) {
+            throw new HostException(errorMessage, errorCode);
+        }
+
+        if (SmsapiLegacyErrorException.isClientError(errorCode)) {
+            throw new ClientException(errorMessage, errorCode);
+        } else {
+            throw new ActionException(errorMessage, errorCode);
+        }
+    }
+
+    private static void handleExtraLegacyError() throws HostException {
+        throw new HostException("Invalid response", 999);
     }
 }

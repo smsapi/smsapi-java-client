@@ -2,8 +2,13 @@ package pl.smsapi.api.action.contacts;
 
 import org.json.JSONObject;
 import pl.smsapi.api.action.AbstractAction;
+import pl.smsapi.api.action.contacts.groups.GroupsList;
 import pl.smsapi.api.response.contacts.ContactsGroupListResponse;
 
+/**
+ * @deprecated use {@link GroupsList} instead
+ */
+@Deprecated
 public class ContactsGroupList extends AbstractAction<ContactsGroupListResponse> {
     @Override
     protected String endPoint() {

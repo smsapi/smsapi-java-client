@@ -18,7 +18,8 @@ public class SenderTest extends TestSmsapi {
 
     @Before
     public void setUp() {
-        apiFactory = new SenderFactory(getAuthorizationClient(), getProxy());
+        super.setUp();
+        apiFactory = new SenderFactory(client, proxy);
     }
 
     private void renderSenderItem(SenderResponse item) {

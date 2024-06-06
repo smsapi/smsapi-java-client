@@ -9,11 +9,30 @@ import java.util.Calendar;
 
 public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
 
+    /**
+     * @deprecated use {@link SMSSend(String, String)} or {@link SMSSend(String[], String)} instead
+     */
+    @Deprecated
     public SMSSend() {
-
         setJson(true);
         params.put("encoding", "utf-8");
         params.put("details", "1");
+    }
+
+    public SMSSend(String to, String text) {
+        setJson(true);
+        params.put("encoding", "utf-8");
+        params.put("details", "1");
+        setTo(to);
+        setText(text);
+    }
+
+    public SMSSend(String[] to, String text) {
+        setJson(true);
+        params.put("encoding", "utf-8");
+        params.put("details", "1");
+        setTo(to);
+        setText(text);
     }
 
     @Override
@@ -25,7 +44,10 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
      * Set SMS text message.
      * <p/>
      * Content of one message is normally 160 characters per single SMS or 70 in case of using at least one special character
+     *
+     * @deprecated use {@link SMSSend(String, String)} or {@link SMSSend(String[], String)} instead
      */
+    @Deprecated
     public SMSSend setText(String text) {
         params.put("message", text);
         return this;
@@ -161,7 +183,13 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
         params.put("timerestriction", timeRestriction);
         return this;
     }
-    
+
+    public SMSSend setDiscountGroup(String $discountGroupName)
+    {
+        params.put("discount_group", $discountGroupName);
+        return this;
+    }
+
     protected SendStatusResponse createResponse(String data) {
         JSONObject jsonObject = new JSONObject(data);
         return new SendStatusResponse(jsonObject.getInt("count"), jsonObject.getInt("parts"), jsonObject.optJSONArray("list"));

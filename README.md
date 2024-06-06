@@ -1,95 +1,175 @@
-java-client
-===========
+# SMSAPI JAVA Client
 
-Klient napisany w języku Java, pozwalający na wysyłanie wiadomości SMS, MMS, VMS oraz zarządzanie kontem w serwisie SMSAPI.pl
+## How to install
 
-wymagane dołaczenie bibloteki:
-https://github.com/douglascrockford/JSON-java
+### How to install using GitHub Packages
 
-Przykład wysyłki:
+Read https://docs.github.com/en/packages/learn-github-packages/installing-a-package 
+
+Add following in your project **pom.xml** file:
+
+ * in `<repositories>` section add SMSAPI repository:
+
+```xml
+<repository>
+    <id>github-smsapi</id>
+    <name>SMSAPI Java Client GitHub Packages</name>
+    <url>https://maven.pkg.github.com/smsapi/smsapi-java-client</url>
+</repository>
+```
+
+ * in `<dependencies>` section add SMSAPI dependency:
+
+```xml
+<dependency>
+    <groupId>pl.smsapi</groupId>
+    <artifactId>smsapi-lib</artifactId>
+    <version>3.0.0-RC1</version>
+</dependency>
+```
+
+## How to use
+
+To use *SMSAPI.PL* set proxy URL to **https://api.smsapi.pl/**. \
+To use *SMSAPI.COM* set proxy URL to **https://api.smsapi.com/**. \
+To use *SMSAPI.SE* or *SMSAPI.BG* set proxy URL to **https://smsapi.io/**.
+
+### How to send SMS
+
 ```java
-package com.example.smsapi_java_client_example;
-
-import pl.smsapi.BasicAuthClient;
+import pl.smsapi.OAuthClient;
 import pl.smsapi.api.SmsFactory;
 import pl.smsapi.api.action.sms.SMSSend;
 import pl.smsapi.api.response.MessageResponse;
 import pl.smsapi.api.response.StatusResponse;
-import pl.smsapi.exception.ClientException;
 import pl.smsapi.exception.SmsapiException;
+import pl.smsapi.proxy.ProxyNative;
 
-public class Main {
-    public static void main(String args[]) {
+import java.util.Optional;
+
+/**
+ * Example output:
+ *
+ * Phone number: 48000000000
+ * Shipment id: 6124CC3C3463351AD569127F
+ * Shipment status: QUEUE
+ */
+public class Example {
+    public static void main(String[] args) {
         try {
-            String passwordHash = "00000000000000000000000000000000";
-            BasicAuthClient client = new BasicAuthClient("username", passwordHash);
+            String oauthToken = "00000000000000000000000000000000";
+            OAuthClient client = new OAuthClient(oauthToken);
+            ProxyNative proxy = new ProxyNative("https://api.smsapi.pl/");
 
-            SmsFactory smsApi = new SmsFactory(client);
-            String phoneNumber = "000000000";
-            SMSSend action = smsApi.actionSend()
-                    .setText("test")
-                    .setTo(phoneNumber);
+            SmsFactory smsApi = new SmsFactory(client, proxy);
+
+            SMSSend action = smsApi.actionSend("000000000", "test message");
 
             StatusResponse result = action.execute();
 
-            for (MessageResponse status : result.getList() ) {
-                System.out.println(status.getNumber() + " " + status.getStatus());
-            }
-        } catch (ClientException e) {
-	/**
-     	* 101 Niepoprawne lub brak danych autoryzacji.
-     	* 102 Nieprawidłowy login lub hasło
-     	* 103 Brak punków dla tego użytkownika
-     	* 105 Błędny adres IP
-     	* 110 Usługa nie jest dostępna na danym koncie
-     	* 1000 Akcja dostępna tylko dla użytkownika głównego
-     	* 1001 Nieprawidłowa akcja
-     	*/
-            e.printStackTrace();
+            MessageResponse status = result.getList().get(0);
+
+            System.out.println("Phone number: " + status.getNumber());
+            System.out.println("Shipment id: " + status.getId());
+            System.out.println("Shipment status: " + status.getStatus());
+
         } catch (SmsapiException e) {
-            e.printStackTrace();
+            System.out.println("Exception: " + e.getMessage());
         }
     }
 }
 ```
 
+### How to send SMS to many recipients
 
-## JAVADOC
-[2.3](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.3/)
+```java
+import pl.smsapi.OAuthClient;
+import pl.smsapi.api.SmsFactory;
+import pl.smsapi.api.action.sms.SMSSend;
+import pl.smsapi.api.response.MessageResponse;
+import pl.smsapi.api.response.StatusResponse;
+import pl.smsapi.exception.SmsapiException;
+import pl.smsapi.proxy.ProxyNative;
 
-[2.2](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.2/)
+/**
+ * Example output:
+ *
+ * Phone number: 48000000000
+ * Shipment id: 6124CFBF3463350568CC428E
+ * Shipment status: QUEUE
+ * Phone number: 48000000001
+ * Shipment id: 6124CFBF3463350568CC428F
+ * Shipment status: QUEUE
+ */
+public class Example {
+    public static void main(String[] args) {
+        try {
+            String oauthToken = "00000000000000000000000000000000";
+            OAuthClient client = new OAuthClient(oauthToken);
+            ProxyNative proxy = new ProxyNative("https://api.smsapi.pl/");
 
-[2.1](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.1/)
+            SmsFactory smsApi = new SmsFactory(client, proxy);
 
-[2.0](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.0/)
+            String[] to = {"000000000", "000000001"};
 
-## MAVEN
+            SMSSend action = smsApi.actionSend(to, "test message");
 
-W pliku **pom.xml** należy dopisać:
+            StatusResponse result = action.execute();
 
-```xml
-    <repositories>
-        <repository>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </releases>
-            <id>smsapi</id>
-            <name>smsapi</name>
-            <url>http://labs.smsapi.com/maven/</url>
-            <layout>default</layout>
-        </repository>
-    </repositories>
-    <dependencies>
-        <dependency>
-            <groupId>pl.smsapi</groupId>
-            <artifactId>smsapi-lib</artifactId>
-            <version>2.4</version>
-        </dependency>
-    </dependencies>
-</project>
+            for (MessageResponse status : result.getList() ) {
+                System.out.println("Phone number: " + status.getNumber());
+                System.out.println("Shipment id: " + status.getId());
+                System.out.println("Shipment status: " + status.getStatus());
+            }
+        } catch (SmsapiException e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+    }
+}
+
 ```
 
-## LICENSE
-[Apache 2.0 License](https://github.com/smsapi/smsapi-java-client/blob/master/LICENSE)
+### How to get shipment status
+
+```java
+import pl.smsapi.OAuthClient;
+import pl.smsapi.api.SmsFactory;
+import pl.smsapi.api.action.sms.SMSGet;
+import pl.smsapi.api.response.MessageResponse;
+import pl.smsapi.api.response.StatusResponse;
+import pl.smsapi.exception.SmsapiException;
+import pl.smsapi.proxy.ProxyNative;
+
+import java.util.Optional;
+
+/**
+ * Example output:
+ *
+ * Phone number: 48500000000
+ * Shipment id: 6124D61434633525780D4F3B
+ * Shipment status: SENT
+ */
+public class Example2ci {
+    public static void main(String[] args) {
+        try {
+            String oauthToken = "00000000000000000000000000000000";
+            OAuthClient client = new OAuthClient(oauthToken);
+            ProxyNative proxy = new ProxyNative("https://api.smsapi.pl/");
+
+            SmsFactory smsApi = new SmsFactory(client, proxy);
+
+            String shipmentId = "6124D61434633525780D4F3B";
+            SMSGet getAction = smsApi.actionGet(shipmentId);
+
+            StatusResponse shipmentStatus = getAction.execute();
+            MessageResponse statusAfterGet = shipmentStatus.getList().get(0);
+
+            System.out.println("Phone number: " + statusAfterGet.getNumber());
+            System.out.println("Shipment id: " + statusAfterGet.getId());
+            System.out.println("Shipment status: " + statusAfterGet.getStatus());
+        } catch (SmsapiException e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+    }
+}
+```

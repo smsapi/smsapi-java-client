@@ -5,3 +5,8 @@ manifest.mf
 _ids_test.txt
 /.idea/
 /*.iml
+/target/
+/pom.xml.releaseBackup
+/release.properties
+
+/src/test/config/config.json

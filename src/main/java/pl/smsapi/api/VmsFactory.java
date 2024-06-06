@@ -6,8 +6,15 @@ import pl.smsapi.api.action.vms.VMSGet;
 import pl.smsapi.api.action.vms.VMSSend;
 import pl.smsapi.proxy.Proxy;
 
+import java.io.File;
+import java.io.IOException;
+
 public class VmsFactory extends ActionFactory {
 
+    /**
+     * @deprecated use {@link VmsFactory(Client, Proxy)} instead
+     */
+    @Deprecated
     public VmsFactory(Client client) {
         super(client);
     }
@@ -16,6 +23,10 @@ public class VmsFactory extends ActionFactory {
         super(client, proxy);
     }
 
+    /**
+     * @deprecated use {@link #actionSend(String, String)} or {@link #actionSend(String[], String)}
+     * or {@link #actionSend(String, File)} or {@link #actionSend(String[], File)} instead
+     */
     public VMSSend actionSend() {
         VMSSend action = new VMSSend();
         action.client(client);
@@ -24,18 +35,40 @@ public class VmsFactory extends ActionFactory {
     }
 
     public VMSSend actionSend(String to, String tts) {
-        String[] tos = new String[]{to};
-        return actionSend(tos, tts);
-    }
-
-    public VMSSend actionSend(String[] to, String tts) {
-        VMSSend action = actionSend();
-        action.setTo(to);
-        action.setTts(tts);
+        VMSSend action = new VMSSend(to, tts);
+        action.client(client);
+        action.proxy(proxy);
 
         return action;
     }
 
+    public VMSSend actionSend(String[] to, String tts) {
+        VMSSend action = new VMSSend(to, tts);
+        action.client(client);
+        action.proxy(proxy);
+
+        return action;
+    }
+
+    public VMSSend actionSend(String to, File file) throws IOException {
+        VMSSend action = new VMSSend(to, file);
+        action.client(client);
+        action.proxy(proxy);
+
+        return action;
+    }
+
+    public VMSSend actionSend(String[] to, File file) throws IOException {
+        VMSSend action = new VMSSend(to, file);
+        action.client(client);
+        action.proxy(proxy);
+
+        return action;
+    }
+
+    /**
+     * @deprecated use {@link #actionGet(String)} instead
+     */
     public VMSGet actionGet() {
         VMSGet action = new VMSGet();
         action.client(client);
@@ -44,11 +77,15 @@ public class VmsFactory extends ActionFactory {
     }
 
     public VMSGet actionGet(String id) {
-        VMSGet action = actionGet();
-        action.id(id);
+        VMSGet action = new VMSGet(id);
+        action.client(client);
+        action.proxy(proxy);
         return action;
     }
 
+    /**
+     * @deprecated use {@link #actionDelete(String)} instead
+     */
     public VMSDelete actionDelete() {
         VMSDelete action = new VMSDelete();
         action.client(client);
@@ -57,8 +94,9 @@ public class VmsFactory extends ActionFactory {
     }
 
     public VMSDelete actionDelete(String id) {
-        VMSDelete action = actionDelete();
-        action.id(id);
+        VMSDelete action = new VMSDelete(id);
+        action.client(client);
+        action.proxy(proxy);
         return action;
     }
 }

@@ -2,6 +2,10 @@ package pl.smsapi.api.response.contacts;
 
 import pl.smsapi.api.response.Response;
 
+/**
+ * @deprecated use {@link pl.smsapi.api.action.contacts.groups.Permission()} instead
+ */
+@Deprecated
 public class ContactsPermissionResponse implements Response {
     private String groupId;
     private String username;
