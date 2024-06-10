@@ -6,20 +6,35 @@ import pl.smsapi.api.response.CheckNumberResponse;
 
 public class HLRCheckNumber extends AbstractAction<CheckNumberResponse> {
 
+    /**
+     * @deprecated use {@link HLRCheckNumber(String)} instead
+     */
+    @Deprecated
     public HLRCheckNumber() {
         setJson(true);
     }
 
+    public HLRCheckNumber(String phoneNumber) {
+        setJson(true);
+        params.put("number", phoneNumber);
+    }
 
+    /**
+     * @deprecated use {@link HLRCheckNumber(String)} instead
+     */
+    @Deprecated
     public HLRCheckNumber setNumber(String number) {
         params.put("number", number);
         return this;
     }
 
-	/*public HLRCheckNumber setNumber(String[] number) {
-        params.put("number", StringUtils.join(number, ','));
-		return this;
-	}*/
+    /**
+     * Set optional custom value sent with HLR and sent back in CALLBACK.
+     */
+    public HLRCheckNumber setIDx(String idx) {
+        params.put("idx", idx);
+        return this;
+    }
 
     protected CheckNumberResponse createResponse(String data) {
         JSONObject jsonObject = new JSONObject(data);
