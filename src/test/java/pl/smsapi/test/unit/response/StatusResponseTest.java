@@ -17,7 +17,7 @@ public class StatusResponseTest {
 
     @Test
     public void deserialize_response() throws SmsapiException {
-        SMSGet action = new SMSGet();
+        SMSGet action = new SMSGet("7074294081650020450");
         action.client(new ClientStub());
         action.proxy(new ProxyResponseStub(
             "{" +
@@ -37,10 +37,10 @@ public class StatusResponseTest {
 
         StatusResponse response = action.execute();
 
-        assertFalse(response.getList().isEmpty());
-        assertEquals(1, response.getCount());
+        assertFalse(response.list.isEmpty());
+        assertEquals(1, response.count);
 
-        Optional<MessageResponse> message1 = response.getList().stream().filter(
+        Optional<MessageResponse> message1 = response.list.stream().filter(
             messageResponse -> messageResponse.getId().equals("7074294081650020450")
         ).findFirst();
         assertTrue(message1.isPresent());
@@ -49,5 +49,6 @@ public class StatusResponseTest {
         assertEquals("QUEUE", message1.get().getStatus());
         assertEquals("", message1.get().getError());
         assertEquals("example-user-provided-id-123", message1.get().getIdx());
+        assertNull(message1.get().getToBeSentAtTimestamp());
     }
 }

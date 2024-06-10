@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - new Contacts API
 - Subusers API
 - `pl.smsapi.exception.SmsapiErrorException` to handle API error responses
+- `date_sent` to SMS/MMS send action responses
+- `time_restriction` parameter for SMS send action
 
 ### Changed
 - `pl.smsapi.api.UserFactory.actionAdd` marked as deprecated, use `pl.smsapi.api.action.subusers.SubusersFactory.actionAdd` instead
@@ -30,6 +32,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - `pl.smsapi.api.action.vms.VMSDelete` without parameters marked as deprecated
 - `pl.smsapi.api.action.vms.VMSGet` without parameters marked as deprecated
 - `pl.smsapi.api.action.vms.VMSSend` without parameters marked as deprecated
+- `pl.smsapi.api.SmsFactory.actionSend` without parameters marked as deprecated
+- `pl.smsapi.api.action.sms.SMSSend` without parameters marked as deprecated
+- `pl.smsapi.api.SmsFactory.actionGet` without parameters marked as deprecated
+- `pl.smsapi.api.action.sms.SMSGet` without parameters marked as deprecated
+- `pl.smsapi.api.SmsFactory.actionDelete` without parameters marked as deprecated
+- `pl.smsapi.api.action.sms.SMSDelete` without parameters marked as deprecated
 
 ### Removed
 - legacy `phonebook.do` contacts API support
