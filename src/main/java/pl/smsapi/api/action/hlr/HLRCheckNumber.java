@@ -28,6 +28,14 @@ public class HLRCheckNumber extends AbstractAction<CheckNumberResponse> {
         return this;
     }
 
+    /**
+     * Set optional custom value sent with HLR and sent back in CALLBACK.
+     */
+    public HLRCheckNumber setIDx(String idx) {
+        params.put("idx", idx);
+        return this;
+    }
+
     protected CheckNumberResponse createResponse(String data) {
         JSONObject jsonObject = new JSONObject(data);
         return new CheckNumberResponse(jsonObject.getInt("count"), jsonObject.getJSONArray("list"));

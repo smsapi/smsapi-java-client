@@ -22,8 +22,9 @@ public class HlrFactoryTest extends TestSmsapi {
 
     @Test
     public void checkNumberTest() throws SmsapiException {
-
-        HLRCheckNumber actionCheckNumber = apiFactory.actionCheckNumber("500600700");
+        HLRCheckNumber actionCheckNumber = apiFactory
+            .actionCheckNumber("500600700")
+            .setIDx("example-user-provided-id-123");
 
         CheckNumberResponse responseCheckNumber = actionCheckNumber.execute();
 
