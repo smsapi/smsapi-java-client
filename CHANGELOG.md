@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - `pl.smsapi.exception.SmsapiErrorException` to handle API error responses
 - `date_sent` to SMS/MMS send action responses
 - `time_restriction` parameter for SMS send action
+- HLR action factory, `HlrFactory`
 
 ### Changed
 - `pl.smsapi.api.UserFactory.actionAdd` marked as deprecated, use `pl.smsapi.api.action.subusers.SubusersFactory.actionAdd` instead
