@@ -11,11 +11,9 @@ public class HlrFactory extends ActionFactory {
     }
 
     public HLRCheckNumber actionCheckNumber(String phoneNumber) {
-        HLRCheckNumber action = new HLRCheckNumber();
+        HLRCheckNumber action = new HLRCheckNumber(phoneNumber);
         action.client(client);
         action.proxy(proxy);
-
-        action.setNumber(phoneNumber);
 
         return action;
     }

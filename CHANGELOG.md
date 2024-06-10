@@ -39,6 +39,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - `pl.smsapi.api.action.sms.SMSGet` without parameters marked as deprecated
 - `pl.smsapi.api.SmsFactory.actionDelete` without parameters marked as deprecated
 - `pl.smsapi.api.action.sms.SMSDelete` without parameters marked as deprecated
+- `pl.smsapi.api.action.hlr.HLRCheckNumber` without parameters marked as deprecated
 
 ### Removed
 - legacy `phonebook.do` contacts API support

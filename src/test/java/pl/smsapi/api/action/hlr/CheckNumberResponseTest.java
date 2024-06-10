@@ -1,7 +1,6 @@
-package pl.smsapi.test.unit.response;
+package pl.smsapi.api.action.hlr;
 
 import org.junit.Test;
-import pl.smsapi.api.action.hlr.HLRCheckNumber;
 import pl.smsapi.api.response.CheckNumberResponse;
 import pl.smsapi.api.response.NumberResponse;
 import pl.smsapi.exception.SmsapiException;
@@ -17,34 +16,16 @@ public class CheckNumberResponseTest {
 
     @Test
     public void deserialize_non_empty_response() throws SmsapiException {
-        HLRCheckNumber action = new HLRCheckNumber();
+        HLRCheckNumber action = new HLRCheckNumber("500600700");
         action.client(new ClientStub());
-        action.proxy(new ProxyResponseStub(
-            "{" +
-            "    \"count\": 1," +
-            "    \"list\": [" +
-            "        {" +
-            "            \"date\": 1712565008," +
-            "            \"id\": \"1\"," +
-            "            \"info\": \"Resource description\"," +
-            "            \"mcc\": 260," +
-            "            \"mnc\": 3," +
-            "            \"number\": \"500600700\"," +
-            "            \"ported\": 0," +
-            "            \"ported_from\": 3," +
-            "            \"price\": 0.04," +
-            "            \"status\": \"OK\"" +
-            "        }" +
-            "    ]" +
-            "}"
-        ));
+        action.proxy(new ProxyResponseStub(CheckNumberMother.create()));
 
         CheckNumberResponse response = action.execute();
 
-        assertFalse(response.getList().isEmpty());
-        assertEquals(1, response.getCount());
+        assertFalse(response.list.isEmpty());
+        assertEquals(1, response.count);
 
-        Optional<NumberResponse> hlr1 = response.getList().stream().filter(
+        Optional<NumberResponse> hlr1 = response.list.stream().filter(
                 hlrResponse -> hlrResponse.getId().equals("1")
         ).findFirst();
         assertTrue(hlr1.isPresent());
