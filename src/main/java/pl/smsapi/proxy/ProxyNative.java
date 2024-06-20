@@ -1,5 +1,8 @@
 package pl.smsapi.proxy;
 
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import pl.smsapi.api.authenticationStrategy.AuthenticationStrategy;
 import pl.smsapi.exception.ProxyException;
 
@@ -14,6 +17,7 @@ import java.util.*;
 public class ProxyNative implements Proxy {
 
     private String baseUrl;
+    private String userAgent;
 
     public ProxyNative(String url) {
 
@@ -36,7 +40,7 @@ public class ProxyNative implements Proxy {
     public String execute(String endpoint, Map<String, String> data, Map<String, InputStream> files, String httpMethod, AuthenticationStrategy authenticationStrategy) throws Exception {
         URL url = createUrl(httpMethod, endpoint, data);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestProperty("User-Agent", "smsapi-lib/java " + System.getProperty("os.name"));
+        connection.setRequestProperty("User-Agent", generateUserAgent());
         connection.setRequestProperty("Accept", "*");
         connection.setUseCaches(false);
         connection.setDoOutput(true);
@@ -85,6 +89,15 @@ public class ProxyNative implements Proxy {
         }
 
         return response;
+    }
+
+    private String generateUserAgent() throws IOException, XmlPullParserException {
+        if (userAgent == null) {
+            MavenXpp3Reader reader = new MavenXpp3Reader();
+            Model model = reader.read(new FileReader("pom.xml"));
+            userAgent = "smsapi/java-client:" + model.getVersion() + ";java:" + System.getProperty("java.vm.version");
+        }
+        return userAgent;
     }
 
     private String readResponsePayload(InputStream inputStream) throws ProxyException {
