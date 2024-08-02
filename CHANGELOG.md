@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [3.0.0-RC3-SNAPSHOT]
 ### Added
+- new Sendernames API
 - new Contacts API
 - Subusers API
 - `pl.smsapi.exception.SmsapiErrorException` to handle API error responses
