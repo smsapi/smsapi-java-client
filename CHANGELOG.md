@@ -42,6 +42,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - `pl.smsapi.api.SmsFactory.actionDelete` without parameters marked as deprecated
 - `pl.smsapi.api.action.sms.SMSDelete` without parameters marked as deprecated
 - `pl.smsapi.api.action.hlr.HLRCheckNumber` without parameters marked as deprecated
+- `pl.smsapi.api.action.sender.SenderAdd` marked as deprecated, use `pl.smsapi.api.action.sms.sendernames.SendernameAdd` instead
+- `pl.smsapi.api.action.sender.SenderDefault` marked as deprecated, use `pl.smsapi.api.action.sms.sendernames.SendernameMakeDefault` instead
+- `pl.smsapi.api.action.sender.SenderDelete` marked as deprecated, use `pl.smsapi.api.action.sms.sendernames.SendernameDelete` instead
+- `pl.smsapi.api.action.sender.SenderList` marked as deprecated, use `pl.smsapi.api.action.sms.sendernames.SendernamesList` instead
+- `pl.smsapi.api.SenderFactory` marked as deprecated, use `pl.smsapi.api.action.sms.sendernames.SendernamesFactory` instead
 
 ### Removed
 - legacy `phonebook.do` contacts API support

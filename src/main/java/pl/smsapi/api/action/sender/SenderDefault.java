@@ -4,6 +4,9 @@ import org.json.JSONObject;
 import pl.smsapi.api.action.AbstractAction;
 import pl.smsapi.api.response.CountableResponse;
 
+/**
+ * @deprecated use {@link pl.smsapi.api.action.sms.sendernames.SendernameMakeDefault} instead
+ */
 public class SenderDefault extends AbstractAction<CountableResponse> {
 
     public SenderDefault() {
