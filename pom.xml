@@ -3,7 +3,7 @@
     <groupId>pl.smsapi</groupId>
     <artifactId>smsapi-lib</artifactId>
     <packaging>jar</packaging>
-    <version>3.0.0-RC3-SNAPSHOT</version>
+    <version>3.0.0-RC4-SNAPSHOT</version>
     <name>smsapi-lib</name>
     <url>http://www.smsapi.pl/</url>
     <description>SMSAPI client library</description>
