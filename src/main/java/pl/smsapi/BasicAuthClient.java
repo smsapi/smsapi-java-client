@@ -7,7 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @deprecated use {@link OAuthClient} instead
+ * @deprecated use @link OAuthClient instead
  */
 @Deprecated
 public class BasicAuthClient implements Client {

@@ -3,7 +3,7 @@ package pl.smsapi.api.action.contacts;
 import pl.smsapi.api.action.contacts.groups.GroupAdd;
 
 /**
- * @deprecated use {@link GroupAdd} instead
+ * @deprecated use @link GroupAdd instead
  */
 @Deprecated
 public class ContactsGroupAdd extends AbstractContactsGroupControl<ContactsGroupAdd> {

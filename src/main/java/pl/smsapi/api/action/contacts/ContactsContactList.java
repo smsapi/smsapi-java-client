@@ -6,7 +6,7 @@ import pl.smsapi.api.action.AbstractAction;
 import pl.smsapi.api.response.contacts.ContactsContactListResponse;
 
 /**
- * @deprecated use {@link ContactsList} instead
+ * @deprecated use @link ContactsList instead
  */
 @Deprecated
 public class ContactsContactList extends AbstractAction<ContactsContactListResponse> {

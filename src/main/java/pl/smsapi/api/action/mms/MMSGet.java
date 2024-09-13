@@ -14,7 +14,6 @@ public class MMSGet extends AbstractAction<StatusResponse> {
 
     /**
      * Set ID of message to check.
-     * <p/>
      * This id was returned after sending message.
      */
     public MMSGet id(String id) {
@@ -24,7 +23,6 @@ public class MMSGet extends AbstractAction<StatusResponse> {
 
     /**
      * Set IDs of messages to check.
-     * <p/>
      * This id was returned after sending message.
      */
     public MMSGet ids(String[] ids) {

@@ -1,7 +1,7 @@
 package pl.smsapi.api.action.user;
 
 /**
- * @deprecated use {@link pl.smsapi.api.action.subusers.SubuserAdd()} instead
+ * @deprecated use @link pl.smsapi.api.action.subusers.SubuserAdd() instead
  */
 @Deprecated
 public class UserAdd extends AbstractUserControl<UserAdd> {

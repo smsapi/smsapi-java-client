@@ -12,7 +12,7 @@ import java.io.IOException;
 public class VmsFactory extends ActionFactory {
 
     /**
-     * @deprecated use {@link VmsFactory(Client, Proxy)} instead
+     * @deprecated use @link VmsFactory(Client, Proxy) instead
      */
     @Deprecated
     public VmsFactory(Client client) {
@@ -24,8 +24,8 @@ public class VmsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link #actionSend(String, String)} or {@link #actionSend(String[], String)}
-     * or {@link #actionSend(String, File)} or {@link #actionSend(String[], File)} instead
+     * @deprecated use @link #actionSend(String, String)} or @link #actionSend(String[], String)}
+     * or @link #actionSend(String, File)} or @link #actionSend(String[], File) instead
      */
     public VMSSend actionSend() {
         VMSSend action = new VMSSend();
@@ -67,7 +67,7 @@ public class VmsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link #actionGet(String)} instead
+     * @deprecated use @link #actionGet(String) instead
      */
     public VMSGet actionGet() {
         VMSGet action = new VMSGet();
@@ -84,7 +84,7 @@ public class VmsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link #actionDelete(String)} instead
+     * @deprecated use @link #actionDelete(String) instead
      */
     public VMSDelete actionDelete() {
         VMSDelete action = new VMSDelete();

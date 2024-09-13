@@ -4,7 +4,7 @@ import pl.smsapi.api.action.AbstractAction;
 import pl.smsapi.api.response.SendersResponse;
 
 /**
- * @deprecated use {@link pl.smsapi.api.action.sms.sendernames.SendernamesList} instead
+ * @deprecated use @link pl.smsapi.api.action.sms.sendernames.SendernamesList instead
  */
 public class SenderList extends AbstractAction<SendersResponse> {
 

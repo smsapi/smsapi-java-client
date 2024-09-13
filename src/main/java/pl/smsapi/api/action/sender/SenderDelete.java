@@ -5,7 +5,7 @@ import pl.smsapi.api.action.AbstractAction;
 import pl.smsapi.api.response.CountableResponse;
 
 /**
- * @deprecated use {@link pl.smsapi.api.action.sms.sendernames.SendernameDelete} instead
+ * @deprecated use @link pl.smsapi.api.action.sms.sendernames.SendernameDelete instead
  */
 public class SenderDelete extends AbstractAction<CountableResponse> {
 

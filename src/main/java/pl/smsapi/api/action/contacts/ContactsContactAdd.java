@@ -1,7 +1,7 @@
 package pl.smsapi.api.action.contacts;
 
 /**
- * @deprecated use {@link ContactAdd} instead
+ * @deprecated use @link ContactAdd instead
  */
 @Deprecated
 public class ContactsContactAdd extends AbstractContactsContactControl<ContactsContactAdd> {

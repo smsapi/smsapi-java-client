@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import pl.smsapi.api.response.ListResponse;
 
 /**
- * @deprecated use {@link pl.smsapi.api.action.contacts.groups.Permissions()} instead
+ * @deprecated use @link pl.smsapi.api.action.contacts.groups.Permissions() instead
  */
 @Deprecated
 public class ContactsPermissionListResponse extends ListResponse<ContactsPermissionResponse> {

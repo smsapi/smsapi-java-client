@@ -8,7 +8,7 @@ import pl.smsapi.api.response.StatusResponse;
 public class SMSGet extends AbstractAction<StatusResponse> {
 
     /**
-     * @deprecated use {@link SMSGet(String)} or {@link SMSGet(String[])} instead
+     * @deprecated use @link SMSGet(String)} or @link SMSGet(String[]) instead
      */
     @Deprecated
     public SMSGet() {
@@ -28,10 +28,9 @@ public class SMSGet extends AbstractAction<StatusResponse> {
 
     /**
      * Set ID of message to check.
-     * <p/>
      * This id was returned after sending message.
      *
-     * @deprecated use {@link SMSGet(String)} instead
+     * @deprecated use @link SMSGet(String) instead
      */
     @Deprecated
     public SMSGet id(String id) {
@@ -41,10 +40,9 @@ public class SMSGet extends AbstractAction<StatusResponse> {
 
     /**
      * Set IDs of messages to check.
-     * <p/>
      * This id was returned after sending message.
      *
-     * @deprecated use {@link SMSGet(String[])} instead
+     * @deprecated use @link SMSGet(String[]) instead
      */
     @Deprecated
     public SMSGet ids(String[] ids) {

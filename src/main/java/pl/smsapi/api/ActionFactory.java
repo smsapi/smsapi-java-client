@@ -10,7 +10,7 @@ public abstract class ActionFactory {
     protected Proxy proxy;
 
     /**
-     * @deprecated use {@link ActionFactory(Client, Proxy)} instead
+     * @deprecated use @link ActionFactory(Client, Proxy) instead
      */
     @Deprecated
     public ActionFactory() {
@@ -18,7 +18,7 @@ public abstract class ActionFactory {
     }
 
     /**
-     * @deprecated use {@link ActionFactory(Client, Proxy)} instead
+     * @deprecated use @link ActionFactory(Client, Proxy) instead
      */
     @Deprecated
     public ActionFactory(Client client) {

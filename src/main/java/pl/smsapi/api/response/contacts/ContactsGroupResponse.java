@@ -4,7 +4,7 @@ import org.json.JSONArray;
 import pl.smsapi.api.response.Response;
 
 /**
- * @deprecated use {@link pl.smsapi.api.action.contacts.groups.Group()} instead
+ * @deprecated use @link pl.smsapi.api.action.contacts.groups.Group() instead
  */
 @Deprecated
 public class ContactsGroupResponse implements Response {

@@ -14,7 +14,6 @@ public class MMSDelete extends AbstractAction<CountableResponse> {
 
     /**
      * Set ID of message to delete.
-     * <p/>
      * This id was returned after sending message.
      */
     public MMSDelete id(String id) {
@@ -24,7 +23,6 @@ public class MMSDelete extends AbstractAction<CountableResponse> {
 
     /**
      * Set ID of message to delete.
-     * <p/>
      * This id was returned after sending message.
      */
     public MMSDelete ids(String[] ids) {

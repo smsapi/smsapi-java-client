@@ -9,7 +9,7 @@ public class CountableResponse implements Response {
     }
 
     /**
-     * @deprecated use {@link #count} instead
+     * @deprecated use @link #count instead
      */
     @Deprecated
     public int getCount() {

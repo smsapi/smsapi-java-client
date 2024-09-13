@@ -7,7 +7,7 @@ import pl.smsapi.api.response.CheckNumberResponse;
 public class HLRCheckNumber extends AbstractAction<CheckNumberResponse> {
 
     /**
-     * @deprecated use {@link HLRCheckNumber(String)} instead
+     * @deprecated use @link HLRCheckNumber(String) instead
      */
     @Deprecated
     public HLRCheckNumber() {
@@ -20,7 +20,7 @@ public class HLRCheckNumber extends AbstractAction<CheckNumberResponse> {
     }
 
     /**
-     * @deprecated use {@link HLRCheckNumber(String)} instead
+     * @deprecated use @link HLRCheckNumber(String) instead
      */
     @Deprecated
     public HLRCheckNumber setNumber(String number) {

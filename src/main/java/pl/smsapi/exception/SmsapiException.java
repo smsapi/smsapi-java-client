@@ -11,14 +11,14 @@ public class SmsapiException extends Exception {
 	}
 
 	/**
-	 * @deprecated use {@link SmsapiLegacyErrorException#isClientError(int)} instead
+	 * @deprecated use @link SmsapiLegacyErrorException#isClientError(int) instead
 	 */
 	public static boolean isClientError(int code) {
 		return SmsapiLegacyErrorException.isClientError(code);
 	}
 
 	/**
-	 * @deprecated use {@link SmsapiLegacyErrorException#isHostError(int)} instead
+	 * @deprecated use @link SmsapiLegacyErrorException#isHostError(int) instead
 	 */
 	public static boolean isHostError(int code) {
 		return SmsapiLegacyErrorException.isHostError(code);

@@ -22,8 +22,8 @@ public class VMSSend extends AbstractSendAction<VMSSend, StatusResponse> {
     }
 
     /**
-     * @deprecated use {@link VMSSend(String, String)} or {@link VMSSend(String[], String)} or {@link VMSSend(String, File)}
-     * or {@link VMSSend(String[], File)} instead
+     * @deprecated use @link VMSSend(String, String)} or @link VMSSend(String[], String)} or @link VMSSend(String, File)}
+     * or @link VMSSend(String[], File) instead
      */
     public VMSSend() {
         setJson(true);
@@ -62,7 +62,7 @@ public class VMSSend extends AbstractSendAction<VMSSend, StatusResponse> {
     /**
      * Set local audio file.
      *
-     * @deprecated use {@link VMSSend(String, File)} or {@link VMSSend(String[], File)} instead
+     * @deprecated use @link VMSSend(String, File)} or @link VMSSend(String[], File) instead
      *
      */
     public VMSSend setFile(File file) throws FileNotFoundException {
@@ -73,7 +73,7 @@ public class VMSSend extends AbstractSendAction<VMSSend, StatusResponse> {
     /**
      * Set local audio filename.
      *
-     * @deprecated use {@link VMSSend(String, File)} or {@link VMSSend(String[], File)} instead
+     * @deprecated use @link VMSSend(String, File)} or @link VMSSend(String[], File) instead
      */
     public VMSSend setFile(String pathFile) throws FileNotFoundException {
         files.put("file", new FileInputStream(pathFile));
@@ -83,7 +83,7 @@ public class VMSSend extends AbstractSendAction<VMSSend, StatusResponse> {
     /**
      * Set local audio stream.
      *
-     * @deprecated use {@link VMSSend(String[], InputStream)} instead
+     * @deprecated use @link VMSSend(String[], InputStream) instead
      */
     public VMSSend setFile(InputStream inputStream) {
         files.put("file", inputStream);
@@ -93,7 +93,7 @@ public class VMSSend extends AbstractSendAction<VMSSend, StatusResponse> {
     /**
      * Set text to voice synthesizer.
      *
-     * @deprecated use {@link VMSSend(String, String)} or {@link VMSSend(String[], String)} instead
+     * @deprecated use @link VMSSend(String, String)} or @link VMSSend(String[], String) instead
      */
     public VMSSend setTts(String tts) {
         params.put("tts", tts);

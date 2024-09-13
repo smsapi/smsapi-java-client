@@ -24,7 +24,7 @@ abstract public class ListResponse<T> extends CountableResponse {
     abstract protected T buildItem(JSONObject jsonObject);
 
     /**
-     * @deprecated use {@link #list} instead
+     * @deprecated use @link #list instead
      */
     @Deprecated
     public ArrayList<T> getList() {

@@ -1,7 +1,7 @@
 package pl.smsapi.api.action.user;
 
 /**
- * @deprecated use {@link pl.smsapi.api.action.subusers.SubuserEdit()} instead
+ * @deprecated use @link pl.smsapi.api.action.subusers.SubuserEdit() instead
  */
 @Deprecated
 public class UserEdit extends AbstractUserControl<UserEdit> {

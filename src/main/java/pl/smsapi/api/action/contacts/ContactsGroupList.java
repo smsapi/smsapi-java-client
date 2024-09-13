@@ -6,7 +6,7 @@ import pl.smsapi.api.action.contacts.groups.GroupsList;
 import pl.smsapi.api.response.contacts.ContactsGroupListResponse;
 
 /**
- * @deprecated use {@link GroupsList} instead
+ * @deprecated use @link GroupsList instead
  */
 @Deprecated
 public class ContactsGroupList extends AbstractAction<ContactsGroupListResponse> {

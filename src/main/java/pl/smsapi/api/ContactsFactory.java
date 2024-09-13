@@ -7,13 +7,13 @@ import pl.smsapi.proxy.Proxy;
 import pl.smsapi.proxy.ProxyNative;
 
 /**
- * @deprecated use {@link pl.smsapi.api.action.contacts.ContactsFactory()} or {@link pl.smsapi.api.action.contacts.groups.GroupsFactory()} instead
+ * @deprecated use @link pl.smsapi.api.action.contacts.ContactsFactory() or @link pl.smsapi.api.action.contacts.groups.GroupsFactory() instead
  */
 @Deprecated
 public class ContactsFactory extends ActionFactory {
 
     /**
-     * @deprecated use {@link ContactsFactory(Client, Proxy)} or {@link pl.smsapi.api.action.contacts.ContactsFactory(Client, Proxy)} instead
+     * @deprecated use @link ContactsFactory(Client, Proxy) or @link pl.smsapi.api.action.contacts.ContactsFactory(Client, Proxy) instead
      */
     @Deprecated
     public ContactsFactory(Client client) {
@@ -26,7 +26,7 @@ public class ContactsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link pl.smsapi.api.action.contacts.ContactsFactory#actionList()} instead
+     * @deprecated use @link pl.smsapi.api.action.contacts.ContactsFactory#actionList() instead
      */
     @Deprecated
     public ContactsContactList actionContactList() {
@@ -37,7 +37,7 @@ public class ContactsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link pl.smsapi.api.action.contacts.ContactsFactory#actionGet(String)} instead
+     * @deprecated use @link pl.smsapi.api.action.contacts.ContactsFactory#actionGet(String) instead
      */
     @Deprecated
     public ContactsContactGet actionContactGet(String contactId) {
@@ -49,7 +49,7 @@ public class ContactsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link pl.smsapi.api.action.contacts.ContactsFactory#actionAdd()} instead
+     * @deprecated use @link pl.smsapi.api.action.contacts.ContactsFactory#actionAdd() instead
      */
     @Deprecated
     public ContactsContactAdd actionContactAdd() {
@@ -60,7 +60,7 @@ public class ContactsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link pl.smsapi.api.action.contacts.ContactsFactory#actionDelete(String)} instead
+     * @deprecated use @link pl.smsapi.api.action.contacts.ContactsFactory#actionDelete(String) instead
      */
     @Deprecated
     public ContactsContactDelete actionContactDelete(String contactId) {
@@ -72,7 +72,7 @@ public class ContactsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link pl.smsapi.api.action.contacts.ContactsFactory#actionEdit(String)} instead
+     * @deprecated use @link pl.smsapi.api.action.contacts.ContactsFactory#actionEdit(String) instead
      */
     @Deprecated
     public ContactsContactEdit actionContactEdit(String contactId) {
@@ -84,7 +84,7 @@ public class ContactsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link GroupsFactory#actionList()} instead
+     * @deprecated use @link GroupsFactory#actionList() instead
      */
     @Deprecated
     public ContactsGroupList actionGroupList() {
@@ -95,7 +95,7 @@ public class ContactsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link GroupsFactory#actionAdd(String)} ()} instead
+     * @deprecated use @link GroupsFactory#actionAdd(String)} () instead
      */
     @Deprecated
     public ContactsGroupAdd actionGroupAdd() {
@@ -106,7 +106,7 @@ public class ContactsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link GroupsFactory#actionDelete(String)} ()} instead
+     * @deprecated use @link GroupsFactory#actionDelete(String)} () instead
      */
     @Deprecated
     public ContactsGroupDelete actionGroupDelete(String groupId) {
@@ -118,7 +118,7 @@ public class ContactsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link GroupsFactory#actionGet(String)} ()} instead
+     * @deprecated use @link GroupsFactory#actionGet(String)} () instead
      */
     @Deprecated
     public ContactsGroupGet actionGroupGet(String groupId) {
@@ -130,7 +130,7 @@ public class ContactsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link GroupsFactory#actionEdit(String)} ()} instead
+     * @deprecated use @link GroupsFactory#actionEdit(String)} () instead
      */
     @Deprecated
     public ContactsGroupEdit actionGroupEdit(String groupId) {

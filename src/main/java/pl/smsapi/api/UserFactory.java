@@ -11,7 +11,7 @@ import pl.smsapi.proxy.Proxy;
 public class UserFactory extends ActionFactory {
 
     /**
-     * @deprecated use {@link UserFactory(Client, Proxy)} instead
+     * @deprecated use @link UserFactory(Client, Proxy) instead
      */
     @Deprecated
     public UserFactory(Client client) {
@@ -23,7 +23,7 @@ public class UserFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link SubusersFactory#actionList()} instead
+     * @deprecated use @link SubusersFactory#actionList() instead
      */
     @Deprecated
     public UserList actionList() {
@@ -34,7 +34,7 @@ public class UserFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link SubusersFactory#actionAdd(String, String)} ()} instead
+     * @deprecated use @link SubusersFactory#actionAdd(String, String)} () instead
      */
     @Deprecated
     public UserAdd actionAdd() {
@@ -45,7 +45,7 @@ public class UserFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link SubusersFactory#actionEdit(String)} ()} instead
+     * @deprecated use @link SubusersFactory#actionEdit(String)} () instead
      */
     @Deprecated
     public UserEdit actionEdit(String username) {

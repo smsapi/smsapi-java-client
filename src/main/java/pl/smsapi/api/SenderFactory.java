@@ -8,12 +8,12 @@ import pl.smsapi.api.action.sender.SenderList;
 import pl.smsapi.proxy.Proxy;
 
 /**
- * @deprecated use {@link pl.smsapi.api.action.sms.sendernames.SendernamesFactory} instead
+ * @deprecated use @link pl.smsapi.api.action.sms.sendernames.SendernamesFactory instead
  */
 public class SenderFactory extends ActionFactory {
 
     /**
-     * @deprecated use {@link SenderFactory(Client, Proxy)} instead
+     * @deprecated use @link SenderFactory(Client, Proxy) instead
      */
     @Deprecated
     public SenderFactory(Client client) {

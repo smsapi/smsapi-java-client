@@ -10,7 +10,7 @@ import java.util.Calendar;
 public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
 
     /**
-     * @deprecated use {@link SMSSend(String, String)} or {@link SMSSend(String[], String)} instead
+     * @deprecated use @link SMSSend(String, String)} or @link SMSSend(String[], String) instead
      */
     @Deprecated
     public SMSSend() {
@@ -42,10 +42,9 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
 
     /**
      * Set SMS text message.
-     * <p/>
      * Content of one message is normally 160 characters per single SMS or 70 in case of using at least one special character
      *
-     * @deprecated use {@link SMSSend(String, String)} or {@link SMSSend(String[], String)} instead
+     * @deprecated use @link SMSSend(String, String)} or @link SMSSend(String[], String) instead
      */
     @Deprecated
     public SMSSend setText(String text) {
@@ -55,7 +54,6 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
 
     /**
      * Set expiration date.
-     * <p/>
      * Message expiration date (in unix timestamp) is a date after which message won't be delivered if it wasn't delivered yet.
      * The difference between date sent and expiration date can't be less than 1 hour and more than 12 hours.
      * Time will be set with tolerance +/- 5 minutes.
@@ -67,7 +65,6 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
 
     /**
      * Set expiration date.
-     * <p/>
      * Message expiration date (in unix timestamp) is a date after which message won't be delivered if it wasn't delivered yet.
      * The difference between date sent and expiration date can't be less than 1 hour and more than 12 hours.
      * Time will be set with tolerance +/- 5 minutes.
@@ -79,7 +76,6 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
 
     /**
      * Set expiration date.
-     * <p/>
      * Message expiration date (in unix timestamp) is a date after which message won't be delivered if it wasn't delivered yet.
      * The difference between date sent and expiration date can't be less than 1 hour and more than 12 hours.
      * Time will be set with tolerance +/- 5 minutes.
@@ -91,7 +87,6 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
 
     /**
      * Set name of the sender.
-     * <p/>
      * Only verified names are being accepted.
      */
     public SMSSend setSender(String sender) {
@@ -101,7 +96,6 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
 
     /**
      * Set protection from send multipart messages.
-     * <p/>
      * If the message will contain more than 160 chars (single message) it won't be sent and return error
      */
     public SMSSend setSingle(boolean single) {
@@ -119,7 +113,6 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
 
     /**
      * Set SMS message data coding.
-     * <p/>
      * This parameter allows to send WAP PUSH messages.
      */
     public SMSSend setDataCoding(String dataCoding) {
@@ -129,7 +122,6 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
 
     /**
      * Set SMS message in flash mode.
-     * <p/>
      * Flash SMS are automatically presented on the mobile screen and have to be saved to be default stored in inbox.
      */
     public SMSSend setFlash(boolean flash) {
@@ -147,7 +139,6 @@ public class SMSSend extends AbstractSendAction<SMSSend, SendStatusResponse> {
 
     /**
      * Set normalize SMS text.
-     * <p/>
      * Removing dialectic characters from message.
      */
     public SMSSend setNormalize(boolean normalize) {

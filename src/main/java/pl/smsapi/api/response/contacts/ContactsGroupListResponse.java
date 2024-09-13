@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import pl.smsapi.api.response.ListResponse;
 
 /**
- * @deprecated use {@link pl.smsapi.api.action.contacts.groups.Groups()} instead
+ * @deprecated use @link pl.smsapi.api.action.contacts.groups.Groups() instead
  */
 @Deprecated
 public class ContactsGroupListResponse extends ListResponse<ContactsGroupResponse> {

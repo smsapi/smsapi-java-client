@@ -9,7 +9,7 @@ import pl.smsapi.proxy.Proxy;
 public class SmsFactory extends ActionFactory {
 
     /**
-     * @deprecated use {@link SmsFactory(Client, Proxy)} instead
+     * @deprecated use @link SmsFactory(Client, Proxy) instead
      */
     @Deprecated
     public SmsFactory(Client client) {
@@ -21,7 +21,7 @@ public class SmsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link #actionSend(String, String)} or {@link #actionSend(String[], String)} instead
+     * @deprecated use @link #actionSend(String, String)} or @link #actionSend(String[], String) instead
      */
     @Deprecated
     public SMSSend actionSend() {
@@ -46,7 +46,7 @@ public class SmsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link #actionGet(String)} instead
+     * @deprecated use @link #actionGet(String) instead
      */
     @Deprecated
     public SMSGet actionGet() {
@@ -64,7 +64,7 @@ public class SmsFactory extends ActionFactory {
     }
 
     /**
-     * @deprecated use {@link #actionDelete(String)} instead
+     * @deprecated use @link #actionDelete(String) instead
      */
     @Deprecated
     public SMSDelete actionDelete() {

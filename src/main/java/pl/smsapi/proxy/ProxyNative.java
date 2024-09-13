@@ -26,9 +26,7 @@ public class ProxyNative implements Proxy {
 
     /**
      * Execute
-     * <p/>
      * Disable ssl hostname verification
-     * <p/>
      * <code>
      * HttpsURLConnection.setDefaultHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
      * public boolean verify(StringUtils hostname, javax.net.ssl.SSLSession sslSession) {
