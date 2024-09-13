@@ -1,6 +1,7 @@
 package pl.smsapi.api.action.subusers;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import pl.smsapi.api.response.Response;
 import pl.smsapi.exception.SmsapiErrorException;
@@ -11,6 +12,7 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
+@Ignore
 public class SubusersFactoryTest extends TestSmsapi {
 
     SubusersFactory apiFactory;

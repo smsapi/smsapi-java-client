@@ -2,7 +2,6 @@ package pl.smsapi.test;
 
 import org.json.JSONObject;
 import org.junit.Before;
-import org.junit.Ignore;
 import pl.smsapi.Client;
 import pl.smsapi.OAuthClient;
 import pl.smsapi.api.response.MessageResponse;
@@ -14,7 +13,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-@Ignore
 public class TestSmsapi {
     protected String fileToIds = "_ids_test.txt";
 

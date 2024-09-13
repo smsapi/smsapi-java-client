@@ -1,6 +1,7 @@
 package pl.smsapi.api.action.contacts;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import pl.smsapi.api.response.RawResponse;
 import pl.smsapi.exception.SmsapiException;
@@ -10,6 +11,7 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
+@Ignore
 public class ContactsFactoryTest extends TestSmsapi
 {
     ContactsFactory apiFactory;

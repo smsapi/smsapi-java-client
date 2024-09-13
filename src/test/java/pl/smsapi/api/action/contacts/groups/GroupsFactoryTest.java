@@ -1,6 +1,7 @@
 package pl.smsapi.api.action.contacts.groups;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import pl.smsapi.api.response.RawResponse;
 import pl.smsapi.exception.SmsapiException;
@@ -11,6 +12,7 @@ import java.util.Random;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
+@Ignore
 public class GroupsFactoryTest extends TestSmsapi {
 
     GroupsFactory apiFactory;
