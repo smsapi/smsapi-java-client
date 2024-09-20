@@ -15,13 +15,22 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Set up Maven Central Repository
+      uses: actions/setup-java@v4
+      with:
+        java-version: '8'
+        distribution: 'temurin'
+        server-id: central
+        server-username: MAVEN_USERNAME
+        server-password: MAVEN_PASSWORD
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
     - name: Publish to Apache Maven Central
       run: mvn deploy
       env:
-        OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-        OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
+        MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+        MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_CENTRAL_GPG_SECRET_KEY_PASSWORD }}
         MAVEN_GPG_KEY: ${{ secrets.MAVEN_CENTRAL_GPG_SECRET_KEY }}
