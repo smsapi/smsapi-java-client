@@ -3,29 +3,16 @@
     <groupId>pl.smsapi</groupId>
     <artifactId>smsapi-lib</artifactId>
     <packaging>jar</packaging>
-    <version>3.0.0-RC10-SNAPSHOT</version>
+    <version>3.0.0-RC10</version>
     <name>smsapi-lib</name>
     <url>http://www.smsapi.pl/</url>
     <description>SMSAPI client library</description>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <name>Central Snapshot Repository OSSRH</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <name>Central Repository OSSRH</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 
     <scm>
         <url>https://github.com/smsapi/smsapi-java-client.git</url>
         <connection>scm:git:ssh://git@github.com/smsapi/smsapi-java-client.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/smsapi/smsapi-java-client.git</developerConnection>
-      <tag>HEAD</tag>
+        <tag>v3.0.0-RC10</tag>
   </scm>
 
     <licenses>
@@ -148,6 +135,18 @@
                 </executions>
                 <configuration>
                     <signer>bc</signer>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.5.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                    <waitUntil>published</waitUntil>
                 </configuration>
             </plugin>
 
