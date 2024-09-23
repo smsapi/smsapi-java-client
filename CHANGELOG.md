@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
-## [3.0.0-RC5 - 3.0.0-RC12] - 2024-09-20
+## [3.0.0-RC5 - 3.0.0-RC16] - 2024-09-23
 ### Changed
 - build process
 
