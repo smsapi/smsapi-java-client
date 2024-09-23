@@ -2,21 +2,9 @@
 
 ## How to install
 
-### How to install using GitHub Packages
-
-Read https://docs.github.com/en/packages/learn-github-packages/installing-a-package 
+### How to install using Maven Central Repository
 
 Add following in your project **pom.xml** file:
-
- * in `<repositories>` section add SMSAPI repository:
-
-```xml
-<repository>
-    <id>github-smsapi</id>
-    <name>SMSAPI Java Client GitHub Packages</name>
-    <url>https://maven.pkg.github.com/smsapi/smsapi-java-client</url>
-</repository>
-```
 
  * in `<dependencies>` section add SMSAPI dependency:
 
@@ -24,7 +12,7 @@ Add following in your project **pom.xml** file:
 <dependency>
     <groupId>pl.smsapi</groupId>
     <artifactId>smsapi-lib</artifactId>
-    <version>3.0.0-RC1</version>
+    <version>3.0.0-RC15</version>
 </dependency>
 ```
 
