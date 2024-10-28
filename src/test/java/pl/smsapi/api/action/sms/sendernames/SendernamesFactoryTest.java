@@ -67,6 +67,22 @@ public class SendernamesFactoryTest extends TestSmsapi {
     }
 
     @Test
+    public void deleteSendernameWithError() throws SmsapiException {
+        SendernameDelete actionDelete = apiFactory.actionDelete(SenderMother.createRandomValid());
+        boolean errorCatch = false;
+
+        try {
+            actionDelete.execute();
+        } catch (SmsapiErrorException badRequest) {
+            assertEquals("Not found sender", badRequest.getMessage());
+            assertEquals("not_found", badRequest.getError());
+            errorCatch = true;
+        }
+
+        assertTrue(errorCatch);
+    }
+
+    @Test
     public void makeDefaultSendername() throws SmsapiException {
         SendernameAdd actionAdd = apiFactory.actionAdd(SenderMother.createRandomValid());
         Sendername responseAdd = actionAdd.execute();
