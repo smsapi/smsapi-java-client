@@ -13,37 +13,31 @@ public class SubuserAddTest {
 
     @Test
     public void executeAddSubuserRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserJsonMother.create());
         SubuserAdd action = new SubuserAdd("smsapi-java-client", "StrongPassword123!");
-        action.client(new ClientStub());
-        action.proxy(requestStub);
 
-        action.execute();
+        ProxyRequestSpy requestSpy = executeAction(action);
 
-        assertEquals("POST", requestStub.requestMethod);
-        assertEquals("subusers", requestStub.requestEndpoint);
+        assertEquals("POST", requestSpy.requestMethod);
+        assertEquals("subusers", requestSpy.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
         expectedRequestPayload.put("credentials[username]", "smsapi-java-client");
         expectedRequestPayload.put("credentials[password]", "StrongPassword123!");
-        assertEquals(expectedRequestPayload, requestStub.requestPayload);
+        assertEquals(expectedRequestPayload, requestSpy.requestPayload);
     }
 
     @Test
     public void executeAddSubuserWithOptionalFieldsRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserJsonMother.create());
-        SubuserAdd action = new SubuserAdd("smsapi-java-client", "StrongPassword123!");
-        action.client(new ClientStub());
-        action.proxy(requestStub);
-        action.withApiPassword("AnotherStrongPassword123!");
-        action.asActive();
-        action.withDescription("Resource description");
-        action.withPointsFromAccount(11.11);
-        action.withPointsPerMonth(22.22);
+        SubuserAdd action = new SubuserAdd("smsapi-java-client", "StrongPassword123!")
+            .withApiPassword("AnotherStrongPassword123!")
+            .asActive()
+            .withDescription("Resource description")
+            .withPointsFromAccount(11.11)
+            .withPointsPerMonth(22.22);
 
-        action.execute();
+        ProxyRequestSpy requestSpy = executeAction(action);
 
-        assertEquals("POST", requestStub.requestMethod);
-        assertEquals("subusers", requestStub.requestEndpoint);
+        assertEquals("POST", requestSpy.requestMethod);
+        assertEquals("subusers", requestSpy.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
         expectedRequestPayload.put("credentials[username]", "smsapi-java-client");
         expectedRequestPayload.put("credentials[password]", "StrongPassword123!");
@@ -52,44 +46,46 @@ public class SubuserAddTest {
         expectedRequestPayload.put("description", "Resource description");
         expectedRequestPayload.put("points[from_account]", "11.11");
         expectedRequestPayload.put("points[per_month]", "22.22");
-        assertEquals(expectedRequestPayload, requestStub.requestPayload);
+        assertEquals(expectedRequestPayload, requestSpy.requestPayload);
     }
 
     @Test
     public void executeAddSubuserAsActiveRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserJsonMother.create());
-        SubuserAdd action = new SubuserAdd("smsapi-java-client", "StrongPassword123!");
-        action.client(new ClientStub());
-        action.proxy(requestStub);
-        action.asActive();
+        SubuserAdd action = new SubuserAdd("smsapi-java-client", "StrongPassword123!")
+            .asActive();
 
-        action.execute();
+        ProxyRequestSpy requestSpy = executeAction(action);
 
-        assertEquals("POST", requestStub.requestMethod);
-        assertEquals("subusers", requestStub.requestEndpoint);
+        assertEquals("POST", requestSpy.requestMethod);
+        assertEquals("subusers", requestSpy.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
         expectedRequestPayload.put("credentials[username]", "smsapi-java-client");
         expectedRequestPayload.put("credentials[password]", "StrongPassword123!");
         expectedRequestPayload.put("active", "1");
-        assertEquals(expectedRequestPayload, requestStub.requestPayload);
+        assertEquals(expectedRequestPayload, requestSpy.requestPayload);
     }
 
     @Test
     public void executeAddSubuserAsInactiveRequest() throws SmsapiException {
-        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserJsonMother.create());
-        SubuserAdd action = new SubuserAdd("smsapi-java-client", "StrongPassword123!");
-        action.client(new ClientStub());
-        action.proxy(requestStub);
-        action.asInactive();
+        SubuserAdd action = new SubuserAdd("smsapi-java-client", "StrongPassword123!")
+            .asInactive();
 
-        action.execute();
+        ProxyRequestSpy requestSpy = executeAction(action);
 
-        assertEquals("POST", requestStub.requestMethod);
-        assertEquals("subusers", requestStub.requestEndpoint);
+        assertEquals("POST", requestSpy.requestMethod);
+        assertEquals("subusers", requestSpy.requestEndpoint);
         HashMap<String, String> expectedRequestPayload = new HashMap<>();
         expectedRequestPayload.put("credentials[username]", "smsapi-java-client");
         expectedRequestPayload.put("credentials[password]", "StrongPassword123!");
         expectedRequestPayload.put("active", "0");
-        assertEquals(expectedRequestPayload, requestStub.requestPayload);
+        assertEquals(expectedRequestPayload, requestSpy.requestPayload);
+    }
+
+    private ProxyRequestSpy executeAction(SubuserAdd action) throws SmsapiException {
+        ProxyRequestSpy requestStub = new ProxyRequestSpy(SubuserJsonMother.create());
+        action.client(new ClientStub());
+        action.proxy(requestStub);
+        action.execute();
+        return requestStub;
     }
 }

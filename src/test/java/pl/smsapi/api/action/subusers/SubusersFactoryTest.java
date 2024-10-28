@@ -27,11 +27,11 @@ public class SubusersFactoryTest extends TestSmsapi {
     public void addSubuser() throws SmsapiException {
         String username = "smsapi-java-client-" + new Random().nextLong();
 
-        SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!");
-        actionAdd.withApiPassword("AnotherStrongPassword123!");
-        actionAdd.withDescription("Resource description");
-        actionAdd.withPointsFromAccount(11.11);
-        actionAdd.withPointsPerMonth(22.22);
+        SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!")
+            .withApiPassword("AnotherStrongPassword123!")
+            .withDescription("Resource description")
+            .withPointsFromAccount(11.11)
+            .withPointsPerMonth(22.22);
         Subuser responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
@@ -46,9 +46,9 @@ public class SubusersFactoryTest extends TestSmsapi {
     public void addSubuserAsActive() throws SmsapiException {
         String username = "smsapi-java-client-" + new Random().nextLong();
 
-        SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!");
-        actionAdd.withApiPassword("AnotherStrongPassword123!");
-        actionAdd.asActive();
+        SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!")
+            .withApiPassword("AnotherStrongPassword123!")
+            .asActive();
         Subuser responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
@@ -59,9 +59,9 @@ public class SubusersFactoryTest extends TestSmsapi {
     public void addSubuserAsInactive() throws SmsapiException {
         String username = "smsapi-java-client-" + new Random().nextLong();
 
-        SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!");
-        actionAdd.withApiPassword("AnotherStrongPassword123!");
-        actionAdd.asInactive();
+        SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!")
+            .withApiPassword("AnotherStrongPassword123!")
+            .asInactive();
         Subuser responseAdd = actionAdd.execute();
 
         assertNotNull(responseAdd);
@@ -88,13 +88,13 @@ public class SubusersFactoryTest extends TestSmsapi {
         SubuserAdd actionAdd = apiFactory.actionAdd(username, "StrongPassword123!");
         Subuser responseAdd = actionAdd.execute();
 
-        SubuserEdit actionEdit = apiFactory.actionEdit(responseAdd.id);
-        actionEdit.withPassword("NewStrongPassword123!");
-        actionEdit.withApiPassword("NewAnotherStrongPassword123!!");
-        actionEdit.asActive();
-        actionEdit.withDescription("New resource description");
-        actionEdit.withPointsFromAccount(999.99);
-        actionEdit.withPointsPerMonth(111.11);
+        SubuserEdit actionEdit = apiFactory.actionEdit(responseAdd.id)
+            .withPassword("NewStrongPassword123!")
+            .withApiPassword("NewAnotherStrongPassword123!!")
+            .asActive()
+            .withDescription("New resource description")
+            .withPointsFromAccount(999.99)
+            .withPointsPerMonth(111.11);
         Subuser responseEdit = actionEdit.execute();
 
         assertNotNull(responseEdit);
