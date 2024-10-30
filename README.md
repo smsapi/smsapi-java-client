@@ -2,29 +2,9 @@
 
 ## How to install
 
-JARs, POMs and docs available are at https://labs.smsapi.com/maven.
-
-Library https://github.com/douglascrockford/JSON-java is required.
-
-### How to install using Maven
+### How to install using Maven Central Repository
 
 Add following in your project **pom.xml** file:
-
- * in `<repositories>` section add SMSAPI repository:
-
-```xml
-<repository>
-    <releases>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>fail</checksumPolicy>
-    </releases>
-    <id>smsapi</id>
-    <name>smsapi</name>
-    <url>https://labs.smsapi.com/maven/</url>
-    <layout>default</layout>
-</repository>
-```
 
  * in `<dependencies>` section add SMSAPI dependency:
 
@@ -32,34 +12,8 @@ Add following in your project **pom.xml** file:
 <dependency>
     <groupId>pl.smsapi</groupId>
     <artifactId>smsapi-lib</artifactId>
-    <version>2.4</version>
+    <version>3.0.0-RC15</version>
 </dependency>
-```
-
-### How to install using Gradle
-
-Add following in your project **build.gradle** file:
-
- * in `plugins` section:
-
-```
-id 'java'
-id 'java-library'
-```
-
- * in `repositories` section:
-
-```
-mavenCentral()
-maven {
-    url 'https://labs.smsapi.com/maven/'
-}
-```
-
- * in `dependencies` section:
-
-```
-api 'pl.smsapi:smsapi-lib:2.5'
 ```
 
 ## How to use
@@ -97,20 +51,15 @@ public class Example {
 
             SmsFactory smsApi = new SmsFactory(client, proxy);
 
-            SMSSend action = smsApi.actionSend()
-                    .setTo("000000000")
-                    .setText("test");
+            SMSSend action = smsApi.actionSend("000000000", "test message");
 
             StatusResponse result = action.execute();
 
-            Optional<MessageResponse> status = result.getList().stream().findFirst();
-            if (status.isEmpty()) {
-                throw new RuntimeException();
-            }
+            MessageResponse status = result.getList().get(0);
 
-            System.out.println("Phone number: " + status.get().getNumber());
-            System.out.println("Shipment id: " + status.get().getId());
-            System.out.println("Shipment status: " + status.get().getStatus());
+            System.out.println("Phone number: " + status.getNumber());
+            System.out.println("Shipment id: " + status.getId());
+            System.out.println("Shipment status: " + status.getStatus());
 
         } catch (SmsapiException e) {
             System.out.println("Exception: " + e.getMessage());
@@ -151,9 +100,7 @@ public class Example {
 
             String[] to = {"000000000", "000000001"};
 
-            SMSSend action = smsApi.actionSend()
-                    .setTo(to)
-                    .setText("test");
+            SMSSend action = smsApi.actionSend(to, "test message");
 
             StatusResponse result = action.execute();
 
@@ -203,29 +150,14 @@ public class Example2ci {
             SMSGet getAction = smsApi.actionGet(shipmentId);
 
             StatusResponse shipmentStatus = getAction.execute();
-            Optional<MessageResponse> statusAfterGet = shipmentStatus.getList().stream().findFirst();
-            if (statusAfterGet.isEmpty()) {
-                throw new RuntimeException();
-            }
+            MessageResponse statusAfterGet = shipmentStatus.getList().get(0);
 
-            System.out.println("Phone number: " + statusAfterGet.get().getNumber());
-            System.out.println("Shipment id: " + statusAfterGet.get().getId());
-            System.out.println("Shipment status: " + statusAfterGet.get().getStatus());
+            System.out.println("Phone number: " + statusAfterGet.getNumber());
+            System.out.println("Shipment id: " + statusAfterGet.getId());
+            System.out.println("Shipment status: " + statusAfterGet.getStatus());
         } catch (SmsapiException e) {
             System.out.println("Exception: " + e.getMessage());
         }
     }
 }
 ```
-
-## JAVADOC
-[2.3](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.3/)
-
-[2.2](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.2/)
-
-[2.1](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.1/)
-
-[2.0](http://labs.smsapi.com/docs/javadoc/pl/smsapi/smsapi-lib/2.0/)
-
-## LICENSE
-[Apache 2.0 License](https://github.com/smsapi/smsapi-java-client/blob/master/LICENSE)

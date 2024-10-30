@@ -5,6 +5,10 @@ import pl.smsapi.StringUtils;
 import pl.smsapi.api.action.AbstractAction;
 import pl.smsapi.api.response.contacts.ContactsContactListResponse;
 
+/**
+ * @deprecated use @link ContactsList instead
+ */
+@Deprecated
 public class ContactsContactList extends AbstractAction<ContactsContactListResponse> {
     public ContactsContactList filterByPhoneNumber(String phoneNumber) {
         params.put("phone_number", phoneNumber);

@@ -3,41 +3,25 @@ package pl.smsapi.api.response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+public class CheckNumberResponse extends ListResponse<NumberResponse> {
 
-public class CheckNumberResponse extends CountableResponse {
-
-    private ArrayList<NumberResponse> list = new ArrayList<NumberResponse>();
-
-    public CheckNumberResponse(int count, JSONArray array) {
-
-        super(count);
-
-        if (array != null) {
-
-            int arrayLength = array.length();
-            for (int i = 0; i < arrayLength; i++) {
-
-                JSONObject tmp = array.getJSONObject(i);
-                list.add(
-                        new NumberResponse(
-                                tmp.optString("id"),
-                                tmp.optString("number"),
-                                tmp.optInt("mcc"),
-                                tmp.optInt("mnc"),
-                                tmp.optString("info"),
-                                tmp.optString("status"),
-                                tmp.optInt("date"),
-                                tmp.optInt("ported"),
-                                tmp.optInt("ported_from"),
-                                tmp.optString("price")
-                        )
-                );
-            }
-        }
+    public CheckNumberResponse(int count, JSONArray jsonArray) {
+        super(count, jsonArray);
     }
 
-    public ArrayList<NumberResponse> getList() {
-        return list;
+    @Override
+    protected NumberResponse buildItem(JSONObject jsonObject) {
+        return new NumberResponse(
+            jsonObject.optString("id"),
+            jsonObject.optString("number"),
+            jsonObject.optInt("mcc"),
+            jsonObject.optInt("mnc"),
+            jsonObject.optString("info"),
+            jsonObject.optString("status"),
+            jsonObject.optInt("date"),
+            jsonObject.optInt("ported"),
+            jsonObject.optInt("ported_from"),
+            jsonObject.optString("price")
+        );
     }
 }

@@ -1,8 +1,13 @@
 package pl.smsapi.api.action.contacts;
 
 import pl.smsapi.api.action.AbstractAction;
+import pl.smsapi.api.action.contacts.groups.GroupDelete;
 import pl.smsapi.api.response.RawResponse;
 
+/**
+ * @deprecated use @link GroupDelete instead
+ */
+@Deprecated
 public class ContactsGroupDelete extends AbstractAction<RawResponse> {
     private String groupId;
 

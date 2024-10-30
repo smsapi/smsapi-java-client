@@ -1,10 +1,11 @@
 package pl.smsapi.api.action;
 
 import pl.smsapi.StringUtils;
+import pl.smsapi.api.response.Response;
 
 import java.util.Calendar;
 
-public abstract class AbstractSendAction<T, TResponse> extends AbstractAction<TResponse> {
+public abstract class AbstractSendAction<T, TResponse extends Response> extends AbstractAction<TResponse> {
 
     /**
      * Set mobile phone number of the recipients.
@@ -39,7 +40,6 @@ public abstract class AbstractSendAction<T, TResponse> extends AbstractAction<TR
 
     /**
      * Set scheduled date sending message.
-     * <p/>
      * Setting a past date will result in sending message instantly.
      */
     public T setDateSent(String date) {
@@ -49,7 +49,6 @@ public abstract class AbstractSendAction<T, TResponse> extends AbstractAction<TR
 
     /**
      * Set scheduled date sending message.
-     * <p/>
      * Setting a past date will result in sending message instantly.
      */
     public T setDateSent(long date) {
@@ -59,7 +58,6 @@ public abstract class AbstractSendAction<T, TResponse> extends AbstractAction<TR
 
     /**
      * Set scheduled date sending message.
-     * <p/>
      * Setting a past date will result in sending message instantly.
      */
     public T setDateSent(Calendar cal) {
@@ -84,7 +82,6 @@ public abstract class AbstractSendAction<T, TResponse> extends AbstractAction<TR
 
     /**
      * Set checking idx is unique.
-     * <p/>
      * Prevents from sending more than one message with the same idx.
      * When this parameter is set and message with the same idx was already sent error 53 is returned.
      */

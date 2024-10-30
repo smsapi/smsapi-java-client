@@ -2,39 +2,35 @@ package pl.smsapi.api.response.contacts;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import pl.smsapi.api.response.CountableResponse;
+import pl.smsapi.api.response.ListResponse;
 
-import java.util.ArrayList;
+/**
+ * @deprecated use @link pl.smsapi.api.action.contacts.Contacts() instead
+ */
+@Deprecated
+public class ContactsContactListResponse extends ListResponse<ContactsContactResponse> {
 
-public class ContactsContactListResponse extends CountableResponse {
-    private ArrayList<ContactsContactResponse> list = new ArrayList<ContactsContactResponse>();
-
-    public ContactsContactListResponse(int count, JSONArray list) {
-        super(count);
-
-        final int n = list.length();
-        for (int i = 0; i < n; i++) {
-            JSONObject row = list.getJSONObject(i);
-            this.list.add(new ContactsContactResponse(
-                    row.getString("id"),
-                    row.optString("first_name"),
-                    row.optString("last_name"),
-                    row.optString("birthday_date"),
-                    row.optString("phone_number"),
-                    row.optString("email"),
-                    row.optString("gender"),
-                    row.optString("city"),
-                    row.optString("country"),
-                    row.optString("date_created"),
-                    row.optString("date_updated"),
-                    row.optString("description"),
-                    row.optJSONArray("groups"),
-                    row.optString("source")
-            ));
-        }
+    public ContactsContactListResponse(int count, JSONArray jsonArray) {
+        super(count, jsonArray);
     }
 
-    public ArrayList<ContactsContactResponse> getList() {
-        return list;
+    @Override
+    protected ContactsContactResponse buildItem(JSONObject jsonObject) {
+        return new ContactsContactResponse(
+            jsonObject.getString("id"),
+            jsonObject.optString("first_name"),
+            jsonObject.optString("last_name"),
+            jsonObject.optString("birthday_date"),
+            jsonObject.optString("phone_number"),
+            jsonObject.optString("email"),
+            jsonObject.optString("gender"),
+            jsonObject.optString("city"),
+            jsonObject.optString("country"),
+            jsonObject.optString("date_created"),
+            jsonObject.optString("date_updated"),
+            jsonObject.optString("description"),
+            jsonObject.optJSONArray("groups"),
+            jsonObject.optString("source")
+        );
     }
 }

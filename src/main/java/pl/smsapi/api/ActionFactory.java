@@ -9,10 +9,18 @@ public abstract class ActionFactory {
     protected Client client;
     protected Proxy proxy;
 
+    /**
+     * @deprecated use @link ActionFactory(Client, Proxy) instead
+     */
+    @Deprecated
     public ActionFactory() {
         this.proxy = new ProxyNative("https://api.smsapi.pl/");
     }
 
+    /**
+     * @deprecated use @link ActionFactory(Client, Proxy) instead
+     */
+    @Deprecated
     public ActionFactory(Client client) {
         this.client = client;
         this.proxy = new ProxyNative("https://api.smsapi.pl/");

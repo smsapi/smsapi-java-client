@@ -3,6 +3,10 @@ package pl.smsapi.api.response.contacts;
 import org.json.JSONArray;
 import pl.smsapi.api.response.Response;
 
+/**
+ * @deprecated use @link pl.smsapi.api.action.contacts.Contact() instead
+ */
+@Deprecated
 public class ContactsContactResponse implements Response {
     private String id;
     private String firstName;

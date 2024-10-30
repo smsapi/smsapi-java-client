@@ -2,6 +2,7 @@ package pl.smsapi.api.authenticationStrategy;
 
 import org.apache.commons.codec.binary.Base64;
 
+@Deprecated
 public class BasicAuthenticationStrategy implements AuthenticationStrategy {
     private String username;
     private String password;

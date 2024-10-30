@@ -1,5 +1,9 @@
 package pl.smsapi.api.action.contacts;
 
+/**
+ * @deprecated use @link ContactEdit instead
+ */
+@Deprecated
 public class ContactsContactEdit extends AbstractContactsContactControl<ContactsContactEdit> {
     private String contactId;
 

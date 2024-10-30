@@ -1,17 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>pl.smsapi</groupId>
     <artifactId>smsapi-lib</artifactId>
     <packaging>jar</packaging>
-    <version>2.5</version>
+    <version>3.0.0-SNAPSHOT</version>
     <name>smsapi-lib</name>
     <url>http://www.smsapi.pl/</url>
     <description>SMSAPI client library</description>
 
     <scm>
-        <url>https://github.com/smsapi/smsapi-java-client</url>
-        <connection>https://github.com/smsapi/smsapi-java-client</connection>
+        <url>https://github.com/smsapi/smsapi-java-client.git</url>
+        <connection>scm:git:ssh://git@github.com/smsapi/smsapi-java-client.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/smsapi/smsapi-java-client.git</developerConnection>
+        <tag>v3.0.0-RC13</tag>
     </scm>
 
     <licenses>
@@ -24,33 +25,37 @@
 
     <developers>
         <developer>
-            <name>Lukas</name>
-            <email>l.pajak@smsapi.pl</email>
+            <name>SMSAPI Support Team</name>
+            <email>tech@smsapi.pl</email>
         </developer>
     </developers>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.dist.directory>${project.basedir}/dist/${project.version}/</project.dist.directory>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20140107</version>
+            <version>20231013</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.10</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+            <version>3.9.8</version>
+        </dependency>
 
         <!-- test -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -63,40 +68,35 @@
 
     <build>
         <plugins>
+
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.1.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix/>
-                        </manifest>
-                    </archive>
-                    <outputDirectory>${project.dist.directory}</outputDirectory>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <outputDirectory>${project.dist.directory}</outputDirectory>
-                </configuration>
+                <version>3.3.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -105,12 +105,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
-                <configuration>
-                    <source>8</source>
-                    <jarOutputDirectory>${project.dist.directory}</jarOutputDirectory>
-                    <additionalJOption>-Xdoclint:none</additionalJOption>
-                </configuration>
+                <version>3.10.0</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -119,25 +114,40 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <source>1.8</source>
+                    <doclint>all,-missing</doclint>
+                </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.5.1</version>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.2.5</version>
                 <executions>
                     <execution>
-                        <id>copy-dependencies</id>
-                        <phase>package</phase>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
                         <goals>
-                            <goal>copy-dependencies</goal>
+                            <goal>sign</goal>
                         </goals>
-                        <configuration>
-                            <excludeGroupIds>junit,org.hamcrest</excludeGroupIds>
-                            <outputDirectory>${project.dist.directory}</outputDirectory>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <signer>bc</signer>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.5.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                    <waitUntil>published</waitUntil>
+                </configuration>
             </plugin>
 
         </plugins>

@@ -1,5 +1,11 @@
 package pl.smsapi.api.action.contacts;
 
+import pl.smsapi.api.action.contacts.groups.GroupEdit;
+
+/**
+ * @deprecated use @link GroupEdit instead
+ */
+@Deprecated
 public class ContactsGroupEdit extends AbstractContactsGroupControl<ContactsGroupEdit> {
     private String groupId;
 

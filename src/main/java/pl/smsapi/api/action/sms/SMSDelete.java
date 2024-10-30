@@ -7,15 +7,25 @@ import pl.smsapi.api.response.CountableResponse;
 
 public class SMSDelete extends AbstractAction<CountableResponse> {
 
+    /**
+     * @deprecated use @link SMSDelete(String) instead
+     */
+    @Deprecated
     public SMSDelete() {
         setJson(true);
         id("");
     }
 
+    public SMSDelete(String id) {
+        setJson(true);
+        params.put("sch_del", id);
+    }
+
     /**
      * Set ID of message to delete.
-     * <p/>
      * This id was returned after sending message.
+     *
+     * @deprecated use @link SMSDelete(String) instead
      */
     public SMSDelete id(String id) {
         params.put("sch_del", id);
