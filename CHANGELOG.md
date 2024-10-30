@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [3.0.0] - 2024-10-30
+
 ## [3.0.0-RC17] - 2024-10-29
 ### Changed
 - `pl.smsapi.api.action.subusers.SubuserAdd` and `pl.smsapi.api.action.subusers.SubuserEdit` actions setters, fluent interface added
