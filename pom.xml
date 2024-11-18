@@ -3,7 +3,7 @@
     <groupId>pl.smsapi</groupId>
     <artifactId>smsapi-lib</artifactId>
     <packaging>jar</packaging>
-    <version>3.0.1</version>
+    <version>3.0.2-SNAPSHOT</version>
     <name>smsapi-lib</name>
     <url>http://www.smsapi.pl/</url>
     <description>SMSAPI client library</description>
@@ -12,7 +12,7 @@
         <url>https://github.com/smsapi/smsapi-java-client.git</url>
         <connection>scm:git:ssh://git@github.com/smsapi/smsapi-java-client.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/smsapi/smsapi-java-client.git</developerConnection>
-        <tag>v3.0.1</tag>
+        <tag>v3.0.0-RC13</tag>
     </scm>
 
     <licenses>
